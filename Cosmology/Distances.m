@@ -7,14 +7,14 @@ BeginPackage["Cosmology`Distances`"]
 Needs["Cosmology`Defs`"]
 
 Hubble::usage = 
-"Hubble[a, cosmo] computes the Hubble parameter at a"
+"Hubble[a, cosmo] computes the Hubble parameter at a in units of 100 km/s/Mpc"
 comdis::usage = 
-"comdis[a, cosmo] computes the (line of sight) comoving distance to a"
-propmotdis::usage = "propmotdis[a, cosmo] computes the (transverse) comoving distance to a"
+"comdis[a, cosmo] computes the (line of sight) comoving distance to a; units of c/100 Mpc"
+propmotdis::usage = "propmotdis[a, cosmo] computes the (transverse) comoving distance to a; units of c/100 Mpc"
 angdis::usage = 
-"angdis[a, cosmo] - Angular diameter distance to a"
+"angdis[a, cosmo] - Angular diameter distance to a; units of c/100 Mpc"
 lumdis::usage =
-"lumdis[a, cosmo] - Luminosity distance to a"
+"lumdis[a, cosmo] - Luminosity distance to a; units of c/100 Mpc"
 
 Begin["`Private`"]
 
