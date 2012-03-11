@@ -3,7 +3,8 @@
 BeginPackage["Cosmology`",
               {  "Global`",     
                  "Cosmology`Defs`",
-				 "Cosmology`Distances`"
+		 "Cosmology`Distances`", 
+                 "Cosmology`EH98`"
               }]
 
 EndPackage[]
