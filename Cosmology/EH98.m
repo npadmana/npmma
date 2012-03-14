@@ -13,7 +13,6 @@ tkEH::usage =
 
 
 Needs["Cosmology`Defs`"]
-Needs["Cosmology`Distances`"]
 
 Begin["`Private`"]
 
