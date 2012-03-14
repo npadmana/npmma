@@ -4,6 +4,7 @@ BeginPackage["Cosmology`Defs`"]
 
 z2a::usage = "Convert redshift to scale factor"
 a2z::usage = "Convert scale factor into redshift"
+OmegaM::usage = "Calculate OmegaM[a, cosmo] at a"
 
 Omegabh2::usage = "Physical density, baryons z=0"
 OmegaMh2::usage = "Physical density, matter z=0"
@@ -15,6 +16,8 @@ wa::usage = "Dark energy equation of state, w(a) = w0 + (1-a) wa"
 TCMB::usage = "Temperature of the CMB, Kelvin"
 
 FoMSWG::usage = "The Figure of Merit Science Working Group cosmology, assuming w0 and wa"
+
+
 
 (* Cosmological Distances -- based on Hogg 2000 *)
 
@@ -34,6 +37,10 @@ Begin["`Private`"]
 (* Define some simple pieces of code here *)
 a2z[a_] := 1./a - 1;
 z2a[z_] := 1./(1.+z); 
+OmegaM[a_, cosmo_?OptionQ] := Module[{h2}, 
+  h2 = Hubble[a,cosmo]^2;
+  OmegaMh2/a^3/h2 /. cosmo
+]
 
 (*----------------------------------*)
 (* Actual specific cosmological definitions go here *)
