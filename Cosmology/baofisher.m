@@ -1,6 +1,9 @@
 BeginPackage["Cosmology`baofisher`"]
 (* Translation of the code in Seo and Eisenstein 2007 *)
 
+Needs["Cosmology`"];
+
+baoSigma::usage = "Sigma's that go into the BAO scale measurements"
 baoFisher::usage = "baoFisher[sigmaPerp_, sigmaPar_, nbar_, sigma8_, beta_, vol_, sigmaZ_:0.0] returns the fisher matrix"
 baoError::usage = "baoError[sigmaPerp_, sigmaPar_, nbar_, sigma8_, beta_, vol_, sigmaZ_:0.0] returns the error as a 3-tuple"
 
@@ -8,6 +11,7 @@ baoError::usage = "baoError[sigmaPerp_, sigmaPar_, nbar_, sigma8_, beta_, vol_, 
 Begin["`Private`"]
 
 (* We define the many constants etc here to parallel the original C code *)
+sigma0 = 12.4 * 0.8/0.9; (* The paper uses a fiducial sigma8=0.9, so scale appropriately *)
 kstep = 0.01;
 mustep0 = 0.05;
 (* This is the power spectrum of WMAP-3,normalized to 1 at k=0.2 *)
@@ -21,6 +25,15 @@ baoAmp = 0.05169;
 kList = (Range[Length[pBAO]]-0.5)*kstep;
 (* Precompute some numbers *)
 silkList = Exp[-2.0*(kList*baoSilk)^1.4] * kList^2;
+
+(* Define the Sigmas -- return in a single list *)
+baoSigma[a_] := Module[{dg, sp,sl}, 
+    dg = Dgrowth[a, FoMSWG];
+    sp = sigma0*dg;
+    sl = sp*(1+ fgrowth[a, FoMSWG]);
+    {sp, sl}];
+
+
 
 (* Code below here needs to be wrapped inside a module block *)
 baoFisher[sigmaPerp_, sigmaPar_, nbar_, sigma8_, beta_, vol_, sigmaZ_:0.0] := Module [{sperp2, spar2, sz2, mustep, nP, mu2List, mutmp, sumList, matList, fisherMat}, 
