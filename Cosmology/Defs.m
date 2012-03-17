@@ -14,6 +14,7 @@ ns::usage = "Primordial spectral index"
 w0::usage = "Dark energy equation of state, w(a) = w0 + (1-a) wa"
 wa::usage = "Dark energy equation of state, w(a) = w0 + (1-a) wa"
 TCMB::usage = "Temperature of the CMB, Kelvin"
+gamma::usage = "Growth function index based on Linder 2005"
 
 FoMSWG::usage = "The Figure of Merit Science Working Group cosmology, assuming w0 and wa"
 
@@ -31,6 +32,12 @@ angdis::usage =
 lumdis::usage =
 "lumdis[a, cosmo] - Luminosity distance to a; units of c/100 Mpc"
 
+
+(* Growth function *)
+
+fgrowth::usage = "fgrowth[a, cosmo] -- Logarithmic growth rate, based on Linder 2005"
+Dgrowth::usage = "Computes the growth factor, normalized to be a at high redshift"
+
 (*----------------------------------*)
 Begin["`Private`"]
 
@@ -47,7 +54,7 @@ OmegaM[a_, cosmo_?OptionQ] := Module[{h2},
 
 FoMSWG = {Omegabh2 -> 0.0227, OmegaMh2 -> 0.1326, OmegaKh2 -> 0.0, 
 	  OmegaDEh2 -> 0.3844, ns-> 0.963, w0 -> -1.0, wa -> 0.0, 
-          TCMB -> 2.726};
+          TCMB -> 2.726, gamma -> 0.55};
 
 (*----------------------------------*)
 (* Distances go here *)
@@ -72,6 +79,19 @@ Piecewise[ {
 {1./Sqrt[-ok] * Sinh[Sqrt[-ok]*dc], ok < 0}}]];
 angdis[a_, cosmo_?OptionQ] := propmotdis[a, cosmo] * a;
 lumdis[a_, cosmo_?OptionQ] := propmotdis[a, cosmo]/a;
+
+(*----------------------------------*)
+
+fgrowth[a_, cosmo_?OptionQ] := Module[{g}, 
+      g = gamma /. cosmo;
+      OmegaM[a, cosmo]^g];
+
+
+Dgrowth[a_, cosmo_?OptionQ] := Module[{f0}, 
+      f0[x_] = (fgrowth[x, cosmo]-1)/x;
+      a*Exp[NIntegrate[f0[x], {x, 0, a}]]
+      ];
+
 
 (*----------------------------------*)
 End[]
