@@ -18,6 +18,9 @@ gamma::usage = "Growth function index based on Linder 2005"
 
 FoMSWG::usage = "The Figure of Merit Science Working Group cosmology, assuming w0 and wa"
 
+(* Constants *)
+thubble::usage = "Hubble time in seconds, for h=1"
+thubbleYr::usage = "Hubble time in years, for h=1"
 
 
 (* Cosmological Distances -- based on Hogg 2000 *)
@@ -32,6 +35,10 @@ angdis::usage =
 lumdis::usage =
 "lumdis[a, cosmo] - Luminosity distance to a; units of c/100 Mpc"
 
+tlookback::usage = 
+"tlookback[a, cosmo] - Lookback time to scale factor a in units of thubble"
+
+
 
 (* Growth function *)
 
@@ -40,6 +47,11 @@ Dgrowth::usage = "Computes the growth factor, normalized to be a at high redshif
 
 (*----------------------------------*)
 Begin["`Private`"]
+
+(* Useful Constants *)
+thubble = 3.09* 10^17;
+thubbleYr = 9.78 * 10^9; 
+
 
 (* Define some simple pieces of code here *)
 a2z[a_] := 1./a - 1;
@@ -79,6 +91,12 @@ Piecewise[ {
 {1./Sqrt[-ok] * Sinh[Sqrt[-ok]*dc], ok < 0}}]];
 angdis[a_, cosmo_?OptionQ] := propmotdis[a, cosmo] * a;
 lumdis[a_, cosmo_?OptionQ] := propmotdis[a, cosmo]/a;
+
+tlookback[a_, cosmo_?OptionQ] := Module[{f}, 
+  f[x_] = 1./(Hubble[x, cosmo] * x);
+  NIntegrate[f[x], {x, a, 1.0}]
+];
+ 
 
 (*----------------------------------*)
 
