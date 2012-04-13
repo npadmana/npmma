@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      6973,        236]
-NotebookOptionsPosition[      5777,        189]
-NotebookOutlinePosition[      6236,        208]
-CellTagsIndexPosition[      6193,        205]
+NotebookDataLength[     14232,        442]
+NotebookOptionsPosition[     12287,        369]
+NotebookOutlinePosition[     12747,        388]
+CellTagsIndexPosition[     12704,        385]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -49,22 +49,38 @@ Cell[BoxData[{
   "\"\<deltac is the spherical collapse overdensity at z=0\>\""}], "\n", 
  RowBox[{
   RowBox[{"ShethTormen", "::", "usage"}], " ", "=", " ", 
-  "\"\<ShethTormen[v] is the Sheth-Tormen multiplicity function\>\""}]}], \
-"Code",
+  "\"\<ShethTormen[v] is the Sheth-Tormen multiplicity function\>\""}], "\n", \
+
+ RowBox[{
+  RowBox[{"PressSchechter", "::", "usage"}], " ", "=", " ", 
+  "\"\<PressSchechter[v] is the PS multiplicity function\>\""}]}], "Code",
  CellChangeTimes->{{3.543239080347979*^9, 3.543239156102126*^9}, {
   3.543239397273192*^9, 3.543239424222596*^9}, {3.543239460800177*^9, 
-  3.543239485087593*^9}}],
+  3.543239485087593*^9}, {3.543332239131979*^9, 3.543332253553011*^9}, {
+  3.5433322893443108`*^9, 3.5433323078911247`*^9}}],
 
 Cell[BoxData["\<\"Cosmology`MassFunction`\"\>"], "Output",
- CellChangeTimes->{{3.543239957858121*^9, 3.5432399582199583`*^9}}],
+ CellChangeTimes->{{3.543239957858121*^9, 3.5432399582199583`*^9}, 
+   3.5433304127748957`*^9, {3.543332211120763*^9, 3.543332211909976*^9}, 
+   3.5433323113927937`*^9, {3.543336887835582*^9, 3.543336888551282*^9}}],
 
 Cell[BoxData["\<\"deltac is the spherical collapse overdensity at z=0\"\>"], \
 "Output",
- CellChangeTimes->{{3.543239957858121*^9, 3.543239958225041*^9}}],
+ CellChangeTimes->{{3.543239957858121*^9, 3.5432399582199583`*^9}, 
+   3.5433304127748957`*^9, {3.543332211120763*^9, 3.543332211909976*^9}, 
+   3.5433323113927937`*^9, {3.543336887835582*^9, 3.543336888557374*^9}}],
 
 Cell[BoxData["\<\"ShethTormen[v] is the Sheth-Tormen multiplicity \
 function\"\>"], "Output",
- CellChangeTimes->{{3.543239957858121*^9, 3.543239958228998*^9}}]
+ CellChangeTimes->{{3.543239957858121*^9, 3.5432399582199583`*^9}, 
+   3.5433304127748957`*^9, {3.543332211120763*^9, 3.543332211909976*^9}, 
+   3.5433323113927937`*^9, {3.543336887835582*^9, 3.543336888561751*^9}}],
+
+Cell[BoxData["\<\"PressSchechter[v] is the PS multiplicity function\"\>"], \
+"Output",
+ CellChangeTimes->{{3.543239957858121*^9, 3.5432399582199583`*^9}, 
+   3.5433304127748957`*^9, {3.543332211120763*^9, 3.543332211909976*^9}, 
+   3.5433323113927937`*^9, {3.543336887835582*^9, 3.54333688857064*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -80,7 +96,9 @@ Cell[BoxData[
   3.54323916475558*^9, 3.543239182101027*^9}}],
 
 Cell[BoxData["\<\"Cosmology`MassFunction`Private`\"\>"], "Output",
- CellChangeTimes->{{3.543239958020124*^9, 3.5432399582701607`*^9}}]
+ CellChangeTimes->{{3.543239958020124*^9, 3.5432399582701607`*^9}, 
+   3.543330412971324*^9, {3.543332211456169*^9, 3.543332212032454*^9}, {
+   3.5433368881628933`*^9, 3.543336888670437*^9}}]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -92,7 +110,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"vfv", "[", "v_", "]"}], " ", ":=", " ", 
-   RowBox[{
+   RowBox[{"norm", "*", 
     RowBox[{"(", 
      RowBox[{"1", " ", "+", " ", 
       RowBox[{
@@ -101,14 +119,13 @@ Cell[BoxData[{
          RowBox[{"v", "^", "2"}]}], ")"}], "^", 
        RowBox[{"(", 
         RowBox[{"-", "p"}], ")"}]}]}], ")"}], " ", "*", " ", 
-    RowBox[{"Sqrt", "[", " ", 
-     RowBox[{"a", "*", 
-      RowBox[{"v", "^", "2"}]}], "]"}], " ", "*", " ", 
-    RowBox[{"Exp", "[", 
-     RowBox[{
-      RowBox[{"-", " ", "a"}], "*", 
+    RowBox[{
+     RowBox[{"Exp", "[", 
       RowBox[{
-       RowBox[{"v", "^", "2"}], "/", "2"}]}], "]"}]}]}], ";"}], "\n", 
+       RowBox[{"-", " ", "a"}], "*", 
+       RowBox[{
+        RowBox[{"v", "^", "2"}], "/", "2"}]}], "]"}], " ", "/", " ", 
+     RowBox[{"Sqrt", "[", "a", "]"}]}]}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"ShethTormen", "[", "v_", "]"}], " ", ":=", " ", 
@@ -117,8 +134,85 @@ Cell[BoxData[{
     RowBox[{"{", 
      RowBox[{
       RowBox[{"a", " ", "->", " ", "0.707"}], ",", " ", 
-      RowBox[{"p", "->", " ", "0.3"}]}], "}"}]}]}], ";"}]}], "Code",
- CellChangeTimes->{3.54323950088335*^9}],
+      RowBox[{"p", "->", " ", "0.3"}], ",", " ", 
+      RowBox[{"norm", "\[Rule]", " ", 
+       RowBox[{"1", "/", 
+        RowBox[{"(", 
+         RowBox[{"2", "*", "5.50221"}], ")"}]}]}]}], "}"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PressSchechter", "[", "v_", "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"vfv", "[", "v", "]"}], "/.", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"a", "\[Rule]", "1"}], ",", " ", 
+      RowBox[{"p", "\[Rule]", "0"}], ",", " ", 
+      RowBox[{"norm", "\[Rule]", " ", 
+       RowBox[{"1", "/", 
+        RowBox[{"Sqrt", "[", 
+         RowBox[{"8", " ", "Pi"}], "]"}]}]}]}], "}"}]}]}], ";"}]}], "Code",
+ CellChangeTimes->{
+  3.54323950088335*^9, {3.543330924310557*^9, 3.543330969299581*^9}, {
+   3.543331271407675*^9, 3.543331292003253*^9}, {3.5433318714908743`*^9, 
+   3.543331994738347*^9}, {3.543332065963335*^9, 3.5433320898695517`*^9}, 
+   3.543332284041573*^9}],
+
+Cell[CellGroupData[{
+
+Cell["Normalization", "Subsection",
+ CellChangeTimes->{{3.5433310001129313`*^9, 3.543331019154949*^9}}],
+
+Cell["\<\
+The normalization of the multiplicity function \[Nu]f(\[Nu]) is normalized \
+such that \[Integral]\[Nu]f(\[Nu]) d\[Nu] = 1/2. We explicitly test this \
+below (the normalizations above were adjusted so that this is true).  \
+\>", "Text",
+ CellChangeTimes->{{3.543331037202443*^9, 3.543331201577026*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Integrate", "[", 
+   RowBox[{
+    RowBox[{"PressSchechter", "[", "v", "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"v", ",", "0", ",", " ", "Infinity"}], "}"}]}], "]"}], 
+  " "}]], "Input",
+ CellChangeTimes->{{3.543331211192028*^9, 3.5433312325540333`*^9}, {
+   3.54333130559649*^9, 3.543331307682192*^9}, {3.543332030919836*^9, 
+   3.543332031751276*^9}, 3.543332107055835*^9, 3.543332286820656*^9}],
+
+Cell[BoxData[
+ FractionBox["1", "2"]], "Output",
+ CellChangeTimes->{3.5433320327374372`*^9, 3.543332112083591*^9, 
+  3.543332213334667*^9, 3.543336889803866*^9}]
+}, Open  ]],
+
+Cell["\<\
+Note that the ShethTormen normalization is a floating point number....\
+\>", "Text",
+ CellChangeTimes->{{3.54333215562018*^9, 3.543332184193437*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Integrate", "[", 
+   RowBox[{
+    RowBox[{"ShethTormen", "[", "v", "]"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"v", ",", " ", "0", ",", " ", "Infinity"}], "}"}]}], "]"}], 
+  " "}]], "Input",
+ CellChangeTimes->{{3.543332036457562*^9, 3.543332063117293*^9}, {
+  3.543332095657258*^9, 3.5433321094750233`*^9}}],
+
+Cell[BoxData["0.49999986855304324`"], "Output",
+ CellChangeTimes->{
+  3.543332053037776*^9, {3.543332086620432*^9, 3.543332110342072*^9}, 
+   3.543332214264392*^9, 3.543336890635453*^9}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -128,11 +222,14 @@ Cell[BoxData[{
  CellChangeTimes->{{3.543239190184836*^9, 3.543239197914954*^9}}],
 
 Cell[BoxData["\<\"Cosmology`MassFunction`Private`\"\>"], "Output",
- CellChangeTimes->{{3.54323995808674*^9, 3.543239958353166*^9}}]
+ CellChangeTimes->{{3.54323995808674*^9, 3.543239958353166*^9}, 
+   3.543330413073841*^9, {3.54333221161305*^9, 3.543332214391962*^9}, {
+   3.543336888305344*^9, 3.543336890713255*^9}}]
 }, Open  ]],
 
 Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.543239331085164*^9, 3.543239344634115*^9}}],
+ CellChangeTimes->{{3.543239331085164*^9, 3.543239344634115*^9}}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -146,20 +243,19 @@ Cell[BoxData[
  CellChangeTimes->{{3.543239873357617*^9, 3.543239878543096*^9}}],
 
 Cell[BoxData[
- RowBox[{"0.8408329203831163`", " ", 
+ RowBox[{"0.10807447526454714`", " ", 
   SuperscriptBox["\[ExponentialE]", 
    RowBox[{
     RowBox[{"-", "0.3535`"}], " ", 
     SuperscriptBox["x", "2"]}]], " ", 
-  SqrtBox[
-   SuperscriptBox["x", "2"]], " ", 
   RowBox[{"(", 
    RowBox[{"1", "+", 
     FractionBox["1.1096197442950755`", 
      SuperscriptBox[
       RowBox[{"(", 
        SuperscriptBox["x", "2"], ")"}], "0.3`"]]}], ")"}]}]], "Output",
- CellChangeTimes->{3.5432399584494677`*^9}]
+ CellChangeTimes->{3.5432399584494677`*^9, 3.543332214833129*^9, 
+  3.543336890853095*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -169,20 +265,104 @@ Cell[BoxData[
  CellChangeTimes->{{3.5432399827375393`*^9, 3.543239988257189*^9}}],
 
 Cell[BoxData[
- RowBox[{"0.8408329203831163`", " ", 
+ RowBox[{"0.10807447526454714`", " ", 
   SuperscriptBox["\[ExponentialE]", 
    RowBox[{
     RowBox[{"-", "0.3535`"}], " ", 
     SuperscriptBox["x", "2"]}]], " ", 
-  SqrtBox[
-   SuperscriptBox["x", "2"]], " ", 
   RowBox[{"(", 
    RowBox[{"1", "+", 
     FractionBox["1.1096197442950755`", 
      SuperscriptBox[
       RowBox[{"(", 
        SuperscriptBox["x", "2"], ")"}], "0.3`"]]}], ")"}]}]], "Output",
- CellChangeTimes->{3.543239989453845*^9}]
+ CellChangeTimes->{3.543239989453845*^9, 3.543332214935495*^9, 
+  3.5433368912334013`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"PressSchechter", "[", "x", "]"}]], "Input",
+ CellChangeTimes->{{3.543336850850911*^9, 3.5433368558118343`*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  SuperscriptBox["\[ExponentialE]", 
+   RowBox[{"-", 
+    FractionBox[
+     SuperscriptBox["x", "2"], "2"]}]], 
+  SqrtBox[
+   RowBox[{"2", " ", "\[Pi]"}]]]], "Output",
+ CellChangeTimes->{3.543336856806246*^9, 3.543336891281947*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Simplify", "[", 
+  RowBox[{"D", "[", 
+   RowBox[{
+    RowBox[{"Log", "[", 
+     RowBox[{"ShethTormen", "[", "x", "]"}], "]"}], ",", " ", "x"}], "]"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.543336940133589*^9, 3.543336950139674*^9}, {
+  3.543337020568223*^9, 3.5433370248487787`*^9}, {3.543337859036489*^9, 
+  3.54333790595568*^9}, {3.5433379620324163`*^9, 3.543338038094255*^9}, {
+  3.543338088196444*^9, 3.5433380921972513`*^9}, {3.543338189270759*^9, 
+  3.543338195142997*^9}}],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox[
+   RowBox[{"x", " ", 
+    RowBox[{"(", 
+     RowBox[{"0.7845011592166183`", "\[VeryThinSpace]", "+", 
+      FractionBox["0.6657718465770452`", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         SuperscriptBox["x", "2"], ")"}], "1.`"]], "+", 
+      RowBox[{"0.707`", " ", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         SuperscriptBox["x", "2"], ")"}], "0.30000000000000004`"]}]}], 
+     ")"}]}], 
+   RowBox[{"1.1096197442950755`", "\[VeryThinSpace]", "+", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      SuperscriptBox["x", "2"], ")"}], "0.3`"]}]]}]], "Output",
+ CellChangeTimes->{
+  3.543336953567749*^9, 3.543337026485248*^9, {3.5433378880579233`*^9, 
+   3.5433379098948793`*^9}, 3.5433379910619392`*^9, {3.54333802378929*^9, 
+   3.54333804042761*^9}, 3.54333809409231*^9, 3.543338196661826*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Simplify", "[", "%", "]"}]], "Input",
+ CellChangeTimes->{{3.543337941425661*^9, 3.5433379447943707`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox[
+   RowBox[{"x", " ", 
+    RowBox[{"(", 
+     RowBox[{"0.7845011592166183`", "\[VeryThinSpace]", "+", 
+      FractionBox["0.6657718465770452`", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         SuperscriptBox["x", "2"], ")"}], "1.`"]], "+", 
+      RowBox[{"0.707`", " ", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         SuperscriptBox["x", "2"], ")"}], "0.30000000000000004`"]}]}], 
+     ")"}]}], 
+   RowBox[{"1.1096197442950755`", "\[VeryThinSpace]", "+", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      SuperscriptBox["x", "2"], ")"}], "0.3`"]}]]}]], "Output",
+ CellChangeTimes->{3.543337945355159*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -190,8 +370,8 @@ Cell[BoxData[
 AutoGeneratedPackage->Automatic,
 InitializationCellEvaluation->True,
 InitializationCellWarning->False,
-WindowSize->{740, 620},
-WindowMargins->{{39, Automatic}, {Automatic, 3}},
+WindowSize->{1175, 721},
+WindowMargins->{{Automatic, 84}, {Automatic, 0}},
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
 2011)",
 StyleDefinitions->"Default.nb"
@@ -211,30 +391,56 @@ Cell[CellGroupData[{
 Cell[579, 22, 102, 1, 46, "Subtitle"],
 Cell[684, 25, 179, 4, 41, "Text"],
 Cell[CellGroupData[{
-Cell[888, 33, 906, 22, 149, "Code"],
-Cell[1797, 57, 126, 1, 27, "Output"],
-Cell[1926, 60, 154, 2, 27, "Output"],
-Cell[2083, 64, 159, 2, 27, "Output"]
+Cell[888, 33, 1148, 26, 164, "Code"],
+Cell[2039, 61, 274, 3, 27, "Output"],
+Cell[2316, 66, 304, 4, 27, "Output"],
+Cell[2623, 72, 309, 4, 27, "Output"],
+Cell[2935, 78, 301, 4, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2279, 71, 367, 8, 59, "Code"],
-Cell[2649, 81, 134, 1, 27, "Output"]
+Cell[3273, 87, 367, 8, 59, "Code"],
+Cell[3643, 97, 258, 3, 27, "Output"]
 }, Open  ]],
-Cell[2798, 85, 1154, 35, 104, "Code"],
+Cell[3916, 103, 1940, 55, 119, "Code"],
 Cell[CellGroupData[{
-Cell[3977, 124, 160, 3, 59, "Code"],
-Cell[4140, 129, 131, 1, 27, "Output"]
+Cell[5881, 162, 103, 1, 34, "Subsection"],
+Cell[5987, 165, 312, 5, 30, "Text"],
+Cell[CellGroupData[{
+Cell[6324, 174, 434, 10, 27, "Input"],
+Cell[6761, 186, 161, 3, 46, "Output"]
 }, Open  ]],
-Cell[4286, 133, 92, 1, 27, "Input"],
+Cell[6937, 192, 159, 3, 26, "Text"],
 Cell[CellGroupData[{
-Cell[4403, 138, 92, 1, 67, "Section"],
-Cell[CellGroupData[{
-Cell[4520, 143, 130, 2, 27, "Input"],
-Cell[4653, 147, 457, 14, 56, "Output"]
+Cell[7121, 199, 347, 9, 27, "Input"],
+Cell[7471, 210, 186, 3, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5147, 166, 132, 2, 27, "Input"],
-Cell[5282, 170, 455, 14, 56, "Output"]
+Cell[7694, 218, 160, 3, 59, "Code"],
+Cell[7857, 223, 252, 3, 27, "Output"]
+}, Open  ]],
+Cell[8124, 229, 92, 1, 27, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8253, 235, 92, 1, 67, "Section"],
+Cell[CellGroupData[{
+Cell[8370, 240, 130, 2, 27, "Input"],
+Cell[8503, 244, 458, 13, 56, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8998, 262, 132, 2, 27, "Input"],
+Cell[9133, 266, 458, 13, 56, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9628, 284, 135, 2, 27, "Input"],
+Cell[9766, 288, 259, 8, 65, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10062, 301, 507, 11, 27, "Input"],
+Cell[10572, 314, 850, 22, 76, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11459, 341, 129, 2, 27, "Input"],
+Cell[11591, 345, 656, 19, 76, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]

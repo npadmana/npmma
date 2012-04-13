@@ -27,6 +27,7 @@ Needs["Cosmology`Defs`"]
 (* You should put usage statements here *)
 deltac::usage = "deltac is the spherical collapse overdensity at z=0"
 ShethTormen::usage = "ShethTormen[v] is the Sheth-Tormen multiplicity function"
+PressSchechter::usage = "PressSchechter[v] is the PS multiplicity function"
 
 (* The private section of the package is here *)
 Begin["`Private`"]
@@ -34,8 +35,9 @@ Begin["`Private`"]
 deltac = 1.686;
 
 (* Generic functional form *)
-vfv[v_] := (1 + (a*v^2)^(-p)) * Sqrt[ a*v^2] * Exp[- a*v^2/2];
-ShethTormen[v_] := vfv[v] /. {a -> 0.707, p-> 0.3};
+vfv[v_] := norm*(1 + (a*v^2)^(-p)) * Exp[- a*v^2/2] / Sqrt[a];
+ShethTormen[v_] := vfv[v] /. {a -> 0.707, p-> 0.3, norm-> 1/(2*5.50221)};
+PressSchechter[v_] := vfv[v]/.{a->1, p->0, norm-> 1/Sqrt[8 Pi]};
 
 End[]
 EndPackage[]
