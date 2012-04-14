@@ -19,27 +19,30 @@
 
 
 
-BeginPackage["Cosmology`MassFunction`"]
+BeginPackage["Cosmology`MassFunction`"];
 
 (* Needs statements go here *)
-Needs["Cosmology`Defs`"]
+Needs["Cosmology`Defs`"];
 
 (* You should put usage statements here *)
-deltac::usage = "deltac is the spherical collapse overdensity at z=0"
-ShethTormen::usage = "ShethTormen[v] is the Sheth-Tormen multiplicity function"
-PressSchechter::usage = "PressSchechter[v] is the PS multiplicity function"
+deltac::usage = "deltac is the spherical collapse overdensity; we keep this as a symbolic constant = 1.686";
+ShethTormen::usage = "ShethTormen[v] is the Sheth-Tormen multiplicity function";
+PressSchechter::usage = "PressSchechter[v] is the PS multiplicity function";
+bias::usage = "bias[multiplicity, nu_] returns a bias given a multiplicity function";
 
 (* The private section of the package is here *)
-Begin["`Private`"]
-
-deltac = 1.686;
+Begin["`Private`"];
 
 (* Generic functional form *)
 vfv[v_] := norm*(1 + (a*v^2)^(-p)) * Exp[- a*v^2/2] / Sqrt[a];
 ShethTormen[v_] := vfv[v] /. {a -> 0.707, p-> 0.3, norm-> 1/(2*5.50221)};
 PressSchechter[v_] := vfv[v]/.{a->1, p->0, norm-> 1/Sqrt[8 Pi]};
 
-End[]
-EndPackage[]
+bias[multiplicity_, nu_] := Module[{x}, 
+	1 + Simplify[D[Log[x * multiplicity[x]], x]] * (-x / deltac)/. {x-> nu}
+];
+
+End[];
+EndPackage[];
 
 
