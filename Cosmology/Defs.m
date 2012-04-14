@@ -61,9 +61,13 @@ tlookback::usage =
 
 
 (* Growth function *)
-
 fgrowth::usage = "fgrowth[a, cosmo] -- Logarithmic growth rate, based on Linder 2005";
 Dgrowth::usage = "Computes the growth factor, normalized to be a at high redshift";
+
+
+(* Power spectra related quantities *)
+sigmaR::usage = "sigmaR[Pk, r] computes sigma_R. r defaults to 8 h^-1 Mpc unless specified.
+	Pk is assumed to be a function Pk[k] in (Mpc/h)^3 units.";
 
 (*----------------------------------*)
 Begin["`Private`"];
@@ -134,6 +138,12 @@ Dgrowth[a_, cosmo_?OptionQ] := Module[{f0},
       a*Exp[NIntegrate[f0[x], {x, 0, a}]]
       ];
 
+
+sigmaR[Pk_, r_:8] := Module[{f}, 
+	f[kr_] = (kr^2 * Pk[kr/r]) * (SphericalBesselJ[1, kr]/(kr))^2;
+	(3/(Sqrt[2]*Pi)) * Sqrt[NIntegrate[f[k], {k, 0, Infinity}, 
+     Method->{"SymbolicPreprocessing", "OscillatorySelection"-> True}]]/Sqrt[r]^3
+];
 
 End[];
 EndPackage[];

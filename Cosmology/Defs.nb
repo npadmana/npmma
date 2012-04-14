@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     19366,        582]
-NotebookOptionsPosition[     18444,        545]
-NotebookOutlinePosition[     18834,        562]
-CellTagsIndexPosition[     18791,        559]
+NotebookDataLength[     22334,        666]
+NotebookOptionsPosition[     21257,        624]
+NotebookOutlinePosition[     21647,        641]
+CellTagsIndexPosition[     21604,        638]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -142,7 +142,7 @@ Mpc\>\""}], ";"}], "\n"}], "\n",
     "\"\<tlookback[a, cosmo] - Lookback time to scale factor a in units of \
 thubble\>\""}], ";"}], "\n", "\n", "\n", "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"Growth", " ", "function"}], " ", "*)"}], "\n"}], "\n", 
+   RowBox[{"Growth", " ", "function"}], " ", "*)"}]}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"fgrowth", "::", "usage"}], " ", "=", " ", 
@@ -150,14 +150,26 @@ thubble\>\""}], ";"}], "\n", "\n", "\n", "\n",
 2005\>\""}], ";"}], "\n", 
  RowBox[{
   RowBox[{
-   RowBox[{"Dgrowth", "::", "usage"}], " ", "=", " ", 
-   "\"\<Computes the growth factor, normalized to be a at high \
-redshift\>\""}], ";"}]}], "Code",
+   RowBox[{
+    RowBox[{"Dgrowth", "::", "usage"}], " ", "=", " ", 
+    "\"\<Computes the growth factor, normalized to be a at high \
+redshift\>\""}], ";"}], "\n", "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Power", " ", "spectra", " ", "related", " ", "quantities"}], " ", 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"sigmaR", "::", "usage"}], " ", "=", " ", 
+   "\"\<sigmaR[Pk, r] computes sigma_R. r defaults to 8 h^-1 Mpc unless \
+specified.\n\tPk is assumed to be a function Pk[k] in (Mpc/h)^3 units.\>\""}],
+   ";"}]}], "Code",
  CellChangeTimes->{{3.543351519473578*^9, 3.543351523200272*^9}, {
   3.543351560295783*^9, 3.54335164686049*^9}, {3.543352229270763*^9, 
   3.5433523209775047`*^9}, {3.543352393636489*^9, 3.543352410928308*^9}, {
   3.543352558172183*^9, 3.5433526184792137`*^9}, {3.543352909094818*^9, 
-  3.543352909462233*^9}, {3.5433597047651653`*^9, 3.5433597116242113`*^9}}],
+  3.543352909462233*^9}, {3.5433597047651653`*^9, 3.5433597116242113`*^9}, {
+  3.54336173108043*^9, 3.543361791967709*^9}, {3.5433618283597193`*^9, 
+  3.543361913736772*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -532,7 +544,74 @@ Cell[BoxData[
             RowBox[{"{", 
              RowBox[{"x", ",", " ", "0", ",", " ", "a"}], "}"}]}], "]"}], 
           "]"}]}]}]}], "\n", "      ", "]"}]}], ";"}], "\n"}]}]], "Code",
- CellChangeTimes->{{3.543351912356962*^9, 3.5433519140136013`*^9}}],
+ CellChangeTimes->{{3.543351912356962*^9, 3.5433519140136013`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Power spectrum related functions\
+\>", "Section",
+ CellChangeTimes->{{3.543361922396039*^9, 3.543361930545574*^9}}],
+
+Cell["\<\
+sigma_R = \\int_{0}^{\\infty} dk/k  \\Delta^2(k) ( 3 j_1(kr)/kr)^2\
+\>", "Text",
+ CellChangeTimes->{{3.5433621270696697`*^9, 3.543362182107122*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"sigmaR", "[", 
+    RowBox[{"Pk_", ",", " ", 
+     RowBox[{"r_:", "8"}]}], "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "f", "}"}], ",", " ", "\n", "\t", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"f", "[", "kr_", "]"}], " ", "=", " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"kr", "^", "2"}], " ", "*", " ", 
+          RowBox[{"Pk", "[", 
+           RowBox[{"kr", "/", "r"}], "]"}]}], ")"}], " ", "*", " ", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"SphericalBesselJ", "[", 
+            RowBox[{"1", ",", " ", "kr"}], "]"}], "/", 
+           RowBox[{"(", "kr", ")"}]}], ")"}], "^", "2"}]}]}], ";", "\n", "\t", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"3", "/", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Sqrt", "[", "2", "]"}], "*", "Pi"}], ")"}]}], ")"}], " ", 
+       "*", " ", 
+       RowBox[{
+        RowBox[{"Sqrt", "[", 
+         RowBox[{"NIntegrate", "[", 
+          RowBox[{
+           RowBox[{"f", "[", "k", "]"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"k", ",", " ", "0", ",", " ", "Infinity"}], "}"}], ",", 
+           " ", "\n", "     ", 
+           RowBox[{"Method", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"\"\<SymbolicPreprocessing\>\"", ",", " ", 
+              RowBox[{
+              "\"\<OscillatorySelection\>\"", "\[Rule]", " ", "True"}]}], 
+             "}"}]}]}], "]"}], "]"}], "/", 
+        RowBox[{
+         RowBox[{"Sqrt", "[", "r", "]"}], "^", "3"}]}]}]}]}], "\n", "]"}]}], 
+  ";"}]], "Code",
+ CellChangeTimes->{{3.543361935202425*^9, 3.543362123701537*^9}, {
+  3.54336219862759*^9, 3.543362237007286*^9}, {3.543362413046031*^9, 
+  3.543362435004421*^9}, {3.543362815618833*^9, 3.543362860641822*^9}, {
+  3.543362911814183*^9, 3.543362913520022*^9}, {3.543362948971789*^9, 
+  3.543362949229978*^9}, {3.5433630720890503`*^9, 3.5433631238196373`*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -564,24 +643,29 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[579, 22, 98, 1, 76, "Title"],
 Cell[680, 25, 276, 4, 30, "Text"],
-Cell[959, 31, 4688, 128, 704, "Code"],
-Cell[5650, 161, 653, 22, 59, "Code"],
+Cell[959, 31, 5173, 140, 764, "Code"],
+Cell[6135, 173, 653, 22, 59, "Code"],
 Cell[CellGroupData[{
-Cell[6328, 187, 137, 3, 67, "Section"],
-Cell[6468, 192, 1628, 47, 209, "Code"]
+Cell[6813, 199, 137, 3, 67, "Section"],
+Cell[6953, 204, 1628, 47, 209, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8133, 244, 114, 1, 67, "Section"],
-Cell[8250, 247, 1565, 43, 149, "Code"]
+Cell[8618, 256, 114, 1, 67, "Section"],
+Cell[8735, 259, 1565, 43, 149, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[9852, 295, 96, 1, 67, "Section"],
-Cell[9951, 298, 6081, 167, 494, "Code"]
+Cell[10337, 307, 96, 1, 67, "Section"],
+Cell[10436, 310, 6081, 167, 494, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[16069, 470, 100, 1, 67, "Section"],
-Cell[16172, 473, 2045, 61, 209, "Code"],
-Cell[18220, 536, 196, 5, 59, "Code"]
+Cell[16554, 482, 100, 1, 67, "Section"],
+Cell[16657, 485, 2045, 61, 209, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18739, 551, 125, 3, 67, "Section"],
+Cell[18867, 556, 158, 3, 26, "Text"],
+Cell[19028, 561, 2002, 52, 104, "Code"],
+Cell[21033, 615, 196, 5, 59, "Code"]
 }, Open  ]]
 }, Open  ]]
 }
