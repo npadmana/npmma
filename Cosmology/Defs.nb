@@ -1,0 +1,586 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     19012,        577]
+NotebookOptionsPosition[     18090,        540]
+NotebookOutlinePosition[     18480,        557]
+CellTagsIndexPosition[     18437,        554]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Basic Cosmology", "Title",
+ CellChangeTimes->{{3.543351443723858*^9, 3.543351453993607*^9}}],
+
+Cell[TextData[StyleBox["Basic cosmology routines are defined here. These \
+borrow heavily from Hogg, \[OpenCurlyDoubleQuote]Distance Measures in \
+Cosmology\[CloseCurlyDoubleQuote].",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.5433514612151546`*^9, 3.543351507346222*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"BeginPackage", "[", "\"\<Cosmology`Defs`\>\"", "]"}], ";"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"z2a", "::", "usage"}], " ", "=", " ", 
+   "\"\<Convert redshift to scale factor\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"a2z", "::", "usage"}], " ", "=", " ", 
+   "\"\<Convert scale factor into redshift\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"OmegaM", "::", "usage"}], " ", "=", " ", 
+    "\"\<Calculate OmegaM[a, cosmo] at a\>\""}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Omegabh2", "::", "usage"}], " ", "=", " ", 
+   "\"\<Physical density, baryons z=0\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OmegaMh2", "::", "usage"}], " ", "=", " ", 
+   "\"\<Physical density, matter z=0\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OmegaKh2", "::", "usage"}], " ", "=", " ", 
+   "\"\<Physical density, curvature z=0\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OmegaDEh2", "::", "usage"}], " ", "=", " ", 
+   "\"\<Physical density, dark energy z=0\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ns", "::", "usage"}], " ", "=", " ", 
+   "\"\<Primordial spectral index\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"w0", "::", "usage"}], " ", "=", " ", 
+   "\"\<Dark energy equation of state, w(a) = w0 + (1-a) wa\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"wa", "::", "usage"}], " ", "=", " ", 
+   "\"\<Dark energy equation of state, w(a) = w0 + (1-a) wa\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TCMB", "::", "usage"}], " ", "=", " ", 
+   "\"\<Temperature of the CMB, Kelvin\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"gamma", "::", "usage"}], " ", "=", " ", 
+    "\"\<Growth function index based on Linder 2005\>\""}], ";"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Basic", " ", "cosmology", " ", "definitions"}], " ", 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"FoMSWG", "::", "usage"}], " ", "=", " ", 
+    "\"\<The Figure of Merit Science Working Group cosmology, assuming w0 and \
+wa\>\""}], ";"}], "\n", "\n", 
+  RowBox[{"(*", " ", "Constants", " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"thubble", "::", "usage"}], " ", "=", " ", 
+   "\"\<Hubble time in seconds, for h=1\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"thubbleYr", "::", "usage"}], " ", "=", " ", 
+    "\"\<Hubble time in years, for h=1\>\""}], ";"}], "\n", "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Cosmological", " ", 
+    RowBox[{"Distances", " ", "--"}], " ", "based", " ", "on", " ", "Hogg", 
+    " ", "2000"}], " ", "*)"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Hubble", "::", "usage"}], " ", "=", " ", "\n", 
+   "\"\<Hubble[a, cosmo] computes the Hubble parameter at a in units of 100 \
+km/s/Mpc\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"comdis", "::", "usage"}], " ", "=", " ", "\n", 
+   "\"\<comdis[a, cosmo] computes the (line of sight) comoving distance to a; \
+units of c/100 Mpc\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"propmotdis", "::", "usage"}], " ", "=", " ", 
+   "\"\<propmotdis[a, cosmo] computes the (transverse) comoving distance to \
+a; units of c/100 Mpc\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"angdis", "::", "usage"}], " ", "=", " ", "\n", 
+   "\"\<angdis[a, cosmo] - Angular diameter distance to a; units of c/100 Mpc\
+\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"lumdis", "::", "usage"}], " ", "=", "\n", 
+    "\"\<lumdis[a, cosmo] - Luminosity distance to a; units of c/100 \
+Mpc\>\""}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"tlookback", "::", "usage"}], " ", "=", " ", "\n", 
+    "\"\<tlookback[a, cosmo] - Lookback time to scale factor a in units of \
+thubble\>\""}], ";"}], "\n", "\n", "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Growth", " ", "function"}], " ", "*)"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"fgrowth", "::", "usage"}], " ", "=", " ", 
+   "\"\<fgrowth[a, cosmo] -- Logarithmic growth rate, based on Linder \
+2005\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Dgrowth", "::", "usage"}], " ", "=", " ", 
+   "\"\<Computes the growth factor, normalized to be a at high \
+redshift\>\""}], ";"}]}], "Code",
+ CellChangeTimes->{{3.543351519473578*^9, 3.543351523200272*^9}, {
+  3.543351560295783*^9, 3.54335164686049*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], "*)"}], 
+  "\n", 
+  RowBox[{
+   RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]}]], "Code",
+ CellChangeTimes->{{3.543351573474071*^9, 3.5433515774191637`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Useful constants and other basic definitions\
+\>", "Section",
+ CellChangeTimes->{{3.543351683086665*^9, 3.543351692070993*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Useful", " ", "Constants"}], " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"thubble", " ", "=", " ", 
+     RowBox[{"3.09", "*", " ", 
+      RowBox[{"10", "^", "17"}]}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"thubbleYr", " ", "=", " ", 
+     RowBox[{"9.78", " ", "*", " ", 
+      RowBox[{"10", "^", "9"}]}]}], ";"}], " ", "\n", "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "Define", " ", "some", " ", "simple", " ", "pieces", " ", "of", " ", 
+     "code", " ", "here"}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"a2z", "[", "a_", "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"1.", "/", "a"}], " ", "-", " ", "1"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"z2a", "[", "z_", "]"}], " ", ":=", " ", 
+     RowBox[{"1.", "/", 
+      RowBox[{"(", 
+       RowBox[{"1.", "+", "z"}], ")"}]}]}], ";"}], " ", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"OmegaM", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "h2", "}"}], ",", " ", "\n", "  ", 
+       RowBox[{
+        RowBox[{"h2", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"Hubble", "[", 
+           RowBox[{"a", ",", "cosmo"}], "]"}], "^", "2"}]}], ";", "\n", "  ", 
+        
+        RowBox[{
+         RowBox[{
+          RowBox[{"OmegaMh2", "/", 
+           RowBox[{"a", "^", "3"}]}], "/", "h2"}], " ", "/.", " ", 
+         "cosmo"}]}]}], "\n", "]"}]}], ";"}]}]}]], "Code",
+ CellChangeTimes->{3.543351695247841*^9, 3.543351734739614*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Cosmological specifications", "Section",
+ CellChangeTimes->{{3.543351712581739*^9, 3.5433517205968513`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], "*)"}], 
+  "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Actual", " ", "specific", " ", "cosmological", " ", "definitions", " ", 
+    "go", " ", "here"}], " ", "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"FoMSWG", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Omegabh2", " ", "->", " ", "0.0227"}], ",", " ", 
+       RowBox[{"OmegaMh2", " ", "->", " ", "0.1326"}], ",", " ", 
+       RowBox[{"OmegaKh2", " ", "->", " ", "0.0"}], ",", " ", "\n", 
+       "          ", 
+       RowBox[{"OmegaDEh2", " ", "->", " ", "0.3844"}], ",", " ", 
+       RowBox[{"ns", "->", " ", "0.963"}], ",", " ", 
+       RowBox[{"w0", " ", "->", " ", 
+        RowBox[{"-", "1.0"}]}], ",", " ", 
+       RowBox[{"wa", " ", "->", " ", "0.0"}], ",", " ", "\n", "          ", 
+       RowBox[{"TCMB", " ", "->", " ", "2.726"}], ",", " ", 
+       RowBox[{"gamma", " ", "->", " ", "0.55"}]}], "}"}]}], ";"}], 
+   "\n"}]}]], "Code",
+ CellChangeTimes->{3.5433517249238443`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Distances", "Section",
+ CellChangeTimes->{{3.543351766127474*^9, 3.5433517675962973`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], "*)"}], 
+  "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Distances", " ", "go", " ", "here"}], " ", "*)"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"The", " ", "Hubble", " ", "Parameter"}], " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"Hubble", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "h2", "}"}], ",", " ", "\n", "   ", 
+       RowBox[{
+        RowBox[{"h2", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"OmegaMh2", " ", "/", 
+             RowBox[{"a", "^", "3"}]}], " ", "+", " ", 
+            RowBox[{"OmegaKh2", "/", 
+             RowBox[{"a", "^", "2"}]}], " ", "+", " ", "\n", "     ", 
+            RowBox[{"OmegaDEh2", " ", "*", " ", 
+             RowBox[{"Exp", "[", 
+              RowBox[{"3", "*", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "wa"}], " ", "+", " ", 
+                 RowBox[{"a", " ", "*", " ", "wa"}], " ", "-", " ", 
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{"1", "+", "w0", "+", "wa"}], ")"}], 
+                  RowBox[{"Log", "[", "a", "]"}]}]}], ")"}]}], "]"}]}]}], 
+           ")"}], "/.", "cosmo"}]}], ";", "\n", "   ", 
+        RowBox[{"Sqrt", "[", "h2", "]"}]}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Distance", " ", 
+     RowBox[{"Measures", " ", "--"}], " ", "Hogg", " ", "2000"}], " ", "*)"}],
+    "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"comdis", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "f", "}"}], ",", " ", "\n", "    ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"f", "[", "x_", "]"}], " ", "=", " ", 
+         RowBox[{"1.", "/", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"Hubble", "[", 
+             RowBox[{"x", ",", " ", "cosmo"}], "]"}], " ", "*", " ", 
+            RowBox[{"x", "^", "2"}]}], ")"}]}]}], ";", "\n", "     ", 
+        RowBox[{"NIntegrate", "[", 
+         RowBox[{
+          RowBox[{"f", "[", "x", "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", " ", "a", ",", " ", "1.0"}], "}"}]}], "]"}]}]}], 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"propmotdis", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"ok", ",", " ", "dc"}], "}"}], ",", "\n", "   ", 
+       RowBox[{
+        RowBox[{"dc", "  ", "=", " ", 
+         RowBox[{"comdis", "[", 
+          RowBox[{"a", ",", " ", "cosmo"}], "]"}]}], ";", "\n", "   ", 
+        RowBox[{"ok", " ", "=", " ", 
+         RowBox[{"OmegaKh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", "   ", 
+        RowBox[{"Piecewise", "[", " ", 
+         RowBox[{"{", "\n", "      ", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"1.", "/", 
+               RowBox[{"Sqrt", "[", "ok", "]"}]}], " ", "*", " ", 
+              RowBox[{"Sinh", "[", 
+               RowBox[{
+                RowBox[{"Sqrt", "[", "ok", "]"}], "*", "dc"}], "]"}]}], ",", 
+             RowBox[{"ok", " ", ">", " ", "0"}]}], "}"}], ",", " ", "\n", 
+           "      ", 
+           RowBox[{"{", 
+            RowBox[{"dc", ",", " ", 
+             RowBox[{"ok", " ", "==", " ", "0"}]}], "}"}], ",", " ", "\n", 
+           "\t  ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"1.", "/", 
+               RowBox[{"Sqrt", "[", 
+                RowBox[{"-", "ok"}], "]"}]}], " ", "*", " ", 
+              RowBox[{"Sinh", "[", 
+               RowBox[{
+                RowBox[{"Sqrt", "[", 
+                 RowBox[{"-", "ok"}], "]"}], "*", "dc"}], "]"}]}], ",", " ", 
+             RowBox[{"ok", " ", "<", " ", "0"}]}], "}"}]}], "}"}], "]"}]}]}], 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"angdis", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"propmotdis", "[", 
+       RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "*", " ", "a"}]}], ";"}],
+    "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"lumdis", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"propmotdis", "[", 
+       RowBox[{"a", ",", " ", "cosmo"}], "]"}], "/", "a"}]}], ";"}], "\n", 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"tlookback", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "f", "}"}], ",", " ", "\n", "  ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"f", "[", "x_", "]"}], " ", "=", " ", 
+         RowBox[{"1.", "/", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"Hubble", "[", 
+             RowBox[{"x", ",", " ", "cosmo"}], "]"}], " ", "*", " ", "x"}], 
+           ")"}]}]}], ";", "\n", "  ", 
+        RowBox[{"NIntegrate", "[", 
+         RowBox[{
+          RowBox[{"f", "[", "x", "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", " ", "a", ",", " ", "1.0"}], "}"}]}], "]"}]}]}], 
+      "\n", "]"}]}], ";"}], "\n", " ", "\n"}]}]], "Code",
+ CellChangeTimes->{{3.5433517711158667`*^9, 3.54335182754333*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Growth functions", "Section",
+ CellChangeTimes->{{3.543351879428186*^9, 3.54335190752098*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], "*)"}], 
+  "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"fgrowth", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "g", "}"}], ",", " ", "\n", "      ", 
+       RowBox[{
+        RowBox[{"g", " ", "=", " ", 
+         RowBox[{"gamma", " ", "/.", " ", "cosmo"}]}], ";", "\n", "      ", 
+        RowBox[{
+         RowBox[{"OmegaM", "[", 
+          RowBox[{"a", ",", " ", "cosmo"}], "]"}], "^", "g"}]}]}], "]"}]}], 
+    ";"}], "\n", "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Dgrowth", "[", 
+      RowBox[{"a_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "f0", "}"}], ",", " ", "\n", "      ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"f0", "[", "x_", "]"}], " ", "=", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"fgrowth", "[", 
+             RowBox[{"x", ",", " ", "cosmo"}], "]"}], "-", "1"}], ")"}], "/", 
+          "x"}]}], ";", "\n", "      ", 
+        RowBox[{"a", "*", 
+         RowBox[{"Exp", "[", 
+          RowBox[{"NIntegrate", "[", 
+           RowBox[{
+            RowBox[{"f0", "[", "x", "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", "0", ",", " ", "a"}], "}"}]}], "]"}], 
+          "]"}]}]}]}], "\n", "      ", "]"}]}], ";"}], "\n"}]}]], "Code",
+ CellChangeTimes->{{3.543351912356962*^9, 3.5433519140136013`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Code",
+ CellChangeTimes->{{3.543351920057569*^9, 3.543351926007781*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{943, 701},
+WindowMargins->{{77, Automatic}, {-4, Automatic}},
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 98, 1, 76, "Title"],
+Cell[680, 25, 276, 4, 30, "Text"],
+Cell[959, 31, 4441, 125, 704, "Code"],
+Cell[5403, 158, 653, 22, 59, "Code"],
+Cell[CellGroupData[{
+Cell[6081, 184, 137, 3, 67, "Section"],
+Cell[6221, 189, 1628, 47, 209, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7886, 241, 114, 1, 67, "Section"],
+Cell[8003, 244, 1458, 41, 134, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9498, 290, 96, 1, 67, "Section"],
+Cell[9597, 293, 6081, 167, 494, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15715, 465, 100, 1, 67, "Section"],
+Cell[15818, 468, 2045, 61, 209, "Code"],
+Cell[17866, 531, 196, 5, 59, "Code"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

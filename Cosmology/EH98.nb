@@ -1,0 +1,378 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     12891,        369]
+NotebookOptionsPosition[     12201,        340]
+NotebookOutlinePosition[     12590,        357]
+CellTagsIndexPosition[     12547,        354]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Eisenstein & Hu, 1998", "Title",
+ CellChangeTimes->{{3.5433509335775557`*^9, 3.543350958370698*^9}}],
+
+Cell[TextData[StyleBox["An implementation of portions of the code from \
+Eisenstein & Hu, ApJ 1998.",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.5433509635846157`*^9, 3.543350992616519*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"Formulae", " ", "in", " ", "Eisenstein"}], " ", "&"}], " ", 
+     "Hu", " ", "ApJ"}], ",", " ", "1998"}], " ", "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"BeginPackage", "[", "\"\<Cosmology`EH98`\>\"", "]"}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"zeqEH", "::", "usage"}], " ", "=", " ", 
+     "\"\<zeqEH[cosmo] returns the equality redshift (Eq. 2, EH98)\>\""}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"keqEH", "::", "usage"}], " ", "=", " ", 
+     "\"\<keqEH[cosmo] returns k_eq in Mpc^-1 (Eq. 3, EH98)\>\""}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"zdecEH", "::", "usage"}], " ", "=", " ", 
+     "\"\<zdecEH[cosmo] returns the decoupling redshift (Eq. 4, EH98)\>\""}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"rsEH", "::", "usage"}], " ", "=", " ", 
+     "\"\<rsEH[cosmo] returns the sound horizon in Mpc(Eq.6, EH98)\>\""}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"tkEH", "::", "usage"}], " ", "=", " ", "\n", "    ", 
+     "\"\<tkEH[k, rs, cosmo] returns the transfer fn at k (in h^-1 Mpc)\n    \
+We explicitly pass in the sound horizon to save caching it --- this of course\
+\n    is trivial to simplify.\>\""}], ";"}], "\n", "\n", "\n", 
+   RowBox[{
+    RowBox[{"Needs", "[", "\"\<Cosmology`Defs`\>\"", "]"}], ";"}]}]}]], "Code",\
+
+ CellChangeTimes->{
+  3.543351023072517*^9, {3.543351248133675*^9, 3.543351261993183*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Code",
+ CellChangeTimes->{{3.5433510788548803`*^9, 3.54335107966674*^9}, 
+   3.5433512642504587`*^9}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Sound horizons, matter-radiation equality etc.\
+\>", "Section",
+ CellChangeTimes->{{3.543351033097885*^9, 3.543351055494141*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Eq", ".", " ", "2"}], " ", "*)"}], " ", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"zeqEH", "[", 
+      RowBox[{"cosmo_", "?", "OptionQ"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"om", ",", "t0"}], "}"}], ",", "\n", "            ", 
+       RowBox[{
+        RowBox[{"om", " ", "=", " ", 
+         RowBox[{"OmegaMh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", 
+        "            ", 
+        RowBox[{"t0", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"TCMB", "/", "2.7"}], ")"}], " ", "/.", " ", "cosmo"}]}], 
+        ";", "\n", "            ", 
+        RowBox[{"2.5", " ", "*", " ", 
+         RowBox[{"10.0", "^", "4"}], " ", "*", " ", "om", " ", "*", " ", 
+         RowBox[{"t0", "^", 
+          RowBox[{"-", "4"}]}]}]}]}], "\n", "            ", "]"}]}], ";"}], 
+   " ", "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Eq", " ", "3"}], " ", "*)"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"keqEH", "[", 
+      RowBox[{"cosmo_", "?", "OptionQ"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"om", ",", " ", "t0"}], "}"}], ",", "\n", "            ", 
+       RowBox[{
+        RowBox[{"om", " ", "=", " ", 
+         RowBox[{"OmegaMh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", 
+        "            ", 
+        RowBox[{"t0", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"TCMB", "/", "2.7"}], ")"}], " ", "/.", " ", "cosmo"}]}], 
+        ";", "\n", "            ", 
+        RowBox[{"7.46", " ", "*", " ", 
+         RowBox[{"10", "^", 
+          RowBox[{"-", "2"}]}], " ", "*", " ", "om", " ", "*", " ", 
+         RowBox[{"t0", "^", 
+          RowBox[{"-", "2"}]}]}]}]}], "\n", "            ", "]"}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Eq", " ", "4"}], " ", "*)"}], " ", "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"zdecEH", "[", 
+      RowBox[{"cosmo_", "?", "OptionQ"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"om", ",", "ob", ",", "b1", ",", " ", "b2"}], "}"}], ",", " ",
+        "\n", "    ", 
+       RowBox[{
+        RowBox[{"om", " ", "=", " ", 
+         RowBox[{"OmegaMh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", "    ", 
+        RowBox[{"ob", " ", "=", " ", 
+         RowBox[{"Omegabh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", "    ", 
+        RowBox[{"b2", " ", "=", " ", 
+         RowBox[{"0.238", "*", 
+          RowBox[{"om", "^", "0.223"}]}]}], ";", "\n", "    ", 
+        RowBox[{"b1", " ", "=", " ", 
+         RowBox[{"0.313", "*", 
+          RowBox[{"om", "^", 
+           RowBox[{"-", "0.419"}]}], " ", "*", " ", 
+          RowBox[{"(", 
+           RowBox[{"1.0", " ", "+", " ", 
+            RowBox[{"0.607", " ", "*", " ", 
+             RowBox[{"om", "^", "0.674"}]}]}], ")"}]}]}], ";", "\n", "    ", 
+        RowBox[{"1291", " ", "*", " ", 
+         RowBox[{"om", "^", "0.251"}], " ", "*", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1.0", "+", 
+            RowBox[{"b1", "*", 
+             RowBox[{"ob", "^", "b2"}]}]}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{"1.0", " ", "+", " ", 
+            RowBox[{"0.659", "*", 
+             RowBox[{"om", "^", "0.828"}]}]}], ")"}]}]}]}]}], "\n", "    ", 
+      "]"}]}], ";"}], "\n", "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Rsound", "[", 
+      RowBox[{"z_", ",", " ", 
+       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"ob", ",", " ", "t0"}], "}"}], ",", " ", "\n", "    ", 
+       RowBox[{
+        RowBox[{"t0", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"TCMB", "/", "2.7"}], ")"}], " ", "/.", " ", "cosmo"}]}], 
+        ";", "\n", "    ", 
+        RowBox[{"ob", " ", "=", " ", 
+         RowBox[{"Omegabh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", "    ", 
+        RowBox[{"31.5", "*", "ob", "*", 
+         RowBox[{
+          RowBox[{"t0", "^", 
+           RowBox[{"-", "4"}]}], " ", "/", " ", 
+          RowBox[{"(", 
+           RowBox[{"z", "/", "1000.0"}], ")"}]}]}]}]}], "\n", "    ", "]"}]}],
+     ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"rsEH", "[", 
+      RowBox[{"cosmo_", "?", "OptionQ"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "keq", ",", " ", "zeq", ",", " ", "zd", ",", " ", "req", ",", " ", 
+         "rd"}], "}"}], ",", " ", "\n", "  ", 
+       RowBox[{
+        RowBox[{"keq", " ", "=", " ", 
+         RowBox[{"keqEH", "[", "cosmo", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"zeq", " ", "=", " ", 
+         RowBox[{"zeqEH", "[", "cosmo", "]"}]}], ";", " ", 
+        RowBox[{"zd", " ", "=", " ", 
+         RowBox[{"zdecEH", "[", "cosmo", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"req", " ", "=", " ", 
+         RowBox[{"Rsound", "[", 
+          RowBox[{"zeq", ",", " ", "cosmo"}], "]"}]}], ";", " ", 
+        RowBox[{"rd", " ", "=", " ", 
+         RowBox[{"Rsound", "[", 
+          RowBox[{"zd", ",", " ", "cosmo"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2.", "/", "3"}], "/", "keq"}], ")"}], " ", "*", " ", 
+         RowBox[{"Sqrt", "[", 
+          RowBox[{"6.", "/", "req"}], "]"}], " ", "*", " ", 
+         RowBox[{"Log", "[", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"Sqrt", "[", 
+              RowBox[{"1.0", "+", " ", "rd"}], "]"}], " ", "+", " ", 
+             RowBox[{"Sqrt", "[", 
+              RowBox[{"rd", " ", "+", " ", "req"}], "]"}]}], ")"}], "/", 
+           RowBox[{"(", 
+            RowBox[{"1.0", "+", 
+             RowBox[{"Sqrt", "[", "req", "]"}]}], ")"}]}], "]"}]}]}]}], "\n", 
+      "  ", "]"}]}], ";"}]}]}]], "Code",
+ CellChangeTimes->{
+  3.543351094667266*^9, {3.5433511413374*^9, 3.5433511429258127`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["No-wiggle transfer function", "Section",
+ CellChangeTimes->{{3.5433511479898367`*^9, 3.5433511605423813`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"tkEH", "[", 
+    RowBox[{"k_", ",", " ", "rs_", ",", " ", 
+     RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "ag", ",", " ", "geff", ",", " ", "ob", ",", " ", "om", ",", " ", "q", 
+       ",", " ", "t0", ",", " ", "l0", ",", " ", "c0", ",", " ", "g0"}], 
+      "}"}], ",", " ", "\n", "    ", 
+     RowBox[{
+      RowBox[{"ob", " ", "=", " ", 
+       RowBox[{"Omegabh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", "    ", 
+      RowBox[{"om", " ", "=", " ", 
+       RowBox[{"OmegaMh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", "    ", 
+      RowBox[{"ag", " ", "=", " ", 
+       RowBox[{"1.0", " ", "-", " ", 
+        RowBox[{"0.328", "*", 
+         RowBox[{"Log", "[", 
+          RowBox[{"431", "*", "om"}], "]"}], " ", "*", " ", 
+         RowBox[{"(", 
+          RowBox[{"ob", "/", "om"}], ")"}]}], " ", "+", " ", 
+        RowBox[{"0.38", " ", "*", " ", 
+         RowBox[{"Log", "[", 
+          RowBox[{"22.3", "*", "om"}], "]"}], "*", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"ob", "/", "om"}], ")"}], "^", "2"}]}]}]}], ";", "\n", 
+      "    ", 
+      RowBox[{"g0", " ", "=", " ", 
+       RowBox[{"om", "/", 
+        RowBox[{"Hubble", "[", 
+         RowBox[{"1.0", ",", " ", "cosmo"}], "]"}]}]}], ";", "\n", "    ", 
+      RowBox[{"geff", " ", "=", " ", 
+       RowBox[{"g0", " ", "*", " ", 
+        RowBox[{"(", 
+         RowBox[{"ag", " ", "+", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"1.0", "-", "ag"}], ")"}], "/", 
+           RowBox[{"(", 
+            RowBox[{"1.0", " ", "+", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"0.43", "*", "k", "*", "rs"}], ")"}], "^", "4"}]}], 
+            ")"}]}]}], ")"}]}]}], ";", "\n", "    ", 
+      RowBox[{"t0", " ", "=", " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"TCMB", "/", "2.7"}], ")"}], " ", "/.", " ", "cosmo"}]}], 
+      ";", "\n", "    ", 
+      RowBox[{"q", " ", "=", " ", 
+       RowBox[{"k", " ", "*", " ", 
+        RowBox[{
+         RowBox[{"t0", "^", "2"}], " ", "/", " ", "geff"}]}]}], ";", "\n", 
+      "    ", 
+      RowBox[{"c0", " ", "=", " ", 
+       RowBox[{"14.2", " ", "+", " ", 
+        RowBox[{"731.0", "/", 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           RowBox[{"62.5", "*", "q"}]}], ")"}]}]}]}], ";", "\n", "    ", 
+      RowBox[{"l0", " ", "=", " ", 
+       RowBox[{"Log", "[", 
+        RowBox[{
+         RowBox[{"2", "*", 
+          RowBox[{"Exp", "[", "1.0", "]"}]}], " ", "+", " ", 
+         RowBox[{"1.8", "*", "q"}]}], "]"}]}], ";", "\n", "    ", 
+      RowBox[{"l0", "/", 
+       RowBox[{"(", 
+        RowBox[{"l0", " ", "+", " ", 
+         RowBox[{"c0", "*", 
+          RowBox[{"q", "^", "2"}]}]}], ")"}]}]}]}], "\n", "    ", "]"}]}], 
+  ";"}]], "Code",
+ CellChangeTimes->{{3.543351173662203*^9, 3.5433511779591703`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Code",
+ CellChangeTimes->{{3.543351236283202*^9, 3.543351245091363*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{740, 620},
+WindowMargins->{{64, Automatic}, {Automatic, 0}},
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 106, 1, 76, "Title"],
+Cell[688, 25, 194, 3, 30, "Text"],
+Cell[885, 30, 1536, 42, 254, "Code"],
+Cell[2424, 74, 186, 4, 43, "Code"],
+Cell[CellGroupData[{
+Cell[2635, 82, 139, 3, 67, "Section"],
+Cell[2777, 87, 6079, 157, 599, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8893, 249, 116, 1, 67, "Section"],
+Cell[9012, 252, 2962, 77, 209, "Code"],
+Cell[11977, 331, 196, 5, 59, "Code"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
