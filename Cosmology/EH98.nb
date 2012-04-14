@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     77136,       1742]
-NotebookOptionsPosition[     74403,       1641]
-NotebookOutlinePosition[     74793,       1658]
-CellTagsIndexPosition[     74750,       1655]
+NotebookDataLength[     77367,       1751]
+NotebookOptionsPosition[     74553,       1647]
+NotebookOutlinePosition[     74943,       1664]
+CellTagsIndexPosition[     74900,       1661]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1506,7 +1506,13 @@ Qsv84gsorJ8isM+S68oM9Lyv431E4eDxo9kdA2EVYQ4rPx/KovD/Yu6QCA==
    3.543362279509556*^9, 3.54336245807927*^9, 3.543362515653685*^9, 
    3.543362883590805*^9, {3.543362932198536*^9, 3.543362961952405*^9}, 
    3.543363136031225*^9}]
+}, Open  ]]
 }, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Test out sigmaR on pkEH", "Subsubsection",
+ CellChangeTimes->{{3.54336445323429*^9, 3.543364465295068*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -1723,23 +1729,26 @@ Cell[41806, 959, 100, 1, 24, "Subsubsection"],
 Cell[CellGroupData[{
 Cell[41931, 964, 597, 14, 27, "Input"],
 Cell[42531, 980, 26408, 527, 233, "Output"]
-}, Open  ]],
-Cell[68954, 1510, 406, 11, 27, "Input"],
-Cell[CellGroupData[{
-Cell[69385, 1525, 179, 3, 27, "Input"],
-Cell[69567, 1530, 280, 4, 27, "Output"]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[69884, 1539, 156, 3, 27, "Input"],
-Cell[70043, 1544, 90, 1, 27, "Output"]
+Cell[68988, 1513, 113, 1, 24, "Subsubsection"],
+Cell[69104, 1516, 406, 11, 27, "Input"],
+Cell[CellGroupData[{
+Cell[69535, 1531, 179, 3, 27, "Input"],
+Cell[69717, 1536, 280, 4, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[70170, 1550, 261, 5, 27, "Input"],
-Cell[70434, 1557, 324, 6, 27, "Output"]
+Cell[70034, 1545, 156, 3, 27, "Input"],
+Cell[70193, 1550, 90, 1, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[70795, 1568, 545, 11, 27, "Input"],
-Cell[71343, 1581, 3008, 54, 245, "Output"]
+Cell[70320, 1556, 261, 5, 27, "Input"],
+Cell[70584, 1563, 324, 6, 27, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[70945, 1574, 545, 11, 27, "Input"],
+Cell[71493, 1587, 3008, 54, 245, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
