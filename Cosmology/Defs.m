@@ -86,7 +86,8 @@ OmegaM[a_, cosmo_?OptionQ] := Module[{h2},
 
 FoMSWG = {Omegabh2 -> 0.0227, OmegaMh2 -> 0.1326, OmegaKh2 -> 0.0, 
           OmegaDEh2 -> 0.3844, ns-> 0.963, w0 -> -1.0, wa -> 0.0, 
-          TCMB -> 2.726, gamma -> 0.55};
+          TCMB -> 2.726, gamma -> 0.55
+};
 
 
 (*----------------------------------*)

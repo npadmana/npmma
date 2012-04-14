@@ -27,11 +27,8 @@ zeqEH::usage = "zeqEH[cosmo] returns the equality redshift (Eq. 2, EH98)";
 keqEH::usage = "keqEH[cosmo] returns k_eq in Mpc^-1 (Eq. 3, EH98)";
 zdecEH::usage = "zdecEH[cosmo] returns the decoupling redshift (Eq. 4, EH98)";
 rsEH::usage = "rsEH[cosmo] returns the sound horizon in Mpc(Eq.6, EH98)";
-tkEH::usage = 
-    "tkEH[k, rs, cosmo] returns the transfer fn at k (in h^-1 Mpc)
-    We explicitly pass in the sound horizon to save caching it --- this of course
-    is trivial to simplify.";
-
+tkEH::usage = "tkEH[k, cosmo] returns the transfer fn at k (in h^-1 Mpc)";
+pkEH::usage = "pkEH[k, ns, deltah2, cosmo] returns the no-wiggle power spectrum at k.";
 
 Needs["Cosmology`Defs`"];
 
@@ -76,7 +73,8 @@ rsEH[cosmo_?OptionQ] := Module[{keq, zeq, zd, req, rd},
   (2./3/keq) * Sqrt[6./req] * Log[ (Sqrt[1.0+ rd] + Sqrt[rd + req])/(1.0+Sqrt[req])]
   ];
 
-tkEH[k_, rs_, cosmo_?OptionQ] := Module[{ag, geff, ob, om, q, t0, l0, c0, g0}, 
+tkEH[k_, cosmo_?OptionQ] := Module[{ag, rs, geff, ob, om, q, t0, l0, c0, g0}, 
+	rs = rsEH[cosmo];
     ob = Omegabh2 /. cosmo;
     om = OmegaMh2 /. cosmo;
     ag = 1.0 - 0.328*Log[431*om] * (ob/om) + 0.38 * Log[22.3*om]*(ob/om)^2;
@@ -89,5 +87,13 @@ tkEH[k_, rs_, cosmo_?OptionQ] := Module[{ag, geff, ob, om, q, t0, l0, c0, g0},
     l0/(l0 + c0*q^2)
     ];
 
+pkEH[k_, ns_, deltah2_, cosmo_?OptionQ] := Module[{k1, t1, Hbyc},
+	Hbyc = 100.0/299792.458; 
+	t1 = tkEH[k, cosmo];
+	deltah2*(k/Hbyc)^ns * (1/Hbyc)^3 * t1^2 * 2*Pi^2 
+];
+
 End[];
 EndPackage[];
+
+
