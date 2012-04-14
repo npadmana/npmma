@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     72362,       1619]
-NotebookOptionsPosition[     70129,       1535]
-NotebookOutlinePosition[     70519,       1552]
-CellTagsIndexPosition[     70476,       1549]
+NotebookDataLength[     72415,       1620]
+NotebookOptionsPosition[     70182,       1536]
+NotebookOutlinePosition[     70572,       1553]
+CellTagsIndexPosition[     70529,       1550]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -350,11 +350,12 @@ Cell["No-wiggle P(k)", "Section",
 Cell["\<\
 Since I perpetually get confused by the normalization of this, I will be \
 explicit here. This is following Bunn & White, ApJ 1997.
-\t\\Delta^2(k) = k^3 P(k)/ 2 \\pi^2 = deltah^2 * (k/H0)^(3+ns) T^2(k)
+\t\\Delta^2(k) = k^3 P(k)/ 2 \\pi^2 = deltah^2 * (k/H0/c)^(3+ns) T^2(k)
 A reasonable starting guess for deltah2 ~ 10^-10\
 \>", "Text",
  CellChangeTimes->{{3.543360307096241*^9, 3.54336046320822*^9}, {
-  3.543360717092113*^9, 3.543360738055134*^9}}],
+  3.543360717092113*^9, 3.543360738055134*^9}, {3.5433615896535997`*^9, 
+  3.543361589736515*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -1566,57 +1567,57 @@ Cell[9312, 260, 3113, 80, 224, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[12462, 345, 146, 2, 67, "Section"],
-Cell[12611, 349, 388, 7, 56, "Text"],
-Cell[13002, 358, 1891, 38, 104, "Code"],
-Cell[14896, 398, 196, 5, 59, "Code"]
+Cell[12611, 349, 441, 8, 56, "Text"],
+Cell[13055, 359, 1891, 38, 104, "Code"],
+Cell[14949, 399, 196, 5, 59, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15129, 408, 93, 1, 67, "Section"],
-Cell[15225, 411, 148, 2, 27, "Input"],
+Cell[15182, 409, 93, 1, 67, "Section"],
+Cell[15278, 412, 148, 2, 27, "Input"],
 Cell[CellGroupData[{
-Cell[15398, 417, 102, 1, 27, "Input"],
-Cell[15503, 420, 747, 16, 43, "Output"]
+Cell[15451, 418, 102, 1, 27, "Input"],
+Cell[15556, 421, 747, 16, 43, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[16287, 441, 113, 1, 24, "Subsubsection"],
+Cell[16340, 442, 113, 1, 24, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[16425, 446, 159, 3, 27, "Input"],
-Cell[16587, 451, 277, 4, 27, "Output"]
+Cell[16478, 447, 159, 3, 27, "Input"],
+Cell[16640, 452, 277, 4, 27, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[16913, 461, 114, 1, 24, "Subsubsection"],
+Cell[16966, 462, 114, 1, 24, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[17052, 466, 194, 4, 27, "Input"],
-Cell[17249, 472, 277, 4, 27, "Output"]
+Cell[17105, 467, 194, 4, 27, "Input"],
+Cell[17302, 473, 277, 4, 27, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[17575, 482, 121, 1, 24, "Subsubsection"],
+Cell[17628, 483, 121, 1, 24, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[17721, 487, 219, 6, 27, "Input"],
-Cell[17943, 495, 274, 6, 27, "Output"]
+Cell[17774, 488, 219, 6, 27, "Input"],
+Cell[17996, 496, 274, 6, 27, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[18266, 507, 121, 1, 24, "Subsubsection"],
+Cell[18319, 508, 121, 1, 24, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[18412, 512, 291, 7, 27, "Input"],
-Cell[18706, 521, 273, 6, 27, "Output"]
+Cell[18465, 513, 291, 7, 27, "Input"],
+Cell[18759, 522, 273, 6, 27, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[19028, 533, 102, 1, 24, "Subsubsection"],
+Cell[19081, 534, 102, 1, 24, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[19155, 538, 896, 21, 58, "Input"],
-Cell[20054, 561, 20789, 379, 258, "Output"]
+Cell[19208, 539, 896, 21, 58, "Input"],
+Cell[20107, 562, 20789, 379, 258, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[40892, 946, 100, 1, 24, "Subsubsection"],
+Cell[40945, 947, 100, 1, 24, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[41017, 951, 552, 14, 27, "Input"],
-Cell[41572, 967, 28505, 562, 235, "Output"]
+Cell[41070, 952, 552, 14, 27, "Input"],
+Cell[41625, 968, 28505, 562, 235, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
