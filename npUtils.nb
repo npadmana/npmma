@@ -1,0 +1,238 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      6491,        229]
+NotebookOptionsPosition[      5053,        172]
+NotebookOutlinePosition[      5616,        196]
+CellTagsIndexPosition[      5532,        191]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Units, Constants Etc", "Section",
+ CellChangeTimes->{{3.5439532125782623`*^9, 3.543953219369046*^9}}],
+
+Cell[TextData[{
+ "This builds off various ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " packages. It also defines some quick look quantities as well."
+}], "Text",
+ CellChangeTimes->{{3.5439532241298933`*^9, 3.5439532335747643`*^9}, {
+  3.543953370139621*^9, 3.5439534469076138`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<npUtils`\>\"", ",", "\n", "\t", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Units`\>\"", ",", " ", "\n", "     ", 
+      "\"\<PhysicalConstants`\>\""}], "}"}]}], "\n", "\t", "]"}], 
+  ";"}]], "Code",
+ CellChangeTimes->{{3.54395308466123*^9, 3.543953114322328*^9}, {
+  3.543953162185357*^9, 3.543953173306808*^9}, {3.543955004598564*^9, 
+  3.543955008529943*^9}, {3.543955320243198*^9, 3.5439553854107637`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Higher Precision Units", "Section",
+ CellChangeTimes->{{3.5439544518432693`*^9, 3.54395445932502*^9}}],
+
+Cell[TextData[{
+ "The ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " astronomical units are not all high enough precision. "
+}], "Text",
+ CellChangeTimes->{{3.543954465071169*^9, 3.543954494171574*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", "\"\<Parsec\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Parsec", " ", "=", " ", 
+   RowBox[{"Unevaluated", "[", 
+    RowBox[{"3.08568", " ", 
+     RowBox[{"10", "^", "16"}], " ", "Meter"}], "]"}]}], ";"}]}], "Code",
+ CellChangeTimes->{{3.543954500630624*^9, 3.543954519046546*^9}, {
+  3.543954556745748*^9, 3.543954614423271*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Useful Astronomy/Cosmology Constants\
+\>", "Section",
+ CellChangeTimes->{{3.543953508239694*^9, 3.543953562396154*^9}}],
+
+Cell[TextData[{
+ "The ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " definition of the Hubble constant does not have sufficient precision, so \
+we remove it and redefine it."
+}], "Text",
+ CellChangeTimes->{{3.543954219549736*^9, 3.543954265370006*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", "\"\<HubbleConstant\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"HubbleConstant", "::", "usage"}], " ", "=", " ", 
+   "\"\<Hubble Constant (dimensionful) 100 km/s/Mpc\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"HubbleConstant", " ", "=", " ", 
+   RowBox[{"100", " ", "Kilo", " ", 
+    RowBox[{
+     RowBox[{"Meter", "/", "Second"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"Mega", " ", "Parsec"}], ")"}]}]}]}], ";"}]}], "Code",
+ CellChangeTimes->{{3.543954132502842*^9, 3.5439542161938257`*^9}, {
+  3.5439542487906313`*^9, 3.543954299089767*^9}, {3.5439543429404287`*^9, 
+  3.5439543681355762`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]], "Code",
+ CellChangeTimes->{{3.543954859248789*^9, 3.54395486204908*^9}, 
+   3.543955000100461*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Examples etc", "Section",
+ CellChangeTimes->{{3.543954868367127*^9, 3.5439548854686117`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"1", " ", "Parsec"}]], "Input",
+ CellChangeTimes->{{3.543954890364756*^9, 3.5439548923192253`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"3.08568`*^16", " ", "Meter"}]], "Output",
+ CellChangeTimes->{3.543954899416236*^9, 3.543954977147963*^9, 
+  3.54395502584133*^9, 3.543955407172962*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["HubbleConstant"], "Input",
+ CellChangeTimes->{{3.543955060938449*^9, 3.54395506356525*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"3.240776749371289`*^-15", " ", "Kilo"}], 
+  RowBox[{"Mega", " ", "Second"}]]], "Output",
+ CellChangeTimes->{3.543955063989176*^9, 3.543955407223435*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["Meter"], "Input",
+ CellChangeTimes->{{3.543955124119063*^9, 3.543955125305263*^9}}],
+
+Cell[BoxData["Meter"], "Output",
+ CellChangeTimes->{3.5439551282537394`*^9, 3.543955407273426*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "Meter"}]], "Input",
+ CellChangeTimes->{{3.543955132601388*^9, 3.5439551335288343`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox["\<\"Meter is the fundamental SI unit of length.\"\>", "MSG"], 
+  "\[NonBreakingSpace]", 
+  ButtonBox[
+   StyleBox["\[RightSkeleton]", "SR"],
+   Active->True,
+   BaseStyle->"Link",
+   ButtonData->"paclet:Units/ref/Meter"]}]], "Print", "PrintUsage",
+ CellChangeTimes->{3.5439554074850807`*^9},
+ CellTags->"Info3543941007-2460313"]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{776, 724},
+WindowMargins->{{Automatic, 260}, {Automatic, 0}},
+ShowSelection->True,
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info3543941007-2460313"->{
+  Cell[4661, 158, 364, 10, 39, "Print",
+   CellTags->"Info3543941007-2460313"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info3543941007-2460313", 5428, 185}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 107, 1, 67, "Section"],
+Cell[689, 25, 292, 7, 26, "Text"],
+Cell[984, 34, 481, 11, 89, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1502, 50, 108, 1, 67, "Section"],
+Cell[1613, 53, 210, 6, 26, "Text"],
+Cell[1826, 61, 384, 9, 59, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2247, 75, 129, 3, 67, "Section"],
+Cell[2379, 80, 260, 7, 26, "Text"],
+Cell[2642, 89, 662, 16, 74, "Code"],
+Cell[3307, 107, 166, 4, 43, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3510, 116, 99, 1, 67, "Section"],
+Cell[CellGroupData[{
+Cell[3634, 121, 122, 2, 27, "Input"],
+Cell[3759, 125, 175, 3, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3971, 133, 105, 1, 27, "Input"],
+Cell[4079, 136, 191, 4, 52, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4307, 145, 97, 1, 27, "Input"],
+Cell[4407, 148, 98, 1, 27, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4542, 154, 116, 2, 27, "Input"],
+Cell[4661, 158, 364, 10, 39, "Print",
+ CellTags->"Info3543941007-2460313"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
