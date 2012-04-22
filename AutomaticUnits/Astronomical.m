@@ -1,9 +1,11 @@
 UnitSet["Astronomical"]={
 	(*Distance*)
 	DeclareUnit["LightYear", Unit[9460730472580800,"Meter"], UsageMessage->"LightYear is a unit of length.",TraditionalLabel -> "ly"], 
-	DeclareUnit["Parsec", Unit[30857000000000000, "Meter"], UsageMessage->"Parsec is a unit of length.",TraditionalLabel -> "pc"],
-	DeclareUnit["AstronomicalUnit", Unit[1.49597870691*^11, "Meter"], UsageMessage->"AstronomicalUnit is a unit of length.",TraditionalLabel -> "AU"],
+	DeclareUnit["AstronomicalUnit", Unit[1.49597870691`12*^11, "Meter"], 
+                    UsageMessage->"AstronomicalUnit is a unit of length.",TraditionalLabel -> "AU"],
 	DeclareUnit["AU", Unit[1, "AstronomicalUnit"], UsageMessage->"AU is a unit of length.",TraditionalLabel -> "AU"], 
+        DeclareUnit["Parsec", Unit[Cot[Pi/(3600*180)], "AstronomicalUnit"], UsageMessage->"Parsec is a unit of length.",TraditionalLabel -> "pc"],
+	DeclareUnit["Mpc", Unit[10^6, "Parsec"], UsageMessage->"Mpc is Megaparsecs.",TraditionalLabel -> "Mpc"],
 	DeclareUnit["LunarDistance", Unit[384403000, "Meter"], UsageMessage->"LunarDistance is a unit of length."], 
 	DeclareUnit["EarthRadius", Unit[6371000, "Meter"], UsageMessage->"EarthRadius is a unit of length.",TraditionalLabel -> SubscriptBox["R","\[CirclePlus]"]], 
 	(*Mass*)
@@ -14,4 +16,13 @@ UnitSet["Astronomical"]={
 	Unit["Day"],
 	DeclareUnit["JulianYear",Unit[365.25,"Day"],UsageMessage->"JulianYear is a unit of time."],
 	DeclareUnit["JulianCentury",Unit[100,"JulianYear"],UsageMessage->"JulianCentury is a unit of time.",TraditionalLabel -> "D"]
+};
+
+UnitSet["Hubble"]={
+        (*Other*)
+        DeclareUnit["HubbleConstant",Unit[100, "Kilometer"/"Second"/"Mpc"],
+                    UsageMessage->"The Hubble Constant"],
+        DeclareUnit["HubbleTime", Unit[1, 1/"HubbleConstant"], UsageMessage->"HubbleTime is 1/H0."],
+        DeclareUnit["SpeedOfLight",Unit[299792458,"Meter"/"Second"], UsageMessage->"SpeedOfLight is the speed of light in m/s."],
+        DeclareUnit["HubbleDistance",Unit[1,"SpeedOfLight" "HubbleTime"], UsageMessage->"HubbleDistance is c/H0."]
 };
