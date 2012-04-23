@@ -22,5 +22,7 @@ UnitSet["Astronomical"]={
         DeclareUnit["HubbleTime", Unit[1, 1/"HubbleConstant"], UsageMessage->"HubbleTime is 1/H0."],
         DeclareUnit["SpeedOfLight",Unit[299792458,"Meter"/"Second"], UsageMessage->"SpeedOfLight is the speed of light in m/s."],
         DeclareUnit["HubbleDistance",Unit[1,"SpeedOfLight" "HubbleTime"], UsageMessage->"HubbleDistance is c/H0."],
-        DeclareUnit["NewtonG",Unit[6.67384*^-11, "Meter"^3 "Kilogram"^-1 "Second"^-2], UsageMessage->"NewtonG is the Newton gravitational constant in SI units"]
+        DeclareUnit["NewtonG",Unit[6.67384*^-11, "Meter"^3 "Kilogram"^-1 "Second"^-2], UsageMessage->"NewtonG is the Newton gravitational constant in SI units"],
+        DeclareUnit["CriticalDensityConstant",Unit[3/(8 Pi), "HubbleConstant"^2 / "NewtonG"], 
+                    UsageMessage->"CriticalDensityConstant is the critical density = 3H_0^2/8 Pi G with H0=100 km/s/Mpc"]
 };
