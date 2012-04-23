@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     25332,        727]
-NotebookOptionsPosition[     24141,        681]
-NotebookOutlinePosition[     24530,        698]
-CellTagsIndexPosition[     24487,        695]
+NotebookDataLength[     24689,        711]
+NotebookOptionsPosition[     23500,        665]
+NotebookOutlinePosition[     23889,        682]
+CellTagsIndexPosition[     23846,        679]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -94,32 +94,23 @@ Cell[BoxData[{
    " ", "Figure", " ", "of", " ", "Merit", " ", "Science", " ", "Working", 
    " ", "Group", " ", "cosmology"}], ",", " ", 
   RowBox[{
-  "assuming", " ", "w0", " ", "and", " ", "wa", 
-   "\"\<;\n\n(* Constants *)\nthubble::usage = \>\"", "Hubble", " ", "time", 
-   " ", "in", " ", "seconds"}], ",", " ", 
-  RowBox[{
-   RowBox[{"for", " ", "h"}], "=", 
    RowBox[{
-   "1", "\"\<;\nthubbleYr::usage = \>\"", "Hubble", " ", "time", " ", "in", 
-    " ", "years"}]}], ",", " ", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"for", " ", "h"}], "=", 
-    RowBox[{
-    "1", "\"\<;\n\n\n(* Cosmological Distances -- based on Hogg 2000 *)\n\n\
+   "assuming", " ", "w0", " ", "and", " ", "wa", 
+    "\"\<;\n\n(* Cosmological Distances -- based on Hogg 2000 *)\n\n\
 Hubble::usage = \n\>\"", 
-     RowBox[{"Hubble", "[", 
-      RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "computes", " ", "the", 
-     " ", "Hubble", " ", "parameter", " ", "at", " ", "a", " ", "in", " ", 
-     "units", " ", "of", " ", "100", " ", 
-     RowBox[{
-      RowBox[{"km", "/", "s"}], "/", "Mpc"}], "\"\<;\ncomdis::usage = \n\>\"", 
-     RowBox[{"comdis", "[", 
-      RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "computes", " ", "the", 
-     " ", 
-     RowBox[{"(", 
-      RowBox[{"line", " ", "of", " ", "sight"}], ")"}], " ", "comoving", " ", 
-     "distance", " ", "to", " ", "a"}]}], ";", " ", 
+    RowBox[{"Hubble", "[", 
+     RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "computes", " ", "the", 
+    " ", "Hubble", " ", "parameter", " ", "at", " ", "a", " ", "in", " ", 
+    "units", " ", "of", " ", "100", " ", 
+    RowBox[{
+     RowBox[{"km", "/", "s"}], "/", "Mpc"}], "\"\<;\ncomdis::usage = \n\>\"", 
+    
+    RowBox[{"comdis", "[", 
+     RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "computes", " ", "the", 
+    " ", 
+    RowBox[{"(", 
+     RowBox[{"line", " ", "of", " ", "sight"}], ")"}], " ", "comoving", " ", 
+    "distance", " ", "to", " ", "a"}], ";", " ", 
    RowBox[{"units", " ", "of", " ", 
     RowBox[{"c", "/", "100"}], " ", "Mpc", "\"\<;\npropmotdis::usage = \>\"", 
     
@@ -193,7 +184,8 @@ Hubble::usage = \n\>\"",
   3.543352909462233*^9}, {3.5433597047651653`*^9, 3.5433597116242113`*^9}, {
   3.54336173108043*^9, 3.543361791967709*^9}, {3.5433618283597193`*^9, 
   3.543361913736772*^9}, {3.544129721852323*^9, 3.544129838423774*^9}, {
-  3.544131332050191*^9, 3.544131347135936*^9}}],
+  3.544131332050191*^9, 3.544131347135936*^9}, {3.544131590035161*^9, 
+  3.544131590548554*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -229,20 +221,10 @@ Useful constants and other basic definitions\
 Cell[BoxData[
  RowBox[{
   RowBox[{"(*", " ", 
-   RowBox[{"Useful", " ", "Constants"}], " ", "*)"}], "\n", 
+   RowBox[{
+   "Define", " ", "some", " ", "simple", " ", "pieces", " ", "of", " ", 
+    "code", " ", "here"}], " ", "*)"}], "\n", 
   RowBox[{
-   RowBox[{
-    RowBox[{"thubble", " ", "=", " ", 
-     RowBox[{"3.09", "*", " ", 
-      RowBox[{"10", "^", "17"}]}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"thubbleYr", " ", "=", " ", 
-     RowBox[{"9.78", " ", "*", " ", 
-      RowBox[{"10", "^", "9"}]}]}], ";"}], " ", "\n", "\n", "\n", 
-   RowBox[{"(*", " ", 
-    RowBox[{
-    "Define", " ", "some", " ", "simple", " ", "pieces", " ", "of", " ", 
-     "code", " ", "here"}], " ", "*)"}], "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"a2z", "[", "a_", "]"}], " ", ":=", " ", 
@@ -273,7 +255,9 @@ Cell[BoxData[
           RowBox[{"OmegaMh2", "/", 
            RowBox[{"a", "^", "3"}]}], "/", "h2"}], " ", "/.", " ", 
          "cosmo"}]}]}], "\n", "]"}]}], ";"}]}]}]], "Code",
- CellChangeTimes->{3.543351695247841*^9, 3.543351734739614*^9}]
+ CellChangeTimes->{
+  3.543351695247841*^9, 3.543351734739614*^9, {3.5441316000200987`*^9, 
+   3.54413160184429*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -700,33 +684,33 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[579, 22, 98, 1, 76, "Title"],
 Cell[680, 25, 276, 4, 30, "Text"],
-Cell[959, 31, 6965, 164, 809, "Code"],
-Cell[7927, 197, 653, 22, 59, "Code"],
+Cell[959, 31, 6648, 156, 734, "Code"],
+Cell[7610, 189, 653, 22, 59, "Code"],
 Cell[CellGroupData[{
-Cell[8605, 223, 137, 3, 67, "Section"],
-Cell[8745, 228, 1628, 47, 209, "Code"]
+Cell[8288, 215, 137, 3, 67, "Section"],
+Cell[8428, 220, 1304, 39, 134, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[10410, 280, 114, 1, 67, "Section"],
-Cell[10527, 283, 1565, 43, 149, "Code"]
+Cell[9769, 264, 114, 1, 67, "Section"],
+Cell[9886, 267, 1565, 43, 149, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12129, 331, 96, 1, 67, "Section"],
-Cell[12228, 334, 6081, 167, 494, "Code"]
+Cell[11488, 315, 96, 1, 67, "Section"],
+Cell[11587, 318, 6081, 167, 494, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[18346, 506, 107, 1, 67, "Section"],
-Cell[18456, 509, 945, 25, 59, "Code"]
+Cell[17705, 490, 107, 1, 67, "Section"],
+Cell[17815, 493, 945, 25, 59, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[19438, 539, 100, 1, 67, "Section"],
-Cell[19541, 542, 2045, 61, 209, "Code"]
+Cell[18797, 523, 100, 1, 67, "Section"],
+Cell[18900, 526, 2045, 61, 209, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[21623, 608, 125, 3, 67, "Section"],
-Cell[21751, 613, 158, 3, 26, "Text"],
-Cell[21912, 618, 2002, 52, 104, "Code"],
-Cell[23917, 672, 196, 5, 59, "Code"]
+Cell[20982, 592, 125, 3, 67, "Section"],
+Cell[21110, 597, 158, 3, 26, "Text"],
+Cell[21271, 602, 2002, 52, 104, "Code"],
+Cell[23276, 656, 196, 5, 59, "Code"]
 }, Open  ]]
 }, Open  ]]
 }

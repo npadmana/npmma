@@ -39,11 +39,6 @@ gamma::usage = "Growth function index based on Linder 2005";
 (* Basic cosmology definitions *)
 FoMSWG::usage = "The Figure of Merit Science Working Group cosmology, assuming w0 and wa ";
 
-(* Constants *)
-thubble::usage = "Hubble time in seconds, for h=1";
-thubbleYr::usage = "Hubble time in years, for h=1";
-
-
 (* Cosmological Distances -- based on Hogg 2000 *)
 
 Hubble::usage = 
@@ -74,11 +69,6 @@ sigmaR::usage = "sigmaR[Pk, r] computes sigma_R. r defaults to 8 h^-1 Mpc unless
 
 (*----------------------------------*)
 Begin["`Private`"];
-
-(* Useful Constants *)
-thubble = 3.09* 10^17;
-thubbleYr = 9.78 * 10^9; 
-
 
 (* Define some simple pieces of code here *)
 a2z[a_] := 1./a - 1;
