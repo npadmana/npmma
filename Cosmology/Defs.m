@@ -19,24 +19,25 @@
 
 
 
-BeginPackage["Cosmology`Defs`"];
+BeginPackage["Cosmology`Defs`",
+             {"AutomaticUnits`"}];
 
 z2a::usage = "Convert redshift to scale factor";
-a2z::usage = "Convert scale factor into redshift";
-OmegaM::usage = "Calculate OmegaM[a, cosmo] at a";
+a2z::usage = "Convert scale factor into redshift ";
+OmegaM::usage = "Calculate OmegaM[a, cosmo] at a ";
 
 Omegabh2::usage = "Physical density, baryons z=0";
 OmegaMh2::usage = "Physical density, matter z=0";
 OmegaKh2::usage = "Physical density, curvature z=0";
 OmegaDEh2::usage = "Physical density, dark energy z=0";
-ns::usage = "Primordial spectral index";
-w0::usage = "Dark energy equation of state, w(a) = w0 + (1-a) wa";
-wa::usage = "Dark energy equation of state, w(a) = w0 + (1-a) wa";
-TCMB::usage = "Temperature of the CMB, Kelvin";
+ns::usage = "Primordial spectral index ";
+w0::usage = "Dark energy equation of state, w(a) = w0 + (1-a) wa ";
+wa::usage = "Dark energy equation of state, w(a) = w0 + (1-a) wa ";
+TCMB::usage = "Temperature of the CMB, Kelvin ";
 gamma::usage = "Growth function index based on Linder 2005";
 
 (* Basic cosmology definitions *)
-FoMSWG::usage = "The Figure of Merit Science Working Group cosmology, assuming w0 and wa";
+FoMSWG::usage = "The Figure of Merit Science Working Group cosmology, assuming w0 and wa ";
 
 (* Constants *)
 thubble::usage = "Hubble time in seconds, for h=1";
@@ -48,21 +49,23 @@ thubbleYr::usage = "Hubble time in years, for h=1";
 Hubble::usage = 
 "Hubble[a, cosmo] computes the Hubble parameter at a in units of 100 km/s/Mpc";
 comdis::usage = 
-"comdis[a, cosmo] computes the (line of sight) comoving distance to a; units of c/100 Mpc";
-propmotdis::usage = "propmotdis[a, cosmo] computes the (transverse) comoving distance to a; units of c/100 Mpc";
+"comdis[a, cosmo] computes the (line of sight) comoving distance to a; units of c/100 Mpc ";
+propmotdis::usage = "propmotdis[a, cosmo] computes the (transverse) comoving distance to a; units of c/100 Mpc ";
 angdis::usage = 
-"angdis[a, cosmo] - Angular diameter distance to a; units of c/100 Mpc";
+"angdis[a, cosmo] - Angular diameter distance to a; units of c/100 Mpc ";
 lumdis::usage =
-"lumdis[a, cosmo] - Luminosity distance to a; units of c/100 Mpc";
+"lumdis[a, cosmo] - Luminosity distance to a; units of c/100 Mpc ";
 
 tlookback::usage = 
-"tlookback[a, cosmo] - Lookback time to scale factor a in units of thubble";
+"tlookback[a, cosmo] - Lookback time to scale factor a in units of thubble ";
 
-
+(* Other utility functions *)
+CriticalDensity::usage = 
+  "CriticalDensity[a, cosmo] - critical density in Msun/ Mpc^3";\[AliasDelimiter]
 
 (* Growth function *)
 fgrowth::usage = "fgrowth[a, cosmo] -- Logarithmic growth rate, based on Linder 2005";
-Dgrowth::usage = "Computes the growth factor, normalized to be a at high redshift";
+Dgrowth::usage = "Computes the growth factor, normalized to be a at high redshift ";
 
 
 (* Power spectra related quantities *)
@@ -125,6 +128,9 @@ tlookback[a_, cosmo_?OptionQ] := Module[{f},
 ];
  
 
+
+critdense = (#) & @@ Convert[CriticalDensityConstant, SolarMass/Mpc^3]; (* de-unit *)
+CriticalDensity[a_, cosmo_?OptionQ] := critdense * Hubble[a, cosmo]^2;
 
 (*----------------------------------*)
 
