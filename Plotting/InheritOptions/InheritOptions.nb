@@ -1,0 +1,1269 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     47526,       1260]
+NotebookOptionsPosition[     43650,       1121]
+NotebookOutlinePosition[     44541,       1156]
+CellTagsIndexPosition[     44498,       1153]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Header comments", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Title", ":", " ", "InheritOptions"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Context", ":", " ", "InheritOptions`"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Author", ":", " ", 
+      RowBox[{"Mark", " ", 
+       RowBox[{"A", ".", " ", "Caprio"}]}]}]}], ",", " ", 
+    RowBox[{"Department", " ", "of", " ", "Physics"}], ",", " ", 
+    RowBox[{"University", " ", "of", " ", "Notre", " ", "Dame"}]}], " ", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Summary", ":", " ", 
+     RowBox[{
+     "Option", " ", "value", " ", "inheritance", " ", "system", " ", "and", 
+      " ", "miscellaneous", " ", "option", " ", "processing", " ", 
+      RowBox[{"utilities", "."}]}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Copyright", ":", " ", 
+      RowBox[{"Copyright", " ", "2011"}]}]}], ",", " ", 
+    RowBox[{"Mark", " ", 
+     RowBox[{"A", ".", " ", "Caprio"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Package", " ", 
+     RowBox[{"Version", ":", " ", "2.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Mathematica", " ", 
+     RowBox[{"Version", ":", " ", "6.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"History", ":", "\[IndentingNewLine]", " ", 
+      RowBox[{"V1", ".0"}]}]}], ",", " ", 
+    RowBox[{"March", " ", "8"}], ",", " ", 
+    RowBox[{"2005.", "  ", "CPCPL", " ", "distribution", " ", "with", " ", 
+     RowBox[{"LevelScheme", ".", "\[IndentingNewLine]", " ", "V1"}], ".1"}], 
+    ",", " ", 
+    RowBox[{"July", " ", "8"}], ",", " ", 
+    RowBox[{"2005.", "  ", "Added", " ", 
+     RowBox[{"KnownOptions", ".", "  ", "MathSource"}], " ", 
+     RowBox[{"distribution", ".", "\[IndentingNewLine]", " ", "V1"}], ".2"}], 
+    ",", " ", 
+    RowBox[{"August", " ", "3"}], ",", " ", 
+    RowBox[{
+    "2007.", "  ", "Mathematica", " ", "6", " ", "compatibility", " ", 
+     "update", " ", "to", " ", "avoid", " ", "overwriting", " ", "Inherited", 
+     " ", "usage", " ", 
+     RowBox[{"message", ".", "\[IndentingNewLine]", "V1"}], ".21"}], ",", " ", 
+    RowBox[{"October", " ", "21"}], ",", " ", 
+    RowBox[{"2009.", "  ", "Documentation", " ", 
+     RowBox[{"update", ".", "\[IndentingNewLine]", "V2"}], ".0"}], ",", " ", 
+    RowBox[{"June", " ", "22"}], ",", " ", 
+    RowBox[{"2011.", " ", 
+     RowBox[{"DoForEach", "/", "TableForEach"}], " ", "iteration", " ", 
+     "replaced", " ", "with", " ", "simple", " ", 
+     RowBox[{"Do", "/", "Table"}], " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+       "requires", " ", "Mathematica", " ", "6", " ", "or", " ", "above"}], 
+       ")"}], ".", "\[IndentingNewLine]", "Restructured"}], " ", "to", " ", 
+     "load", " ", "from", " ", 
+     RowBox[{"init", ".", "m"}], " ", 
+     RowBox[{"file", ".", "  ", "Add"}], " ", "inheritance", " ", 
+     "descriptor", " ", 
+     RowBox[{"{", 
+      RowBox[{"parent", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"option1", "\[Rule]", "value1"}], ",", "..."}], "}"}], ",", 
+       "All"}], "}"}], " ", "for", " ", "override", " ", "of", " ", 
+     "specific", " ", "defaults", " ", "while", " ", "inheriting", " ", "all",
+      " ", 
+     RowBox[{"options", ".", "  ", "Modify"}], " ", "RealizeOptions", " ", 
+     "to", " ", "work", " ", "also", " ", "for", " ", "symbol", " ", "with", 
+     " ", "no", " ", 
+     RowBox[{"OptionInheritanceRules", ".", "  ", "Undocument"}], " ", 
+     "function", " ", "GetAutoOption", " ", "as", " ", "unrelated", " ", "to",
+      " ", 
+     RowBox[{"inheritance", "."}]}]}], "\[IndentingNewLine]", 
+   "*)"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.39515135475*^9, 3.395151401078125*^9}, 
+   3.395151439953125*^9, {3.4651411559375*^9, 3.4651411881875*^9}, {
+   3.497222810421875*^9, 3.497222810640625*^9}, {3.51482474415625*^9, 
+   3.514824748984375*^9}, {3.515011203609375*^9, 3.5150112365*^9}, {
+   3.51509987978125*^9, 3.515099890140625*^9}, {3.51509992153125*^9, 
+   3.51509997403125*^9}, {3.515100055*^9, 3.515100073703125*^9}, {
+   3.515100143578125*^9, 3.515100148515625*^9}, {3.515100188046875*^9, 
+   3.51510022671875*^9}, {3.515100262765625*^9, 3.5151002638125*^9}, 
+   3.51510031428125*^9, {3.515100387578125*^9, 3.51510038809375*^9}, {
+   3.515100821671875*^9, 3.51510085359375*^9}, {3.515274537421875*^9, 
+   3.51527456646875*^9}, 3.515792955828125*^9, {3.5157946894375*^9, 
+   3.515794735703125*^9}, {3.515948645390625*^9, 3.515948654*^9}, {
+   3.5159506878125*^9, 3.515950688484375*^9}, {3.517751860875*^9, 
+   3.517751868578125*^9}, {3.5177587135625*^9, 3.51775874075*^9}, {
+   3.51775916215625*^9, 3.517759228*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin package", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Package context definition", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", "\"\<InheritOptions`\>\"", "]"}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.395087747453125*^9, 3.39508775096875*^9}, {
+   3.39509064290625*^9, 3.395090643234375*^9}, 3.395090710546875*^9, {
+   3.395091175015625*^9, 3.395091179703125*^9}, {3.395093472375*^9, 
+   3.39509347784375*^9}, {3.395093608140625*^9, 3.3950936085*^9}, {
+   3.395519039875*^9, 3.395519061546875*^9}, {3.495041989453125*^9, 
+   3.495042010953125*^9}, {3.495042158078125*^9, 3.495042163671875*^9}, {
+   3.497222416421875*^9, 3.497222462578125*^9}, {3.497222963890625*^9, 
+   3.497222994640625*^9}, 3.497223030953125*^9, {3.514818766734375*^9, 
+   3.514818800625*^9}, {3.5148197104375*^9, 3.514819710671875*^9}, {
+   3.514819841546875*^9, 3.51481994284375*^9}, {3.514819979578125*^9, 
+   3.514820025046875*^9}, {3.5148201316875*^9, 3.514820154671875*^9}, {
+   3.51482025234375*^9, 3.514820275171875*^9}, {3.514820309703125*^9, 
+   3.514820406921875*^9}, {3.51482051775*^9, 3.514820571328125*^9}, {
+   3.514820843296875*^9, 3.51482087146875*^9}, 3.51482140903125*^9, {
+   3.514821446859375*^9, 3.514821449890625*^9}, 3.514821641390625*^9, {
+   3.514821674609375*^9, 3.514821798390625*^9}, {3.514823407859375*^9, 
+   3.514823433140625*^9}, 3.51501104184375*^9, {3.51501128253125*^9, 
+   3.515011288703125*^9}, 3.515100855625*^9, 3.515274570375*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Usage messages", "Subsection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"KnownOptions", "::", "usage"}], "=", 
+   "\"\<KnownOptions[symbol] returns a sorted list of known options for \
+symbol.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"KnownOption", "::", "usage"}], "=", 
+   "\"\<KnownOption[symbol,option] returns true if option is a known option \
+for symbol.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"FlatOptionListQ", "::", "usage"}], "=", 
+   "\"\<FlatOptionListQ[x] returns True if x is a flat list of option \
+specifications, i.e., rules matching \
+(_Symbol\[Rule]_)|(_Symbol\[RuleDelayed]_).  It is thus more specific than \
+the standard OptionQ.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OptionsSort", "::", "usage"}], "=", 
+   "\"\<OptionsSort[options] flattens an option specification and sorts by \
+option name.  Order is preserved for rules for the same option.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OptionsUnion", "::", "usage"}], "=", 
+   "\"\<OptionsUnion[options] flattens an option specification and sorts by \
+option name.   Only the first rule for each option is preserved.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DuplicatedOptions", "::", "usage"}], "=", 
+   "\"\<DuplicatedOptions[options] returns a list of all options which are \
+specified more than once in options.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"GetAutoOption", "::", "usage"}], "=", 
+   "\"\<GetAutoOption[option,default,optionlist] retrieves the value for \
+option specified in optionlist, substituting defaultvalue if option value is \
+Automatic.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DefineOptions", "::", "usage"}], "=", 
+   "\"\<DefineOptions[symbol,{parent,{inheritedoption,...}},...,{newoption->\
+value,...}] set up option iheritance for symbol.  The value All may be given \
+instead of an explicit list of inherited options.  An inherited option may be \
+given as a rule, in which case the default value is not Inherited.  \
+DefineOptions defines Options and OptionParents values for symbol.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"RealizeOptions", "::", "usage"}], "=", 
+   "\"\<RealizeOptions[symbol] produces a list (flattened, sorted, and with \
+duplicate option specifications eliminated) of option value rules for symbol, \
+with any options given to RealizeOptions taking precedence over \
+Options[symbol].  Option values are inherited if appropriate.  Checks for \
+illegal inheritance and unknown options are carried out if these were enabled \
+when option inheritance was originally set up for symbol.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OptionInheritanceRules", "::", "usage"}], "=", 
+   "\"\<OptionInheritanceRules[symbol] is a list or dispatch table of rules \
+for realizing the inherited option values for symbol and checking option \
+validity.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Inherited", "::", "reusage"}], "=", 
+    "\"\<Option value indicating the actual value used should be inherited.\>\
+\""}], ";"}], " ", 
+  RowBox[{"(*", "System`", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrapUninheritableOptions", "::", "usage"}], "=", 
+   "\"\<Option for DefineOptions\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrapUnknownOptions", "::", "usage"}], "=", 
+   "\"\<Option for DefineOptions\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$UninheritableOption", "::", "usage"}], "=", 
+   "\"\<Global variable containing error handler function for attempt to \
+inherit option which does not come from any parent.  Arguments are object \
+name, option name, and full rule.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$UnknownOption", "::", "usage"}], "=", 
+   "\"\<Global variable containing error handler function for presence of \
+option which is not defined for object.  Arguments are object name, option \
+name, and full rule.\>\""}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.3951513299375*^9, 3.3951513399375*^9}, {
+   3.4651411414375*^9, 3.4651411510625*^9}, {3.514825786484375*^9, 
+   3.514825786796875*^9}, 3.515948677203125*^9, {3.515950196109375*^9, 
+   3.515950196421875*^9}, 3.51775827090625*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Error messages", "Subsection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"DefineOptions", "::", "badparent"}], "=", 
+    "\"\<Symbol `1` cannot be used as a parent for option inheritance, since \
+its option list is not valid or was not defined using DefineOptions.\>\""}], 
+   ";"}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"DefineOptions", "::", "undef"}], "=", 
+    "\"\<Option `2` is not defined for parent symbol `1`.\>\""}], ";"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"DefineOptions", "::", "duplicate"}], "=", 
+    "\"\<Symbol has been given multiple definitions of option `1`.\>\""}], 
+   ";"}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"General", "::", "uninheritopt"}], "=", 
+    "\"\<Option `2` is not an inheritable option for `1`.\>\""}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"alternative", " ", "to", " ", 
+    RowBox[{"standard", " ", "::", "optx"}]}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"General", "::", "unknownopt"}], "=", 
+    "\"\<Unknown option `2` specified for `1`.\>\""}], ";"}], " "}]}], "Input",\
+
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin private context", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.514823442859375*^9, 3.5148234431875*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Dependencies", "Subsection",
+ CellChangeTimes->{{3.514821147359375*^9, 3.51482114978125*^9}}],
+
+Cell[BoxData[""], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.51482113128125*^9, 3.514821158515625*^9}, {
+  3.514823452421875*^9, 3.51482349575*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Option testing", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"KnownOptions", "[", "Object_Symbol", "]"}], ":=", 
+   RowBox[{"Union", "[", 
+    RowBox[{"First", "/@", 
+     RowBox[{"Options", "[", "Object", "]"}]}], "]"}]}], ";", 
+  RowBox[{
+   RowBox[{"KnownOption", "[", 
+    RowBox[{"Object_Symbol", ",", "Option_Symbol"}], "]"}], ":=", 
+   RowBox[{"MemberQ", "[", 
+    RowBox[{
+     RowBox[{"KnownOptions", "[", "Object", "]"}], ",", "Option"}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"KnownOption", "[", 
+  RowBox[{"Plot", ",", "Frame"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"KnownOption", "[", 
+  RowBox[{"Plot", ",", "Disk"}], "]"}]}], "Input"],
+
+Cell[BoxData["True"], "Output"],
+
+Cell[BoxData["False"], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"FlatOptionListQ", "[", "x_", "]"}], ":=", 
+   RowBox[{"MatchQ", "[", 
+    RowBox[{"x", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"_Symbol", "\[Rule]", "_"}], ")"}], "|", 
+         RowBox[{"(", 
+          RowBox[{"_Symbol", "\[RuleDelayed]", "_"}], ")"}]}], ")"}], "..."}],
+       "}"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"FlatOptionListQ", "[", 
+  RowBox[{"Options", "[", "Plot", "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"FlatOptionListQ", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"a", "\[Rule]", "1"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"b", "\[Rule]", "2"}], "}"}]}], "}"}], "]"}]}], "Input"],
+
+Cell[BoxData["True"], "Output"],
+
+Cell[BoxData["False"], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Option sorting and union", "Section"],
+
+Cell["\<\
+Option union cannot be based on plain Union, since order of rules for same \
+option must be preserved regardless of option value.  Union apparently does \
+canonical sort before comparison, contrary to what documentation would imply. \
+ A successful union must either be an unsorted union, as described in the \
+documentation examples, or a proper option sort compounded with duplicate \
+adjacent element elimination with Split. Timing tests indicate the sort with \
+adjacent element removal to be fastest.  Possible issue: In principle, \
+Mathematica\[CloseCurlyQuote]s Sort is not order-preserving for equivalent \
+entries, but in practice this has not been found to cause issues in the \
+present use.\
+\>", "Text",
+ CellChangeTimes->{{3.515950589671875*^9, 3.515950668359375*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"OptionsSort", "[", 
+    RowBox[{"Opts___", "?", "OptionQ"}], "]"}], ":=", 
+   RowBox[{"Sort", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", 
+      RowBox[{"{", "Opts", "}"}], "]"}], ",", 
+     RowBox[{
+      RowBox[{"OrderedQ", "[", 
+       RowBox[{"First", "/@", 
+        RowBox[{"{", 
+         RowBox[{"#1", ",", "#2"}], "}"}]}], "]"}], "&"}]}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"OptionsSort", "[", 
+  RowBox[{
+   RowBox[{"b", "\[Rule]", "5"}], ",", 
+   RowBox[{"a", "\[Rule]", "2"}], ",", 
+   RowBox[{"a", "\[Rule]", "1"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"a", "\[Rule]", "2"}], ",", 
+   RowBox[{"a", "\[Rule]", "1"}], ",", 
+   RowBox[{"b", "\[Rule]", "5"}]}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"OptionsUnion", "[", 
+    RowBox[{"Opts___", "?", "OptionQ"}], "]"}], ":=", 
+   RowBox[{"First", "/@", 
+    RowBox[{"Split", "[", 
+     RowBox[{
+      RowBox[{"OptionsSort", "[", "Opts", "]"}], ",", 
+      RowBox[{
+       RowBox[{"SameQ", "[", 
+        RowBox[{
+         RowBox[{"First", "[", "#1", "]"}], ",", 
+         RowBox[{"First", "[", "#2", "]"}]}], "]"}], "&"}]}], "]"}]}]}], 
+  ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"OptionsUnion", "[", 
+  RowBox[{
+   RowBox[{"b", "\[Rule]", "5"}], ",", 
+   RowBox[{"a", "\[Rule]", "2"}], ",", 
+   RowBox[{"a", "\[Rule]", "1"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"a", "\[Rule]", "2"}], ",", 
+   RowBox[{"b", "\[Rule]", "5"}]}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DuplicatedOptions", "[", 
+    RowBox[{"Opts___", "?", "OptionQ"}], "]"}], ":=", 
+   RowBox[{"First", "/@", 
+    RowBox[{"First", "/@", 
+     RowBox[{"Select", "[", 
+      RowBox[{
+       RowBox[{"Split", "[", 
+        RowBox[{
+         RowBox[{"OptionsSort", "[", "Opts", "]"}], ",", 
+         RowBox[{
+          RowBox[{"SameQ", "[", 
+           RowBox[{
+            RowBox[{"First", "[", "#1", "]"}], ",", 
+            RowBox[{"First", "[", "#2", "]"}]}], "]"}], "&"}]}], "]"}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"Length", "[", "#", "]"}], ">", "1"}], ")"}], "&"}]}], 
+      "]"}]}]}]}], ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DuplicatedOptions", "[", 
+  RowBox[{
+   RowBox[{"b", "\[Rule]", "5"}], ",", 
+   RowBox[{"c", "\[Rule]", "7"}], ",", 
+   RowBox[{"a", "\[Rule]", "2"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a", "\[Rule]", "1"}], ",", 
+     RowBox[{"c", "\[Rule]", "3"}]}], "}"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"a", ",", "c"}], "}"}]], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Automatic option utility", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"GetAutoOption", "[", 
+    RowBox[{"Option_Symbol", ",", "DefaultValue_", ",", 
+     RowBox[{"FullOpts_", "?", "FlatOptionListQ"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "Value", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Value", "=", 
+       RowBox[{"(", 
+        RowBox[{"Option", "/.", "FullOpts"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", " ", "[", 
+       RowBox[{
+        RowBox[{"Value", "===", "Automatic"}], ",", "DefaultValue", ",", 
+        "Value"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",\
+
+ InitializationCell->True,
+ CellChangeTimes->{{3.515948694765625*^9, 3.515948697078125*^9}, {
+  3.515950130328125*^9, 3.515950132859375*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Inheritance setup", "Section"],
+
+Cell["\<\
+Use of Block on global functions is to avoid awkward problems with RuleDelayed.
+Use of Option:>InheritOption[Parent,Option] would fail to properly substitute \
+in the desired symbols for Parent and Option, since all evaluation is \
+suspended.
+But use of Option->InheritOption[Parent,Option] results in problems since \
+evaluation of InheritOption will occur whenever the replacement list is \
+evaluated.
+So use RuleDelayed with forced evaluation of RHS while still inside Block.
+When processing user-defined options, care must be taken to never evaluate \
+the RHS of a RuleDelayed.
+
+Alternatives on LHS of rules inhibits construction of Dispatch table.  Thus, \
+inheritance rules for Object->Inherited and Object:>Inherited are enumerated \
+separately.  The presence of the unknown option error trapping rule at the \
+end does not seem to inhibit construction of a dispatch table.\
+\>", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "DefineOptions", "]"}], "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"TrapUninheritableOptions", "\[Rule]", "True"}], ",", 
+     RowBox[{"TrapUnknownOptions", "\[Rule]", "True"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DefineOptions", "[", "\[IndentingNewLine]", 
+    RowBox[{"Object_Symbol", ",", "\[IndentingNewLine]", 
+     RowBox[{"RawInheritanceSeq", ":", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_Symbol", ",", 
+          RowBox[{"Repeated", "[", 
+           RowBox[{"_List", ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "1"}], "}"}]}], "]"}], ",", 
+          RowBox[{"Repeated", "[", 
+           RowBox[{"All", ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "1"}], "}"}]}], "]"}]}], "}"}], "..."}], 
+       ")"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"RawNewOptions", ":", 
+      RowBox[{"{", 
+       RowBox[{"___", "?", "OptionQ"}], "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Opts___", "?", "OptionQ"}]}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"FullOpts", "=", 
+        RowBox[{"Flatten", "[", 
+         RowBox[{"{", 
+          RowBox[{"Opts", ",", 
+           RowBox[{"Options", "[", "DefineOptions", "]"}]}], "}"}], "]"}]}], 
+       ",", "\[IndentingNewLine]", 
+       RowBox[{"RawInheritanceList", "=", 
+        RowBox[{"{", "RawInheritanceSeq", "}"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"NewOptions", "=", 
+        RowBox[{"Flatten", "[", "RawNewOptions", "]"}]}], ",", 
+       "\[IndentingNewLine]", "InheritanceArgument", ",", "Parent", ",", 
+       "OptionList", ",", "AllFlag", ",", "Option", ",", 
+       "\[IndentingNewLine]", "InheritanceList", ",", "ObjectOptions", ",", 
+       "BasicInheritanceRules", ",", "ErrorTrapRules", ",", "FullRule"}], 
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Catch", "[", "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+        "audit", " ", "and", " ", "expand", " ", "inheritance", " ", "list"}],
+         " ", "*)"}], "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"InheritanceList", "=", 
+         RowBox[{"Table", "[", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"(*", " ", 
+           RowBox[{"break", " ", "down", " ", "raw", " ", "pair"}], " ", 
+           "*)"}], "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"Parent", ",", "OptionList", ",", "AllFlag"}], "}"}], 
+             "=", 
+             RowBox[{"Replace", "[", "\[IndentingNewLine]", 
+              RowBox[{"InheritanceArgument", ",", "\[IndentingNewLine]", 
+               RowBox[{"{", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"s_Symbol", ",", 
+                    RowBox[{"l_List:", 
+                    RowBox[{"{", "}"}]}], ",", "All"}], "}"}], ":>", 
+                  RowBox[{"{", 
+                   RowBox[{"s", ",", "l", ",", "True"}], "}"}]}], ",", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"s_Symbol", ",", 
+                    RowBox[{"l_List:", 
+                    RowBox[{"{", "}"}]}]}], "}"}], ":>", 
+                  RowBox[{"{", 
+                   RowBox[{"s", ",", "l", ",", "False"}], "}"}]}]}], 
+                "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", 
+              "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"(*", " ", 
+             RowBox[{"audit", " ", "parent", " ", "option", " ", "list"}], 
+             " ", "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"If", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"!", 
+               RowBox[{"FlatOptionListQ", "[", 
+                RowBox[{"Options", "[", "Parent", "]"}], "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Message", "[", 
+                RowBox[{
+                 RowBox[{"DefineOptions", "::", "badparent"}], ",", 
+                 "Parent"}], "]"}], ";", 
+               RowBox[{"Throw", "[", "Null", "]"}]}]}], "\[IndentingNewLine]",
+              "]"}], ";", "\[IndentingNewLine]", 
+            RowBox[{"If", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"!", 
+               RowBox[{"MatchQ", "[", 
+                RowBox[{
+                 RowBox[{"OptionInheritanceRules", "[", "Parent", "]"}], ",", 
+                 
+                 RowBox[{"_List", "|", "_Dispatch"}]}], "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Message", "[", 
+                RowBox[{
+                 RowBox[{"DefineOptions", "::", "badparent"}], ",", 
+                 "Parent"}], "]"}], ";", 
+               RowBox[{"Throw", "[", "Null", "]"}]}]}], "\[IndentingNewLine]",
+              "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"(*", " ", 
+             RowBox[{
+              RowBox[{
+              "append", " ", "all", " ", "parent", " ", "option", " ", 
+               "names", " ", "to", " ", "list", " ", "of", " ", "options"}], 
+              ",", " ", 
+              RowBox[{"if", " ", "All", " ", "specified"}]}], " ", "*)"}], 
+            "\[IndentingNewLine]", 
+            RowBox[{"OptionList", "=", 
+             RowBox[{"Join", "[", 
+              RowBox[{"OptionList", ",", 
+               RowBox[{"If", "[", 
+                RowBox[{"AllFlag", ",", 
+                 RowBox[{"First", "/@", 
+                  RowBox[{"Options", "[", "Parent", "]"}]}], ",", 
+                 RowBox[{"{", "}"}]}], "]"}]}], "]"}]}], ";", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"(*", " ", 
+             RowBox[{
+             "expand", " ", "plain", " ", "option", " ", "names", " ", "to", 
+              " ", "rules", " ", "with", " ", "value", " ", "Inherited"}], 
+             " ", "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"OptionList", "=", 
+             RowBox[{"Replace", "[", 
+              RowBox[{"OptionList", ",", 
+               RowBox[{"Option_Symbol", "\[RuleDelayed]", 
+                RowBox[{"(", 
+                 RowBox[{"Option", "\[Rule]", "Inherited"}], ")"}]}], ",", 
+               RowBox[{"{", "1", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]",
+             "\[IndentingNewLine]", 
+            RowBox[{"(*", " ", 
+             RowBox[{
+              RowBox[{"remove", " ", "redundancies"}], ",", " ", 
+              RowBox[{"e", ".", "g", "."}], ",", " ", 
+              RowBox[{
+               RowBox[{"from", " ", "a", " ", "default"}], "-", 
+               RowBox[{
+               "value", " ", "override", " ", "followed", " ", "by", " ", 
+                "All"}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"OptionList", "=", 
+             RowBox[{"OptionsUnion", "[", "OptionList", "]"}]}], ";", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"(*", " ", 
+             RowBox[{
+             "check", " ", "that", " ", "all", " ", "options", " ", "are", 
+              " ", "inheritable", " ", "from", " ", "parent"}], " ", "*)"}], 
+            "\[IndentingNewLine]", 
+            RowBox[{"Do", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"If", "[", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"!", 
+                 RowBox[{"KnownOption", "[", 
+                  RowBox[{"Parent", ",", "Option"}], "]"}]}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"Message", "[", 
+                  RowBox[{
+                   RowBox[{"DefineOptions", "::", "undef"}], ",", "Parent", 
+                   ",", "Option"}], "]"}], ";", 
+                 RowBox[{"Throw", "[", "Null", "]"}]}]}], 
+               "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"{", 
+               RowBox[{"Option", ",", 
+                RowBox[{"First", "/@", "OptionList"}]}], "}"}]}], 
+             "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+            "\[IndentingNewLine]", 
+            RowBox[{"(*", " ", 
+             RowBox[{"return", " ", "completed", " ", "pair"}], " ", "*)"}], 
+            "\[IndentingNewLine]", 
+            RowBox[{"{", 
+             RowBox[{"Parent", ",", "OptionList"}], "}"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"InheritanceArgument", ",", "RawInheritanceList"}], 
+            "}"}]}], "\[IndentingNewLine]", "]"}]}], ";", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"construct", " ", "full", " ", "option", " ", "list"}], " ", 
+         "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+          RowBox[{
+          "combine", " ", "inherited", " ", "and", " ", "new", " ", 
+           "options"}], ",", " ", 
+          RowBox[{"without", " ", "duplicate", " ", "elimination"}]}], " ", 
+         "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"ObjectOptions", "=", 
+         RowBox[{"OptionsSort", "[", 
+          RowBox[{
+           RowBox[{"Last", "/@", "InheritanceList"}], ",", "NewOptions"}], 
+          "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"check", " ", "for", " ", "duplicated", " ", "options"}], 
+         " ", "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Message", "[", 
+            RowBox[{
+             RowBox[{"DefineOptions", "::", "duplicate"}], ",", "Option"}], 
+            "]"}], ";", 
+           RowBox[{"Throw", "[", "Null", "]"}]}], ",", "\[IndentingNewLine]", 
+          
+          RowBox[{"{", 
+           RowBox[{"Option", ",", 
+            RowBox[{"DuplicatedOptions", "[", "ObjectOptions", "]"}]}], 
+           "}"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+        
+        RowBox[{"(*", " ", 
+         RowBox[{"save", " ", "resulting", " ", "options", " ", "list"}], " ",
+          "*)"}], "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Options", "[", "Object", "]"}], "=", "ObjectOptions"}], ";",
+         "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"construct", " ", "inheritance", " ", "rules"}], " ", "*)"}],
+         "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+         "Rule", " ", "and", " ", "RuleDelay", " ", "in", " ", "each", " ", 
+          "case", " ", "treated", " ", "separately", " ", "to", " ", 
+          "facilitate", " ", "construction", " ", "of", " ", "Dispatch", " ", 
+          "table"}], " ", "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"Block", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+           "InheritOption", ",", "$UninheritableOption", ",", 
+            "$UnknownOption"}], "}"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"BasicInheritanceRules", "=", 
+            RowBox[{"Table", "[", "\[IndentingNewLine]", 
+             RowBox[{"(*", " ", 
+              RowBox[{"break", " ", "down", " ", "pair"}], " ", "*)"}], 
+             "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"Parent", ",", "OptionList"}], "}"}], "=", "Pair"}], 
+               ";", "\[IndentingNewLine]", 
+               RowBox[{"OptionList", "=", 
+                RowBox[{"First", "/@", "OptionList"}]}], ";", 
+               "\[IndentingNewLine]", 
+               RowBox[{"(*", " ", 
+                RowBox[{
+                "return", " ", "list", " ", "of", " ", "rule", " ", 
+                 "transformation"}], " ", "*)"}], "\[IndentingNewLine]", 
+               RowBox[{"Table", "[", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"{", "\[IndentingNewLine]", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"Option", "\[Rule]", "Inherited"}], ")"}], 
+                    "\[RuleDelayed]", 
+                    RowBox[{"Evaluate", "[", 
+                    RowBox[{"InheritOption", "[", 
+                    RowBox[{"Parent", ",", "Option"}], "]"}], "]"}]}], ",", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"Option", "\[RuleDelayed]", "Inherited"}], ")"}], 
+                    "\[RuleDelayed]", 
+                    RowBox[{"Evaluate", "[", 
+                    RowBox[{"InheritOption", "[", 
+                    RowBox[{"Parent", ",", "Option"}], "]"}], "]"}]}]}], 
+                  "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"{", 
+                  RowBox[{"Option", ",", "OptionList"}], "}"}]}], 
+                "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+              RowBox[{"{", 
+               RowBox[{"Pair", ",", "InheritanceList"}], "}"}]}], 
+             "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"ErrorTrapRules", "=", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"If", "[", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"TrapUninheritableOptions", "/.", "FullOpts"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"Table", "[", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"{", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"FullRule", ":", 
+                    RowBox[{"(", 
+                    RowBox[{"Option", "\[Rule]", "Inherited"}], ")"}]}], 
+                    "\[RuleDelayed]", 
+                    RowBox[{"Evaluate", "[", 
+                    RowBox[{"$UninheritableOption", "[", 
+                    RowBox[{"Object", ",", "Option", ",", "FullRule"}], "]"}],
+                     "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"FullRule", ":", 
+                    RowBox[{"(", 
+                    RowBox[{"Option", "\[RuleDelayed]", "Inherited"}], 
+                    ")"}]}], "\[RuleDelayed]", 
+                    RowBox[{"Evaluate", "[", 
+                    RowBox[{"$UninheritableOption", "[", 
+                    RowBox[{"Object", ",", "Option", ",", "FullRule"}], "]"}],
+                     "]"}]}]}], "\[IndentingNewLine]", "}"}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"{", 
+                   RowBox[{"Option", ",", 
+                    RowBox[{"First", "/@", "NewOptions"}]}], "}"}]}], 
+                 "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+                RowBox[{"{", "}"}]}], "\[IndentingNewLine]", "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"TrapUnknownOptions", "/.", "FullOpts"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"FullRule", ":", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"Option_Symbol", "\[Rule]", "Value_"}], ")"}], 
+                    "|", 
+                    RowBox[{"(", 
+                    RowBox[{"Option_Symbol", "\[RuleDelayed]", "Value_"}], 
+                    ")"}]}], ")"}]}], "/;", 
+                  RowBox[{"!", 
+                   RowBox[{"KnownOption", "[", 
+                    RowBox[{"Object", ",", "Option"}], "]"}]}]}], 
+                 "\[RuleDelayed]", 
+                 RowBox[{"Evaluate", "[", 
+                  RowBox[{"$UnknownOption", "[", 
+                   RowBox[{"Object", ",", "Option", ",", "FullRule"}], "]"}], 
+                  "]"}]}], ",", "\[IndentingNewLine]", 
+                RowBox[{"{", "}"}]}], "\[IndentingNewLine]", "]"}]}], 
+             "\[IndentingNewLine]", "}"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"OptionInheritanceRules", "[", "Object", "]"}], "^=", 
+            RowBox[{"Dispatch", "[", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{"{", 
+               RowBox[{"BasicInheritanceRules", ",", "ErrorTrapRules"}], 
+               "}"}], "]"}], "]"}]}]}]}], "\[IndentingNewLine]", "]"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", "Null"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.514825787125*^9, 3.514825787390625*^9}, {
+  3.515100170203125*^9, 3.51510017371875*^9}, {3.51579302325*^9, 
+  3.515793065296875*^9}, {3.51579324565625*^9, 3.515793246234375*^9}, {
+  3.5157939144375*^9, 3.5157939225*^9}, {3.515794430453125*^9, 
+  3.515794493796875*^9}, {3.515794549421875*^9, 3.51579468090625*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Option realization", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"InheritOption", "[", 
+    RowBox[{"Parent_Symbol", ",", "Option_Symbol"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ParentRule", ",", "ParentValue"}], "}"}], ",", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"extract", " ", 
+       RowBox[{"parent", "'"}], "s", " ", "rule", " ", "for", " ", "option"}],
+       " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"ParentRule", "=", 
+       RowBox[{"First", "[", 
+        RowBox[{"Cases", "[", 
+         RowBox[{
+          RowBox[{"Options", "[", "Parent", "]"}], ",", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"Option", "\[Rule]", "_"}], ")"}], "|", 
+           RowBox[{"(", 
+            RowBox[{"Option", "\[RuleDelayed]", "_"}], ")"}]}], ",", 
+          RowBox[{"{", "1", "}"}], ",", "1"}], "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "check", " ", "whether", " ", "parent", " ", "again", " ", 
+        "inherits"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "Hold", " ", "is", " ", "to", " ", "avoid", " ", "direct", " ", 
+        "evaluation", " ", "in", " ", "case", " ", "of", " ", "RuleDelayed", 
+        " ", "with", " ", "side", " ", "effects"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"ParentValue", "=", 
+       RowBox[{"Extract", "[", 
+        RowBox[{"ParentRule", ",", 
+         RowBox[{"{", "2", "}"}], ",", "Hold"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"ParentValue", "===", 
+         RowBox[{"Hold", "[", "Inherited", "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Replace", "[", 
+         RowBox[{
+          RowBox[{"Option", "\[Rule]", "Inherited"}], ",", 
+          RowBox[{"OptionInheritanceRules", "[", "Parent", "]"}]}], "]"}], 
+        ",", "\[IndentingNewLine]", "ParentRule"}], "\[IndentingNewLine]", 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{3.514825787609375*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"$UninheritableOption", "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Object", ",", "Option", ",", "FullRule"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"Message", "[", 
+       RowBox[{
+        RowBox[{"Object", "::", "uninheritopt"}], ",", "Object", ",", 
+        "Option"}], "]"}], ";", "FullRule"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$UnknownOption", "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Object", ",", "Option", ",", "FullRule"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"Message", "[", 
+       RowBox[{
+        RowBox[{"Object", "::", "unknownopt"}], ",", "Object", ",", 
+        "Option"}], "]"}], ";", "FullRule"}]}], "]"}]}], ";"}]}], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"RealizeOptions", "[", 
+    RowBox[{"Object_Symbol", ",", 
+     RowBox[{"Opts___", "?", "OptionQ"}]}], "]"}], ":=", 
+   RowBox[{"Replace", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"OptionsUnion", "[", 
+      RowBox[{"Opts", ",", 
+       RowBox[{"Options", "[", "Object", "]"}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Head", "[", 
+         RowBox[{"OptionInheritanceRules", "[", "Object", "]"}], "]"}], "===",
+         "OptionInheritanceRules"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"OptionInheritanceRules", "[", "Object", "]"}]}], 
+      "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", "1", "}"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.51482578784375*^9, {3.517759018765625*^9, 3.517759041484375*^9}, {
+   3.5177590805*^9, 3.517759131171875*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["End package", "Section",
+ CellChangeTimes->{{3.514823047703125*^9, 3.51482305353125*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Exit private context", "Subsection",
+ CellChangeTimes->{{3.514823086015625*^9, 3.5148231094375*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exit package context", "Subsection",
+ CellChangeTimes->{{3.514823092890625*^9, 3.51482312965625*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Protect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<$*\>\""}], "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->{"RulerBar", "EditBar"},
+WindowSize->{1272, 905},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], Inherited, 
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"]}, {
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"], Inherited, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+PageHeaderLines->{False, Inherited},
+PrintingOptions->{"FirstPageHeader"->False,
+"PrintingMargins"->{{36, 36}, {36, 36}}},
+ShowSelection->True,
+Magnification->1.25,
+FrontEndVersion->"8.0 for Microsoft Windows (32-bit) (November 7, 2010)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 34, 0, 88, "Section"],
+Cell[604, 24, 4999, 112, 388, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5640, 141, 32, 0, 88, "Section"],
+Cell[CellGroupData[{
+Cell[5697, 145, 48, 0, 46, "Subsection"],
+Cell[5748, 147, 1398, 22, 35, "Input",
+ InitializationCell->True],
+Cell[7149, 171, 184, 5, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7370, 181, 36, 0, 46, "Subsection"],
+Cell[7409, 183, 4467, 97, 850, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11913, 285, 36, 0, 46, "Subsection"],
+Cell[11952, 287, 1233, 36, 190, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13222, 328, 43, 0, 46, "Subsection"],
+Cell[13268, 330, 183, 4, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13488, 339, 99, 1, 46, "Subsection"],
+Cell[13590, 342, 163, 3, 35, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13802, 351, 33, 0, 88, "Section"],
+Cell[13838, 353, 489, 14, 58, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[14352, 371, 190, 4, 58, "Input"],
+Cell[14545, 377, 31, 0, 35, "Output"],
+Cell[14579, 379, 32, 0, 35, "Output"]
+}, Open  ]],
+Cell[14626, 382, 465, 15, 40, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[15116, 401, 311, 8, 58, "Input"],
+Cell[15430, 411, 31, 0, 35, "Output"],
+Cell[15464, 413, 32, 0, 35, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15545, 419, 43, 0, 88, "Section"],
+Cell[15591, 421, 792, 12, 97, "Text"],
+Cell[16386, 435, 452, 15, 35, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[16863, 454, 187, 5, 35, "Input"],
+Cell[17053, 461, 173, 5, 35, "Output"]
+}, Open  ]],
+Cell[17241, 469, 477, 15, 35, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[17743, 488, 188, 5, 35, "Input"],
+Cell[17934, 495, 133, 4, 35, "Output"]
+}, Open  ]],
+Cell[18082, 502, 726, 22, 58, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[18833, 528, 316, 9, 35, "Input"],
+Cell[19152, 539, 73, 2, 35, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19274, 547, 43, 0, 88, "Section"],
+Cell[19320, 549, 818, 21, 124, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20175, 575, 36, 0, 88, "Section"],
+Cell[20214, 577, 904, 16, 180, "Text"],
+Cell[21121, 595, 17368, 371, 2534, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38526, 971, 37, 0, 88, "Section"],
+Cell[38566, 973, 2263, 54, 352, "Input",
+ InitializationCell->True],
+Cell[40832, 1029, 827, 24, 58, "Input",
+ InitializationCell->True],
+Cell[41662, 1055, 1045, 26, 190, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42744, 1086, 95, 1, 88, "Section"],
+Cell[CellGroupData[{
+Cell[42864, 1091, 106, 1, 46, "Subsection"],
+Cell[42973, 1094, 96, 3, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43106, 1102, 107, 1, 46, "Subsection"],
+Cell[43216, 1105, 406, 12, 80, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -1,0 +1,678 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     23176,        669]
+NotebookOptionsPosition[     20870,        583]
+NotebookOutlinePosition[     21728,        617]
+CellTagsIndexPosition[     21685,        614]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Header comments", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Title", ":", " ", "ForEach"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Context", ":", " ", "ForEach`"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Author", ":", " ", 
+      RowBox[{"Mark", " ", 
+       RowBox[{"A", ".", " ", "Caprio"}]}]}]}], ",", " ", 
+    RowBox[{"Center", " ", "for", " ", "Theoretical", " ", "Physics"}], ",", 
+    " ", 
+    RowBox[{"Yale", " ", "University"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Summary", ":", " ", 
+     RowBox[{
+     "Control", " ", "structures", " ", "for", " ", "iteration", " ", "over", 
+      " ", "a", " ", "set", " ", "of", " ", 
+      RowBox[{"values", "."}]}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Copyright", ":", " ", 
+      RowBox[{"Copyright", " ", "2005"}]}]}], ",", " ", 
+    RowBox[{"Mark", " ", 
+     RowBox[{"A", ".", " ", "Caprio"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Package", " ", 
+     RowBox[{"Version", ":", " ", 
+      RowBox[{"1.2", "+"}]}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Mathematica", " ", 
+     RowBox[{"Version", ":", " ", "4.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"MathSource", " ", 
+     RowBox[{"Number", ":", " ", "5515"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"History", ":", "\[IndentingNewLine]", 
+      RowBox[{"V1", ".0"}]}]}], ",", " ", 
+    RowBox[{"January", " ", "12"}], ",", " ", 
+    RowBox[{"2005.", "\[IndentingNewLine]", "  ", "V1", ".1"}], ",", " ", 
+    RowBox[{"January", " ", "1"}], ",", " ", 
+    RowBox[{
+    "2006.", "  ", "Allow", " ", "multiplet", " ", "as", " ", "iteration", 
+     " ", 
+     RowBox[{"variable", ".", "\[IndentingNewLine]", "V1"}], ".2"}], ",", " ", 
+    RowBox[{"September", " ", "18"}], ",", " ", 
+    RowBox[{"2006.", "  ", "SumForEach"}], ",", " ", 
+    RowBox[{
+     RowBox[{"ProductForEach", ".", "\[IndentingNewLine]", "Context"}], " ", 
+     "changed", " ", "to", " ", "LevelScheme`", "*", 
+     RowBox[{".", "\[IndentingNewLine]", "August"}], " ", "5"}], ",", " ", 
+    RowBox[{
+    "2011.", " ", "Restructured", " ", "to", " ", "load", " ", "from", " ", 
+     RowBox[{"init", ".", "m"}], " ", 
+     RowBox[{"file", "."}]}]}], "\[IndentingNewLine]", "*)"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.497222788359375*^9, 3.497222788703125*^9}, {
+  3.52156079821875*^9, 3.521560811390625*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin package", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", "\"\<ForEach`\>\"", "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4972227915625*^9, 3.497222793234375*^9}, {
+  3.52156082196875*^9, 3.521560844625*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Messages", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Usage messages", "Subsection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoForEach", "::", "usage"}], "=", 
+   "\"\<DoForEach[Expr,{Var,ValueSet},...] or \
+DoForEach[Expr,{Var,CountVar,ValueSet},...] evaluates Expr for each value of \
+Var in the list ValueSet, optionally providing the index (1-based) for each \
+iteration in CountVar.  Last index varies most rapidly.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TableForEach", "::", "usage"}], "=", 
+   "\"\<TableForEach[Expr,{Var,ValueSet},...] or \
+TableForEach[Expr,{Var,CountVar,ValueSet},...]  returns a table of Expr, \
+evaluated for each value of Var in the list ValueSet, optionally providing \
+the index (1-based) for each iteration in CountVar.  Last index varies most \
+rapidly.  Lists are nested unless option Flatten is set to true.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SumForEach", "::", "usage"}], "=", 
+   "\"\<SumForEach[Expr,{Var,ValueSet},...] or \
+SumForEach[Expr,{Var,CountVar,ValueSet},...]  returns a sum of Expr, \
+evaluated for each value of Var in the list ValueSet, optionally providing \
+the index (1-based) for each iteration in CountVar.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ProductForEach", "::", "usage"}], "=", 
+   "\"\<ProductForEach[Expr,{Var,ValueSet},...] or \
+ProductForEach[Expr,{Var,CountVar,ValueSet},...]  returns a product of Expr, \
+evaluated for each value of Var in the list ValueSet, optionally providing \
+the index (1-based) for each iteration in CountVar.\>\""}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Error messages", "Subsection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoForEach", "::", "notlist"}], "=", 
+   "\"\<Value set must be a list (`1`).\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TableForEach", "::", "notlist"}], "=", 
+   "\"\<Value set must be a list (`1`).\>\""}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin private context", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Iteration structures", "Section"],
+
+Cell["\<\
+Note on reasons for and effects of HoldAll atrribute: 
+-- Must hold Expr until a value is defined for Var, inside the iteration \
+loop.  This is since preevaluation of Expr as an argument could lead to a \
+wrong value if Var has a global value or if evaluation of Expr gives a result \
+when Var is valueless.
+-- Must hold Var if Var has a global value.  Preevaluation of Var as an \
+argument would lead to pattern match failure if Var does not evaluate to have \
+head Symbol and would cause also cause the global value instead of the symbol \
+Var to be given to Block.  (Block has attribute HoldAll, so Var is safe from \
+this time on.)
+-- ValueSet is held as a consequence.  This is undesirable if it is desired \
+to create ValueSet from an expression, e.g., if the values are stored earlier \
+in a list, and the name of this list is given as the argument.  To allow such \
+invocations, ValueSet is left as a generic argument (not forced to be type \
+List) in the argument pattern and is then evaluated and checked for head list \
+internally to the function.
+
+The CountVar-free version is expressed in terms of the CountVar version by \
+use of a dummy, at slight cost in efficiency.  The single-index version could \
+be expressed in terms of the multiplet version by wrapping the single \
+variable and its values in lists, but this would be cumbersome.
+
+CountVar cannot be used directly as the index, since this would cause failure \
+if the same count variable were used in nested loops.  For the dummy in the \
+CountVar-free version, this could be circumvented by defining a new dummy \
+using Module for each recursive call.\
+\>", "Text"],
+
+Cell["DoForEach", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"DoForEach", ",", "HoldAll"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoForEach", "[", 
+    RowBox[{"Expr_", ",", 
+     RowBox[{"{", 
+      RowBox[{"Var_Symbol", ",", "CountVar_Symbol", ",", "ValueSet_"}], 
+      "}"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "ValueSet", "]"}], "=!=", "List"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"DoForEach", "::", "notlist"}], ",", "ValueSet"}], "]"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Block", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "CountVar", "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CountVar", "=", "i"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Block", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"{", "Var", "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"Var", "=", 
+               RowBox[{"ValueSet", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+              "Expr"}]}], "\[IndentingNewLine]", "]"}]}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", 
+            RowBox[{"Length", "[", "ValueSet", "]"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoForEach", "[", 
+    RowBox[{"Expr_", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"VarMultiplet", ":", 
+        RowBox[{"{", 
+         RowBox[{"_Symbol", ".."}], "}"}]}], ",", "CountVar_Symbol", ",", 
+       "ValueSet_"}], "}"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "ValueSet", "]"}], "=!=", "List"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"DoForEach", "::", "notlist"}], ",", "ValueSet"}], "]"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Block", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "CountVar", "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CountVar", "=", "i"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Block", "[", "\[IndentingNewLine]", 
+            RowBox[{"VarMultiplet", ",", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"VarMultiplet", "=", 
+               RowBox[{"ValueSet", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+              "Expr"}]}], "\[IndentingNewLine]", "]"}]}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", 
+            RowBox[{"Length", "[", "ValueSet", "]"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoForEach", "[", 
+    RowBox[{"Expr_", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Var", ":", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"_Symbol", ".."}], "}"}], "|", "_Symbol"}], ")"}]}], ",", 
+       "ValueSet_"}], "}"}]}], "]"}], ":=", 
+   RowBox[{"DoForEach", "[", 
+    RowBox[{"Expr", ",", 
+     RowBox[{"{", 
+      RowBox[{"Var", ",", "Dummy", ",", "ValueSet"}], "}"}]}], "]"}]}], ";", 
+  RowBox[{
+   RowBox[{"DoForEach", "[", 
+    RowBox[{
+    "Expr_", ",", "FirstIterator_List", ",", "RestIteratorSeq__List"}], "]"}],
+    ":=", 
+   RowBox[{"DoForEach", "[", 
+    RowBox[{
+     RowBox[{"DoForEach", "[", 
+      RowBox[{"Expr", ",", "RestIteratorSeq"}], "]"}], ",", "FirstIterator"}],
+     "]"}]}], ";"}]}], "Input",
+ InitializationCell->True],
+
+Cell["\<\
+TableForEach
+\tTableForEach with multiple iterators could have syntax ambiguities with an \
+option list which starts with a nested list if the strict test for a \
+multiplet of symbols were not applied.\
+\>", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "TableForEach", "]"}], "=", 
+   RowBox[{"{", 
+    RowBox[{"Flatten", "\[Rule]", "False"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"TableForEach", ",", "HoldAll"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TableForEach", "[", 
+    RowBox[{"Expr_", ",", 
+     RowBox[{"{", 
+      RowBox[{"Var_Symbol", ",", "CountVar_Symbol", ",", "ValueSet_"}], "}"}],
+      ",", 
+     RowBox[{"Opts___", "?", "OptionQ"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "ValueSet", "]"}], "=!=", "List"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"TableForEach", "::", "notlist"}], ",", "ValueSet"}], 
+         "]"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Block", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "CountVar", "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Table", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CountVar", "=", "i"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Block", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"{", "Var", "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"Var", "=", 
+               RowBox[{"ValueSet", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+              "Expr"}]}], "\[IndentingNewLine]", "]"}]}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", 
+            RowBox[{"Length", "[", "ValueSet", "]"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TableForEach", "[", 
+    RowBox[{"Expr_", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"VarMultiplet", ":", 
+        RowBox[{"{", 
+         RowBox[{"_Symbol", ".."}], "}"}]}], ",", "CountVar_Symbol", ",", 
+       "ValueSet_"}], "}"}], ",", 
+     RowBox[{"Opts___", "?", "OptionQ"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "ValueSet", "]"}], "=!=", "List"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"TableForEach", "::", "notlist"}], ",", "ValueSet"}], 
+         "]"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Block", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "CountVar", "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Table", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CountVar", "=", "i"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Block", "[", "\[IndentingNewLine]", 
+            RowBox[{"VarMultiplet", ",", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"VarMultiplet", "=", 
+               RowBox[{"ValueSet", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+              "Expr"}]}], "\[IndentingNewLine]", "]"}]}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", 
+            RowBox[{"Length", "[", "ValueSet", "]"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TableForEach", "[", 
+    RowBox[{"Expr_", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Var", ":", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"_Symbol", ".."}], "}"}], "|", "_Symbol"}], ")"}]}], ",", 
+       "ValueSet_"}], "}"}], ",", 
+     RowBox[{"Opts___", "?", "OptionQ"}]}], "]"}], ":=", 
+   RowBox[{"TableForEach", "[", 
+    RowBox[{"Expr", ",", 
+     RowBox[{"{", 
+      RowBox[{"Var", ",", "Dummy", ",", "ValueSet"}], "}"}], ",", "Opts"}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TableForEach", "[", "\[IndentingNewLine]", 
+    RowBox[{"Expr_", ",", "\[IndentingNewLine]", 
+     RowBox[{"FirstIterator", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"_Symbol", ".."}], "}"}], "|", "_Symbol"}], ")"}], ",", 
+        "__"}], "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"RestIteratorSeq", ":", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"_Symbol", ".."}], "}"}], "|", "_Symbol"}], ")"}], ",", 
+          "__"}], "}"}], ".."}], ")"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Opts___", "?", "OptionQ"}]}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"FullOpts", "=", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{"{", 
+         RowBox[{"Opts", ",", 
+          RowBox[{"Options", "[", "TableForEach", "]"}]}], "}"}], "]"}]}], 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"Flatten", "/.", "FullOpts"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{
+         RowBox[{"TableForEach", "[", 
+          RowBox[{
+           RowBox[{"TableForEach", "[", 
+            RowBox[{"Expr", ",", "RestIteratorSeq", ",", "Opts"}], "]"}], ",",
+            "FirstIterator"}], "]"}], ",", "1"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"TableForEach", "[", 
+        RowBox[{
+         RowBox[{"TableForEach", "[", 
+          RowBox[{"Expr", ",", "RestIteratorSeq"}], "]"}], ",", 
+         "FirstIterator"}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Sum and product functions", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"SumForEach", ",", "HoldAll"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SumForEach", "[", 
+    RowBox[{"Expr_", ",", "Iterators___"}], "]"}], ":=", 
+   RowBox[{"Plus", "@@", 
+    RowBox[{"TableForEach", "[", 
+     RowBox[{"Expr", ",", "Iterators", ",", 
+      RowBox[{"Flatten", "\[Rule]", "True"}]}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"ProductForEach", ",", "HoldAll"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ProductForEach", "[", 
+    RowBox[{"Expr_", ",", "Iterators___"}], "]"}], ":=", 
+   RowBox[{"Times", "@@", 
+    RowBox[{"TableForEach", "[", 
+     RowBox[{"Expr", ",", "Iterators", ",", 
+      RowBox[{"Flatten", "\[Rule]", "True"}]}], "]"}]}]}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["End private context", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["End package", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Protect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->"RulerBar",
+WindowSize->{1272, 902},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], Inherited, 
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"]}, {
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"], Inherited, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+PageHeaderLines->{False, Inherited},
+PrintingOptions->{"FirstPageHeader"->False,
+"PrintingMargins"->{{36, 36}, {36, 36}}},
+Magnification->1.25,
+FrontEndVersion->"8.0 for Microsoft Windows (32-bit) (February 23, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 34, 0, 88, "Section"],
+Cell[604, 24, 2814, 73, 344, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3455, 102, 32, 0, 88, "Section"],
+Cell[3490, 104, 234, 5, 35, "Input",
+ InitializationCell->True],
+Cell[3727, 111, 184, 5, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3948, 121, 27, 0, 88, "Section"],
+Cell[CellGroupData[{
+Cell[4000, 125, 36, 0, 46, "Subsection"],
+Cell[4039, 127, 1591, 33, 388, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5667, 165, 36, 0, 46, "Subsection"],
+Cell[5706, 167, 332, 10, 58, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6087, 183, 40, 0, 88, "Section"],
+Cell[6130, 185, 119, 3, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6286, 193, 39, 0, 88, "Section"],
+Cell[6328, 195, 1650, 27, 304, "Text"],
+Cell[7981, 224, 25, 0, 34, "Text"],
+Cell[8009, 226, 4638, 120, 1051, "Input",
+ InitializationCell->True],
+Cell[12650, 348, 225, 5, 55, "Text"],
+Cell[12878, 355, 6500, 168, 1303, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19415, 528, 44, 0, 88, "Section"],
+Cell[19462, 530, 904, 26, 102, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20403, 561, 38, 0, 88, "Section"],
+Cell[20444, 563, 96, 3, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20577, 571, 30, 0, 88, "Section"],
+Cell[20610, 573, 244, 7, 58, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -1,0 +1,588 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     21071,        579]
+NotebookOptionsPosition[     18628,        487]
+NotebookOutlinePosition[     19506,        522]
+CellTagsIndexPosition[     19463,        519]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Header comments", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Title", ":", " ", "NamedColors"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Context", ":", " ", "NamedColors`"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Author", ":", " ", 
+      RowBox[{"Mark", " ", 
+       RowBox[{"A", ".", " ", "Caprio"}]}]}]}], ",", " ", 
+    RowBox[{"Department", " ", "of", " ", "Physics"}], ",", " ", 
+    RowBox[{"University", " ", "of", " ", "Notre", " ", "Dame"}]}], " ", 
+   "*)"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Summary", ":", " ", 
+     RowBox[{
+     "Defines", " ", "legacy", " ", "color", " ", "names", " ", "for", " ", 
+      "use", " ", "with", " ", "Mathematica", " ", "6", " ", "and", " ", 
+      "above", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+        "except", " ", "those", " ", "names", " ", "which", " ", "conflict", 
+         " ", "with", " ", "Mathematica", " ", "6", " ", "kernel", " ", 
+         "colors"}], ")"}], ".", "  ", "Provides"}], " ", "a", " ", "color", 
+      " ", "selection", " ", "palette", " ", "for", " ", "the", " ", 
+      "combined", " ", "legacy", " ", "plus", " ", "Mathematica", " ", 
+      "kernel", " ", 
+      RowBox[{"colors", "."}]}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Copyright", ":", " ", 
+      RowBox[{"Copyright", " ", "2011"}]}]}], ",", " ", 
+    RowBox[{"Mark", " ", 
+     RowBox[{"A", ".", " ", "Caprio"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Package", " ", 
+     RowBox[{"Version", ":", " ", "1.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Mathematica", " ", 
+     RowBox[{"Version", ":", " ", "6.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"History", ":", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"History", " ", "for", " ", 
+          RowBox[{"LegacyColors", ":", " ", 
+           RowBox[{"V1", ".0"}]}]}], ",", " ", 
+         RowBox[{"August", " ", "2007.", " ", "V1", ".1"}], ",", " ", 
+         RowBox[{
+         "February", " ", "2009.", "  ", "Mathematica", " ", "7", " ", 
+          "compatibility", " ", 
+          RowBox[{"update", "."}]}]}], ")"}], "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"History", " ", "for", " ", 
+          RowBox[{"NamedColorPalette", ":", " ", 
+           RowBox[{"V1", ".0"}]}]}], ",", " ", 
+         RowBox[{"January", " ", "27"}], ",", 
+         RowBox[{"2006.", " ", "V1", ".1"}], ",", " ", 
+         RowBox[{"June", " ", "30"}], ",", " ", 
+         RowBox[{
+         "2007.", " ", "Manually", " ", "include", " ", "kernel", " ", 
+          "colors", " ", "removed", " ", "from", " ", "Graphics`Colors`", " ",
+           "to", " ", "kernel", " ", "in", " ", "Mathematica", " ", 
+          RowBox[{"5.1", ".", " ", "V2"}], ".0"}], ",", " ", 
+         RowBox[{"August", " ", "7"}], ",", " ", 
+         RowBox[{
+         "2007.", "  ", "Revision", " ", "for", " ", "Mathematica", " ", "6", 
+          " ", "kernel", " ", "plus", " ", "legacy", " ", 
+          RowBox[{"colors", "."}]}]}], ")"}], "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", "V1", ".0"}]}]}], ",", " ", 
+    RowBox[{"May", " ", "26"}], ",", " ", 
+    RowBox[{
+    "2011.", "  ", "Standalone", " ", "package", " ", "created", " ", "by", 
+     " ", "combining", " ", "LevelScheme", " ", 
+     RowBox[{"package", "'"}], "s", " ", "NamedColorPalette", " ", "and", " ",
+      "LegacyColors", " ", 
+     RowBox[{"subpackages", ".", "  ", "Updated"}], " ", "to", " ", "check", 
+     " ", "for", " ", "prior", " ", "definition", " ", "of", " ", "color", 
+     " ", "symbols"}], ",", " ", 
+    RowBox[{
+    "before", " ", "trying", " ", "again", " ", "to", " ", "assign", " ", 
+     "them"}], ",", " ", 
+    RowBox[{
+    "to", " ", "prevent", " ", "assignment", " ", "error", " ", "if", " ", 
+     "package", " ", "is", " ", "sourced", " ", "more", " ", "than", " ", 
+     RowBox[{"once", "."}]}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "*)"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.39551664334375*^9, {3.39551823253125*^9, 3.395518266859375*^9}, {
+   3.39551840971875*^9, 3.3955184148125*^9}, {3.4439941971875*^9, 
+   3.44399421721875*^9}, {3.4972228256875*^9, 3.4972228259375*^9}, {
+   3.51482121984375*^9, 3.5148212296875*^9}, {3.51527875453125*^9, 
+   3.51527876265625*^9}, {3.515361055640625*^9, 3.5153611055*^9}, {
+   3.51542148792225*^9, 3.515421579875375*^9}, {3.515421610594125*^9, 
+   3.51542161867225*^9}, {3.515421661812875*^9, 3.5154219673285*^9}, {
+   3.51542233685975*^9, 3.515422347156625*^9}, {3.51542238729725*^9, 
+   3.51542241517225*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin package", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Package context definition", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "BeginPackage", "[", "\[IndentingNewLine]", "\"\<NamedColors`\>\"", 
+   "\[IndentingNewLine]", "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.395087747453125*^9, 3.39508775096875*^9}, {
+   3.39509064290625*^9, 3.395090643234375*^9}, 3.395090710546875*^9, {
+   3.395091175015625*^9, 3.395091179703125*^9}, {3.395093472375*^9, 
+   3.39509347784375*^9}, {3.395093608140625*^9, 3.3950936085*^9}, {
+   3.395519039875*^9, 3.395519061546875*^9}, {3.495041989453125*^9, 
+   3.495042010953125*^9}, {3.495042158078125*^9, 3.495042163671875*^9}, {
+   3.497222416421875*^9, 3.497222462578125*^9}, {3.497222963890625*^9, 
+   3.497222994640625*^9}, 3.497223030953125*^9, {3.514818766734375*^9, 
+   3.514818800625*^9}, {3.5148197104375*^9, 3.514819710671875*^9}, {
+   3.514819841546875*^9, 3.51481994284375*^9}, {3.514819979578125*^9, 
+   3.514820025046875*^9}, {3.5148201316875*^9, 3.514820154671875*^9}, {
+   3.51482025234375*^9, 3.514820275171875*^9}, {3.514820309703125*^9, 
+   3.514820406921875*^9}, {3.51482051775*^9, 3.514820571328125*^9}, {
+   3.514820843296875*^9, 3.51482087146875*^9}, 3.51482140903125*^9, {
+   3.514821446859375*^9, 3.514821449890625*^9}, 3.514821641390625*^9, {
+   3.514821674609375*^9, 3.514821798390625*^9}, {3.514823407859375*^9, 
+   3.514823433140625*^9}, 3.51501104184375*^9, 3.515275343*^9, 
+   3.51527685709375*^9, {3.515422024719125*^9, 3.515422027250375*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Usage messages", "Subsection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"KernelColors", "::", "usage"}], "=", 
+   "\"\<KernelColors contains a list of the 24 color names defined in the \
+Mathematica 6/7 kernel.\>\""}], ";", 
+  RowBox[{
+   RowBox[{"NonkernelLegacyColors", "::", "usage"}], "=", 
+   "\"\<NonkernelLegacyColors contains a list of legacy color names excluding \
+those 17 names also defined in the Mathematica 6/7 kernel.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NamedColorPalette", "::", "usage"}], "=", 
+   "\"\<NamedColorPalette[] generates a palette of the Mathematica 6 named \
+kernel colors plus legacy colors.\>\""}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.395516691421875*^9, 3.395516730953125*^9}, {
+  3.395517151578125*^9, 3.3955171884375*^9}, {3.395517335015625*^9, 
+  3.395517376453125*^9}, {3.3955175695*^9, 3.39551757465625*^9}, {
+  3.395517878140625*^9, 3.395517903515625*^9}, {3.39551796578125*^9, 
+  3.3955179659375*^9}, {3.44399573021875*^9, 3.443995744859375*^9}, {
+  3.515421996750375*^9, 3.51542199710975*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Establish color names", "Subsection",
+ CellChangeTimes->{{3.395517992421875*^9, 3.3955179949375*^9}, {
+  3.515422072000375*^9, 3.515422073625375*^9}}],
+
+Cell["\<\
+KernelColors={
+\"Black\", \"Blue\", \"Brown\", \"Cyan\", \"Gray\", \"Green\",\"Magenta\", \
+\"Orange\", \"Pink\", \"Purple\", \"Red\", \"White\", \"Yellow\",
+\"LightBlue\", \"LightBrown\", \"LightCyan\", \"LightGray\", \"LightGreen\", \
+\"LightMagenta\", \"LightOrange\", \"LightPink\", \"LightPurple\", \"LightRed\
+\",
+\"LightYellow\"
+};
+NonkernelLegacyColors=Complement[
+First/@ColorData[\"Legacy\", \"ColorRules\"],
+KernelColors
+];\
+\>", "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.39551687203125*^9, 3.395516898890625*^9}, {
+  3.39551695553125*^9, 3.39551711853125*^9}, {3.395517833828125*^9, 
+  3.39551787290625*^9}, {3.44399379525*^9, 3.44399383578125*^9}, {
+  3.443994233390625*^9, 3.4439942965625*^9}, {3.443995604125*^9, 
+  3.44399560465625*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Scan", "[", 
+   RowBox[{"ToExpression", ",", "NonkernelLegacyColors"}], "]"}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.3955180089375*^9, 3.395518038953125*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin private context", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.514823442859375*^9, 3.5148234431875*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Dependencies", "Subsection",
+ CellChangeTimes->{{3.514821147359375*^9, 3.51482114978125*^9}}],
+
+Cell[BoxData[""], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.51482113128125*^9, 3.514821158515625*^9}, {
+  3.514823452421875*^9, 3.51482349575*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Define colors", "Section",
+ CellChangeTimes->{{3.39551805825*^9, 3.395518059765625*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"DefineColor", "[", "s_String", "]"}], ":=", 
+   RowBox[{"If", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"AtomQ", "[", 
+      RowBox[{"ToExpression", "[", "s", "]"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Evaluate", "[", 
+       RowBox[{"ToExpression", "[", "s", "]"}], "]"}], "=", 
+      RowBox[{"ColorData", "[", 
+       RowBox[{"\"\<Legacy\>\"", ",", "s"}], "]"}]}]}], "\[IndentingNewLine]",
+     "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Scan", "[", 
+   RowBox[{"DefineColor", ",", "NonkernelLegacyColors"}], "]"}], 
+  ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.3955180668125*^9, 3.39551811828125*^9}, {
+  3.395518342734375*^9, 3.395518367671875*^9}, {3.51536085859375*^9, 
+  3.515360935453125*^9}, {3.51536098134375*^9, 3.51536104415625*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Named color palette", "Section",
+ CellChangeTimes->{3.51542211617225*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "NamedColorPalette", "]"}], "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Length", "\[Rule]", "20"}], ",", 
+     RowBox[{"Names", "\[Rule]", 
+      RowBox[{"Union", "[", 
+       RowBox[{"KernelColors", ",", "NonkernelLegacyColors"}], "]"}]}]}], 
+    "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NamedColorPalette", "[", 
+    RowBox[{"Opts___", "?", "OptionQ"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"FullOpts", "=", 
+        RowBox[{"Flatten", "[", 
+         RowBox[{"{", 
+          RowBox[{"Opts", ",", 
+           RowBox[{"Options", "[", "NamedColorPalette", "]"}]}], "}"}], 
+         "]"}]}], ",", "\[IndentingNewLine]", "Rows", ",", 
+       "\[IndentingNewLine]", "ColorName", ",", "Color", ",", "TextColor", 
+       ",", "\[IndentingNewLine]", "ButtonList", ",", "ButtonArray", ",", 
+       "ButtonGrid", ",", "ButtonCell", ",", "\[IndentingNewLine]", 
+       "CaptionCell", ",", "\[IndentingNewLine]", "i", ",", 
+       "\[IndentingNewLine]", "NamedColors"}], "\[IndentingNewLine]", "}"}], 
+     ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"NamedColors", "=", 
+       RowBox[{"(", 
+        RowBox[{"Names", "/.", "FullOpts"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"Rows", "=", 
+       RowBox[{"(", 
+        RowBox[{"Length", "/.", "FullOpts"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ButtonList", "=", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"ColorName", "=", 
+           RowBox[{"NamedColors", "[", 
+            RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"Color", "=", 
+           RowBox[{"ToExpression", "[", "ColorName", "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"TextColor", "=", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"Plus", "@@", "Color"}], ")"}], "/", 
+               RowBox[{"Length", "[", "Color", "]"}]}], ">", "0.3"}], ",", 
+             "Black", ",", "White"}], "]"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"ButtonBox", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"StyleBox", "[", 
+             RowBox[{"ColorName", ",", 
+              RowBox[{"FontColor", "\[Rule]", "TextColor"}]}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"ButtonData", "\[Rule]", "ColorName"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"ButtonNote", "\[Rule]", "ColorName"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Background", "\[Rule]", "Color"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Active", "\[Rule]", "True"}], ",", 
+            RowBox[{"ButtonFrame", "\[Rule]", "\"\<DialogBox\>\""}]}], 
+           "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{"Length", "[", "NamedColors", "]"}]}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"ButtonArray", "=", 
+       RowBox[{"Transpose", "@", 
+        RowBox[{"Partition", "[", 
+         RowBox[{"ButtonList", ",", "Rows", ",", "Rows", ",", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", "1"}], "}"}], ",", 
+          RowBox[{"ButtonBox", "[", "\"\<\>\"", "]"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ButtonGrid", "=", 
+       RowBox[{"GridBox", "[", 
+        RowBox[{"ButtonArray", ",", 
+         RowBox[{"ColumnSpacings", "\[Rule]", "0"}], ",", 
+         RowBox[{"RowSpacings", "\[Rule]", "0"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ButtonCell", "=", 
+       RowBox[{"Cell", "[", 
+        RowBox[{
+         RowBox[{"BoxData", "[", 
+          RowBox[{"FormBox", "[", 
+           RowBox[{"ButtonGrid", ",", "DisplayForm"}], "]"}], "]"}], ",", 
+         RowBox[{"ShowCellBracket", "\[Rule]", "False"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"CaptionCell", "=", 
+       RowBox[{"Cell", "[", 
+        RowBox[{
+        "TextData", "[", 
+         "\"\<Click on a color to paste its name into the current notebook.  \
+Use the close button on the title bar to close this palette.\>\"", "]"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"NotebookPut", "[", 
+       RowBox[{"Notebook", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"ButtonCell", ",", "CaptionCell"}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"WindowSize", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"FitAll", ",", "FitAll"}], "}"}]}], ",", 
+         RowBox[{"WindowElements", "\[Rule]", 
+          RowBox[{"{", "\"\<StatusArea\>\"", "}"}]}], ",", 
+         RowBox[{"WindowTitle", "->", "\"\<Mathematica named colors\>\""}], 
+         ",", 
+         RowBox[{"WindowFrame", "->", "\"\<Palette\>\""}], ",", 
+         RowBox[{"WindowFloating", "\[Rule]", "True"}], ",", 
+         RowBox[{"WindowClickSelect", "\[Rule]", "False"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Editable", "\[Rule]", "False"}], ",", 
+         RowBox[{"Selectable", "\[Rule]", "False"}], ",", 
+         RowBox[{"Copyable", "\[Rule]", "False"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"ShowCellBracket", "\[Rule]", "False"}], ",", 
+         RowBox[{"CellMargins", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}]}], "}"}]}]}], "]"}], 
+       "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.395518669859375*^9, 3.39551875859375*^9}, {
+   3.395519156*^9, 3.395519170609375*^9}, {3.395521303734375*^9, 
+   3.3955213074375*^9}, 3.5154224332035*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["End package", "Section",
+ CellChangeTimes->{{3.514823047703125*^9, 3.51482305353125*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Exit private context", "Subsection",
+ CellChangeTimes->{{3.514823086015625*^9, 3.5148231094375*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exit package context", "Subsection",
+ CellChangeTimes->{{3.514823092890625*^9, 3.51482312965625*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Protect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<$*\>\""}], "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->"RulerBar",
+WindowSize->{1272, 902},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], Inherited, 
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"]}, {
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"], Inherited, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+PageHeaderLines->{False, Inherited},
+PrintingOptions->{"FirstPageHeader"->False,
+"PrintingMargins"->{{36, 36}, {36, 36}}},
+ShowSelection->True,
+Magnification->1.25,
+FrontEndVersion->"8.0 for Microsoft Windows (32-bit) (November 7, 2010)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 34, 0, 88, "Section"],
+Cell[604, 24, 5021, 116, 498, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5662, 145, 32, 0, 88, "Section"],
+Cell[CellGroupData[{
+Cell[5719, 149, 48, 0, 46, "Subsection"],
+Cell[5770, 151, 1445, 23, 80, "Input",
+ InitializationCell->True],
+Cell[7218, 176, 184, 5, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7439, 186, 36, 0, 46, "Subsection"],
+Cell[7478, 188, 1080, 22, 146, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8595, 215, 156, 2, 46, "Subsection"],
+Cell[8754, 219, 779, 19, 181, "Input",
+ InitializationCell->True],
+Cell[9536, 240, 224, 6, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9797, 251, 43, 0, 46, "Subsection"],
+Cell[9843, 253, 183, 4, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10063, 262, 99, 1, 46, "Subsection"],
+Cell[10165, 265, 163, 3, 35, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10377, 274, 94, 1, 88, "Section"],
+Cell[10474, 277, 883, 22, 124, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11394, 304, 79, 1, 88, "Section"],
+Cell[11476, 307, 6209, 140, 1004, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17722, 452, 95, 1, 88, "Section"],
+Cell[CellGroupData[{
+Cell[17842, 457, 106, 1, 46, "Subsection"],
+Cell[17951, 460, 96, 3, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18084, 468, 107, 1, 46, "Subsection"],
+Cell[18194, 471, 406, 12, 80, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -1,0 +1,677 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     22643,        668]
+NotebookOptionsPosition[     19702,        561]
+NotebookOutlinePosition[     20580,        596]
+CellTagsIndexPosition[     20537,        593]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Header comments", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Title", ":", " ", "BlockOptions"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Context", ":", " ", "BlockOptions`"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Author", ":", " ", 
+      RowBox[{"Mark", " ", 
+       RowBox[{"A", ".", " ", "Caprio"}]}]}]}], ",", " ", 
+    RowBox[{"Department", " ", "of", " ", "Physics"}], ",", " ", 
+    RowBox[{"University", " ", "of", " ", "Notre", " ", "Dame"}]}], " ", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Summary", ":", " ", 
+     RowBox[{
+     "Dynamic", " ", "scoping", " ", "structure", " ", "for", " ", "options", 
+      " ", "associated", " ", "with", " ", "a", " ", 
+      RowBox[{"symbol", "."}]}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Copyright", ":", " ", 
+      RowBox[{"Copyright", " ", "2011"}]}]}], ",", " ", 
+    RowBox[{"Mark", " ", 
+     RowBox[{"A", ".", " ", "Caprio"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Package", " ", 
+     RowBox[{"Version", ":", " ", "2.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Mathematica", " ", 
+     RowBox[{"Version", ":", " ", "6.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"History", ":", "\[IndentingNewLine]", 
+      RowBox[{
+      "Extracted", " ", "from", " ", "MCFlowControl", " ", "January", " ", 
+       "12"}]}]}], ",", " ", 
+    RowBox[{"2005.", "\[IndentingNewLine]", "V1", ".0"}], ",", " ", 
+    RowBox[{"January", " ", "22"}], ",", " ", 
+    RowBox[{"2005.", " ", "MathSource", " ", 
+     RowBox[{"No", ".", " ", "5549."}], "\[IndentingNewLine]", " ", "V1", 
+     ".1"}], ",", " ", 
+    RowBox[{"March", " ", "8"}], ",", " ", 
+    RowBox[{
+    "2005.", "  ", "Attribute", " ", "HoldAll", " ", "relaxed", " ", "to", 
+     " ", 
+     RowBox[{"HoldRest", ".", "\[IndentingNewLine]", "V1"}], ".2"}], ",", " ", 
+    RowBox[{"January", " ", "9"}], ",", " ", 
+    RowBox[{"2006.", "  ", "Added", " ", 
+     RowBox[{"WithOptions", ".", "\[IndentingNewLine]", "V2"}], ".0"}], ",", 
+    " ", 
+    RowBox[{"June", " ", "22"}], ",", " ", 
+    RowBox[{
+    "2011.", " ", "WithOptions", " ", "expanded", " ", "to", " ", "provide", 
+     " ", "scoping", " ", "and", " ", "setting", " ", "of", " ", "options", 
+     " ", "for", " ", "several", " ", "symbols", " ", 
+     RowBox[{
+      RowBox[{"simultaneously", ".", "  ", "DoForEach"}], "/", 
+      "TableForEach"}], " ", "iteration", " ", "replaced", " ", "with", " ", 
+     "simple", " ", 
+     RowBox[{"Do", "/", "Table"}], " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+       "requires", " ", "Mathematica", " ", "6", " ", "or", " ", "above"}], 
+       ")"}], ".", "\[IndentingNewLine]", "Restructured"}], " ", "to", " ", 
+     "load", " ", "from", " ", 
+     RowBox[{"init", ".", "m"}], " ", 
+     RowBox[{"file", "."}]}]}], "\[IndentingNewLine]", "*)"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.497222636984375*^9, 3.49722265378125*^9}, {
+  3.51553763728125*^9, 3.515537649625*^9}, {3.515537709265625*^9, 
+  3.515537739296875*^9}, {3.5177499600625*^9, 3.517749988609375*^9}, {
+  3.517750032546875*^9, 3.51775003815625*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin package", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Package context definition", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "BeginPackage", "[", "\[IndentingNewLine]", "\"\<BlockOptions`\>\"", 
+   "\[IndentingNewLine]", "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.395087747453125*^9, 3.39508775096875*^9}, {
+   3.39509064290625*^9, 3.395090643234375*^9}, 3.395090710546875*^9, {
+   3.395091175015625*^9, 3.395091179703125*^9}, {3.395093472375*^9, 
+   3.39509347784375*^9}, {3.395093608140625*^9, 3.3950936085*^9}, {
+   3.395519039875*^9, 3.395519061546875*^9}, {3.495041989453125*^9, 
+   3.495042010953125*^9}, {3.495042158078125*^9, 3.495042163671875*^9}, {
+   3.497222416421875*^9, 3.497222462578125*^9}, {3.497222963890625*^9, 
+   3.497222994640625*^9}, 3.497223030953125*^9, {3.514818766734375*^9, 
+   3.514818800625*^9}, {3.5148197104375*^9, 3.514819710671875*^9}, {
+   3.514819841546875*^9, 3.51481994284375*^9}, {3.514819979578125*^9, 
+   3.514820025046875*^9}, {3.5148201316875*^9, 3.514820154671875*^9}, {
+   3.51482025234375*^9, 3.514820275171875*^9}, {3.514820309703125*^9, 
+   3.514820406921875*^9}, {3.51482051775*^9, 3.514820571328125*^9}, {
+   3.514820843296875*^9, 3.51482087146875*^9}, 3.51482140903125*^9, {
+   3.514821446859375*^9, 3.514821449890625*^9}, 3.514821641390625*^9, {
+   3.514821674609375*^9, 3.514821798390625*^9}, {3.514823407859375*^9, 
+   3.514823433140625*^9}, 3.517748846125*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Usage messages", "Subsection",
+ CellChangeTimes->{{3.51482384978125*^9, 3.5148238521875*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockOptions", "::", "usage"}], "=", 
+   "\"\<BlockOptions[{symbol1,...},body] evaluates body with dynamic scoping \
+for Options[symbol1], ..., making local any changes to these options.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"WithOptions", "::", "usage"}], "=", 
+   "\"\<WithOptions[{{symbol1,{option1->value1,...}},{symbol2,{option1->\
+value1,...}},...},body] evaluates body with dynamic scoping for \
+Options[symbol1], ..., making local any changes to these options.  Moreover, \
+SetOptions is called to apply the specified default values.\>\""}], 
+  ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.517750050953125*^9, 3.51775014809375*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin private context", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.514823442859375*^9, 3.5148234431875*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Dependencies", "Subsection",
+ CellChangeTimes->{{3.514821147359375*^9, 3.51482114978125*^9}}],
+
+Cell[BoxData[""], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.51482113128125*^9, 3.514821158515625*^9}, {
+  3.514823452421875*^9, 3.51482349575*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Dynamic scoping of option values", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Scoping options", "Subsection",
+ CellChangeTimes->{{3.51774894340625*^9, 3.5177489528125*^9}}],
+
+Cell["\<\
+BlockOptions assumes that none of the identifiers in IdentifierList evaluate \
+to a value.  This is reasonable, as options are usually only relevant to \
+identifiers which require arguments to evaluate.\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"BlockOptions", ",", "HoldRest"}], "]"}], ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockOptions", "[", 
+    RowBox[{
+     RowBox[{"x_", "/;", 
+      RowBox[{"!", 
+       RowBox[{"MatchQ", "[", 
+        RowBox[{"x", ",", 
+         RowBox[{"{", "___Symbol", "}"}]}], "]"}]}]}], ",", "_"}], "]"}], ":=", 
+   RowBox[{"Message", "[", 
+    RowBox[{"BlockOptions", "::", "needlist"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockOptions", "[", "_", "]"}], ":=", 
+   RowBox[{"Message", "[", 
+    RowBox[{"BlockOptions", "::", "numargs"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockOptions", "[", 
+    RowBox[{"_", ",", "_", ",", "__"}], "]"}], ":=", 
+   RowBox[{"Message", "[", 
+    RowBox[{"BlockOptions", "::", "numargs"}], "]"}]}], ";"}]}], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockOptions", "::", "needlist"}], "=", 
+   "\"\<The first argument of BlockOptions must be a list of symbols.\>\""}], 
+  ";", 
+  RowBox[{
+   RowBox[{"BlockOptions", "::", "numargs"}], "=", 
+   "\"\<BlockOptions must be called with exactly two arguments.\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{3.517748873265625*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockOptions", "[", 
+    RowBox[{
+     RowBox[{"IdentifierList", ":", 
+      RowBox[{"{", "___Symbol", "}"}]}], ",", "Body_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "SavedOptions", ",", "Identifier", ",", "EvaluatedBody", ",", 
+       "IsProtected", ",", "Aborted"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+      "AbortProtect", "[", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{"Save", " ", "options"}], " ", "*)"}], "\[IndentingNewLine]", 
+       
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"TrueQ", "[", "$Debug", "]"}], ",", 
+          RowBox[{"Print", "[", 
+           RowBox[{"\"\<BlockOptions: \>\"", ",", "IdentifierList"}], "]"}]}],
+          "]"}], ";", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+         "private", " ", "debug", " ", "flag", " ", 
+          "BlockOptions`Private`$Debug"}], " ", "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"SavedOptions", "[", "Identifier", "]"}], "=", 
+           RowBox[{"Options", "[", "Identifier", "]"}]}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"Identifier", ",", "IdentifierList"}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+        "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"Evaluate", " ", "body"}], " ", "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"Aborted", "=", "False"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"CheckAbort", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"EvaluatedBody", "=", "Body"}], ",", "\[IndentingNewLine]", 
+          
+          RowBox[{"Aborted", "=", "True"}]}], "\[IndentingNewLine]", "]"}], 
+        ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"Restore", " ", "options"}], " ", "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"IsProtected", "=", 
+            RowBox[{"MemberQ", "[", 
+             RowBox[{
+              RowBox[{"Attributes", "[", 
+               RowBox[{"Evaluate", "[", "Identifier", "]"}], "]"}], ",", 
+              "Protected"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"If", "[", 
+            RowBox[{"IsProtected", ",", 
+             RowBox[{"Unprotect", "[", 
+              RowBox[{"Evaluate", "[", "Identifier", "]"}], "]"}]}], "]"}], 
+           ";", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"Options", "[", "Identifier", "]"}], "=", 
+            RowBox[{"SavedOptions", "[", "Identifier", "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"If", "[", 
+            RowBox[{"IsProtected", ",", 
+             RowBox[{"Protect", "[", 
+              RowBox[{"Evaluate", "[", "Identifier", "]"}], "]"}]}], "]"}]}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"Identifier", ",", "IdentifierList"}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", "]"}], 
+      ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"Return", " ", "value"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{"Passes", " ", "through", " ", "abort"}], ",", " ", 
+        RowBox[{
+        "and", " ", "also", " ", "explicitly", " ", "returns", " ", 
+         "$Aborted", " ", "in", " ", "case", " ", 
+         RowBox[{"Abort", "[", "]"}], " ", "is", " ", "suppressed"}]}], " ", 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"Aborted", ",", 
+        RowBox[{
+         RowBox[{"Abort", "[", "]"}], ";", "$Aborted"}], ",", 
+        "EvaluatedBody"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.515537794109375*^9, 3.5155377948125*^9}, {
+  3.518101113359375*^9, 3.518101181859375*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Scoping *and* setting options", "Subsection",
+ CellChangeTimes->{{3.517748922375*^9, 3.517748934203125*^9}, {
+  3.517749110921875*^9, 3.517749117171875*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"WithOptions", ",", "HoldRest"}], "]"}], ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"WithOptions", "::", "args"}], "=", 
+   "\"\<WithOptions called with unexpected arguments.\>\""}], ";"}]], "Input",\
+
+ InitializationCell->True,
+ CellChangeTimes->{3.517748873265625*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"WithOptions", "[", 
+    RowBox[{
+     RowBox[{"ArgList", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_Symbol", ",", 
+          RowBox[{
+           RowBox[{"(", "_List", ")"}], "?", "OptionQ"}]}], "}"}], "..."}], 
+       "}"}]}], ",", "Body_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "SymbolList", ",", "CurrentEntry", ",", "CurrentSymbol", ",", 
+       "CurrentOptionList"}], "}"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"SymbolList", "=", 
+       RowBox[{"First", "/@", "ArgList"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"BlockOptions", "[", "\[IndentingNewLine]", 
+       RowBox[{
+       "SymbolList", ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+         "set", " ", "temporary", " ", "values", " ", "of", " ", "options"}], 
+         " ", "*)"}], "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Do", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"CurrentSymbol", ",", "CurrentOptionList"}], "}"}], "=",
+              "CurrentEntry"}], ";", "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Length", "[", "CurrentOptionList", "]"}], 
+               "\[GreaterEqual]", "1"}], ",", 
+              RowBox[{"SetOptions", "[", 
+               RowBox[{"CurrentSymbol", ",", 
+                RowBox[{"Flatten", "[", "CurrentOptionList", "]"}]}], "]"}]}],
+              "]"}]}], ",", "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"CurrentEntry", ",", "ArgList"}], "}"}]}], 
+          "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+         "\[IndentingNewLine]", 
+         RowBox[{"(*", " ", 
+          RowBox[{"evaluate", " ", "body"}], " ", "*)"}], 
+         "\[IndentingNewLine]", "Body"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.5177491456875*^9, 3.51774942340625*^9}, {
+  3.5177494875*^9, 3.517749512734375*^9}, {3.517749656109375*^9, 
+  3.517749675171875*^9}, {3.517749779765625*^9, 3.5177497819375*^9}, {
+  3.517749825953125*^9, 3.517749826625*^9}, {3.517749898609375*^9, 
+  3.517749899765625*^9}}],
+
+Cell[BoxData[
+ RowBox[{"WithOptions", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"Plot", ",", 
+      RowBox[{"{", 
+       RowBox[{"PlotRange", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "}"}]}], "}"}], "}"}], ",", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"x", "^", "2"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "1"}], "}"}]}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.517749766109375*^9, 3.51774979796875*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"WithOptions", "[", 
+   RowBox[{
+    RowBox[{"ArgList", ":", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"_Symbol", ",", 
+         RowBox[{
+          RowBox[{"(", "_List", ")"}], "?", "OptionQ"}]}], "}"}], "..."}], 
+      "}"}]}], ",", "Body_"}], "]"}], ":", "Wit"}]], "Input",
+ CellChangeTimes->{{3.51774975653125*^9, 3.51774975928125*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Scoping *and* setting options -- legacy syntax\
+\>", "Subsection",
+ CellChangeTimes->{{3.517748922375*^9, 3.517748934203125*^9}, {
+  3.517749096109375*^9, 3.517749130109375*^9}}],
+
+Cell["\<\
+\"WithOptions[symbol,{option1->value1,...},body] evaluates body with dynamic \
+scoping for Options[symbol] and with the specified default values for \
+option1, ....\";\
+\>", "Program",
+ CellChangeTimes->{3.517749941765625*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"WithOptions", "[", 
+     RowBox[{"x_Symbol", ",", "OptList_", ",", "Body_"}], "]"}], "/;", 
+    RowBox[{"MatchQ", "[", 
+     RowBox[{"OptList", ",", 
+      RowBox[{"_List", "?", "OptionQ"}]}], "]"}]}], ":=", 
+   RowBox[{"BlockOptions", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "x", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "[", "OptList", "]"}], "\[GreaterEqual]", "1"}], 
+        ",", 
+        RowBox[{"SetOptions", "[", 
+         RowBox[{"x", ",", 
+          RowBox[{"Sequence", "@@", 
+           RowBox[{"Flatten", "[", "OptList", "]"}]}]}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", "Body"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.5177496898125*^9, 3.517749693171875*^9}, {
+  3.51774994575*^9, 3.517749946015625*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["End package", "Section",
+ CellChangeTimes->{{3.514823047703125*^9, 3.51482305353125*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Exit private context", "Subsection",
+ CellChangeTimes->{{3.514823086015625*^9, 3.5148231094375*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exit package context", "Subsection",
+ CellChangeTimes->{{3.514823092890625*^9, 3.51482312965625*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Protect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<$*\>\""}], "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->"RulerBar",
+WindowSize->{1272, 905},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], Inherited, 
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"]}, {
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"], Inherited, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+PageHeaderLines->{False, Inherited},
+PrintingOptions->{"FirstPageHeader"->False,
+"PrintingMargins"->{{36, 36}, {36, 36}}},
+ShowSelection->True,
+Magnification->1.25,
+FrontEndVersion->"8.0 for Microsoft Windows (32-bit) (November 7, 2010)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 34, 0, 88, "Section"],
+Cell[604, 24, 3498, 87, 366, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4139, 116, 32, 0, 88, "Section"],
+Cell[CellGroupData[{
+Cell[4196, 120, 48, 0, 46, "Subsection"],
+Cell[4247, 122, 1357, 22, 80, "Input",
+ InitializationCell->True],
+Cell[5607, 146, 184, 5, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5828, 156, 99, 1, 46, "Subsection"],
+Cell[5930, 159, 746, 16, 168, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6713, 180, 43, 0, 46, "Subsection"],
+Cell[6759, 182, 183, 4, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6979, 191, 99, 1, 46, "Subsection"],
+Cell[7081, 194, 163, 3, 35, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7293, 203, 51, 0, 88, "Section"],
+Cell[CellGroupData[{
+Cell[7369, 207, 100, 1, 46, "Subsection"],
+Cell[7472, 210, 226, 4, 34, "Text"],
+Cell[7701, 216, 153, 4, 35, "Input",
+ InitializationCell->True],
+Cell[7857, 222, 812, 25, 80, "Input",
+ InitializationCell->True],
+Cell[8672, 249, 398, 11, 58, "Input",
+ InitializationCell->True],
+Cell[9073, 262, 4222, 98, 718, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13332, 365, 163, 2, 46, "Subsection"],
+Cell[13498, 369, 152, 4, 35, "Input",
+ InitializationCell->True],
+Cell[13653, 375, 232, 7, 35, "Input",
+ InitializationCell->True],
+Cell[13888, 384, 2484, 60, 410, "Input",
+ InitializationCell->True],
+Cell[16375, 446, 530, 16, 35, "Input"],
+Cell[16908, 464, 403, 12, 35, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17348, 481, 188, 4, 46, "Subsection"],
+Cell[17539, 487, 236, 5, 67, "Program"],
+Cell[17778, 494, 969, 26, 124, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18796, 526, 95, 1, 88, "Section"],
+Cell[CellGroupData[{
+Cell[18916, 531, 106, 1, 57, "Subsection"],
+Cell[19025, 534, 96, 3, 43, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19158, 542, 107, 1, 57, "Subsection"],
+Cell[19268, 545, 406, 12, 100, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

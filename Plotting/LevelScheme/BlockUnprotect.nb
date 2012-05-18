@@ -1,0 +1,735 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     21993,        725]
+NotebookOptionsPosition[     18505,        600]
+NotebookOutlinePosition[     19447,        636]
+CellTagsIndexPosition[     19404,        633]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+BlockUnprotect.nb -- protection scoping
+
+Mark Caprio
+Language: Mathematica 4\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell["Header comments", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Title", ":", " ", "BlockUnprotect"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Context", ":", " ", "BlockUnprotect`"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Author", ":", " ", 
+      RowBox[{"Mark", " ", 
+       RowBox[{"A", ".", " ", "Caprio"}]}]}]}], ",", " ", 
+    RowBox[{"Center", " ", "for", " ", "Theoretical", " ", "Physics"}], ",", 
+    " ", 
+    RowBox[{"Yale", " ", "University"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Summary", ":", " ", 
+     RowBox[{
+     "Dynamic", " ", "scoping", " ", "structure", " ", "for", " ", "options", 
+      " ", "associated", " ", "with", " ", "a", " ", 
+      RowBox[{"symbol", "."}]}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"Copyright", ":", " ", 
+      RowBox[{"Copyright", " ", "2005"}]}]}], ",", " ", 
+    RowBox[{"Mark", " ", 
+     RowBox[{"A", ".", " ", "Caprio"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Package", " ", 
+     RowBox[{"Version", ":", " ", "0.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{":", 
+    RowBox[{"Mathematica", " ", 
+     RowBox[{"Version", ":", " ", "4.0"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{":", 
+     RowBox[{"History", ":", "\[IndentingNewLine]", 
+      RowBox[{
+      "Adapted", " ", "from", " ", "BlockOptions", " ", "December", " ", 
+       "1"}]}]}], ",", " ", 
+    RowBox[{
+    "2005.", "\[IndentingNewLine]", "Context", " ", "changed", " ", "to", " ",
+      "LevelScheme`", "*", "."}]}], "\[IndentingNewLine]", "*)"}]}]], "Input",\
+
+ InitializationCell->True,
+ CellChangeTimes->{{3.49722273096875*^9, 3.497222731203125*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin package", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", "\"\<LevelScheme`BlockUnprotect`\>\"", "]"}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4972227221875*^9, 3.497222728203125*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Messages", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Usage messages", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockUnprotect", "::", "usage"}], "=", 
+   "\"\<BlockUnprotect[{symbol1,...},body] temporarily unprotects the given \
+symbols while body is evaluated and then restores their prior protection \
+status.\>\""}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Error messages", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockUnprotect", "::", "needlist"}], "=", 
+   "\"\<The first argument of BlockUnprotect must be a list of \
+symbols.\>\""}], ";", 
+  RowBox[{
+   RowBox[{"BlockUnprotect", "::", "numargs"}], "=", 
+   "\"\<BlockUnprotect must be called with exactly two arguments.\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Begin private context", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Private copy of DoForEach", "Section"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"Private", " ", "copy", " ", "of", " ", "DoForEach"}], ",", " ", 
+   RowBox[{"from", " ", "package", " ", "ForEach"}], ",", " ", 
+   RowBox[{"version", " ", 
+    RowBox[{"1.0", "."}]}]}], " ", "*)"}]], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"DoForEach", ",", "HoldAll"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoForEach", "[", 
+    RowBox[{"Expr_", ",", 
+     RowBox[{"{", 
+      RowBox[{"Var_Symbol", ",", "ValueSet_"}], "}"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "ValueSet", "]"}], "=!=", "List"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"DoForEach", "::", "notlist"}], ",", "ValueSet"}], "]"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Do", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Block", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"Var", "=", 
+            RowBox[{"ValueSet", "[", 
+             RowBox[{"[", "i", "]"}], "]"}]}], "}"}], ",", 
+          "\[IndentingNewLine]", "Expr"}], "\[IndentingNewLine]", "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", 
+          RowBox[{"Length", "[", "ValueSet", "]"}]}], "}"}]}], 
+       "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoForEach", "[", 
+    RowBox[{"Expr_", ",", 
+     RowBox[{"{", 
+      RowBox[{"Var_Symbol", ",", "CountVar_Symbol", ",", "ValueSet_"}], 
+      "}"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "i", "}"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Head", "[", "ValueSet", "]"}], "=!=", "List"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"DoForEach", "::", "notlist"}], ",", "ValueSet"}], "]"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Block", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "CountVar", "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CountVar", "=", "i"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Block", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"Var", "=", 
+               RowBox[{"ValueSet", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}], "}"}], ",", 
+             "\[IndentingNewLine]", "Expr"}], "\[IndentingNewLine]", "]"}]}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", 
+            RowBox[{"Length", "[", "ValueSet", "]"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DoForEach", "[", 
+    RowBox[{
+    "Expr_", ",", "FirstIterator_List", ",", "RestIteratorSeq__List"}], "]"}],
+    ":=", 
+   RowBox[{"DoForEach", "[", 
+    RowBox[{
+     RowBox[{"DoForEach", "[", 
+      RowBox[{"Expr", ",", "RestIteratorSeq"}], "]"}], ",", "FirstIterator"}],
+     "]"}]}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Dynamic scoping of Options values", "Section"],
+
+Cell["\<\
+BlockUnprotect assumes that none of the identifiers in IdentifierList \
+evaluate to a value.  This is reasonable, as options are usually only \
+relevant to identifiers which require arguments to evaluate.\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"BlockUnprotect", ",", "HoldRest"}], "]"}], ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockUnprotect", "[", 
+    RowBox[{
+     RowBox[{"x_", "/;", 
+      RowBox[{"!", 
+       RowBox[{"MatchQ", "[", 
+        RowBox[{"x", ",", 
+         RowBox[{"{", "___Symbol", "}"}]}], "]"}]}]}], ",", "_"}], "]"}], ":=", 
+   RowBox[{"Message", "[", 
+    RowBox[{"BlockUnprotect", "::", "needlist"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockUnprotect", "[", "_", "]"}], ":=", 
+   RowBox[{"Message", "[", 
+    RowBox[{"BlockUnprotect", "::", "numargs"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockUnprotect", "[", 
+    RowBox[{"_", ",", "_", ",", "__"}], "]"}], ":=", 
+   RowBox[{"Message", "[", 
+    RowBox[{"BlockUnprotect", "::", "numargs"}], "]"}]}], ";"}]}], "Input",
+ InitializationCell->True],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"BlockUnprotect", "[", 
+    RowBox[{
+     RowBox[{"IdentifierList", ":", 
+      RowBox[{"{", "___Symbol", "}"}]}], ",", "Body_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "Identifier", ",", "EvaluatedBody", ",", "IsProtected", ",", 
+       "Aborted"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+      "AbortProtect", "[", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{"Clear", " ", "protection"}], " ", "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"DoForEach", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"IsProtected", "[", "Identifier", "]"}], "=", 
+            RowBox[{"MemberQ", "[", 
+             RowBox[{
+              RowBox[{"Attributes", "[", 
+               RowBox[{"Evaluate", "[", "Identifier", "]"}], "]"}], ",", 
+              "Protected"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"IsProtected", "[", "Identifier", "]"}], ",", 
+             RowBox[{"Unprotect", "[", 
+              RowBox[{"Evaluate", "[", "Identifier", "]"}], "]"}]}], "]"}]}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"Identifier", ",", "IdentifierList"}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+        "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"Evaluate", " ", "body"}], " ", "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"Aborted", "=", "False"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"CheckAbort", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"EvaluatedBody", "=", "Body"}], ",", "\[IndentingNewLine]", 
+          
+          RowBox[{"Aborted", "=", "True"}]}], "\[IndentingNewLine]", "]"}], 
+        ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"Restore", " ", "protection"}], " ", "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"DoForEach", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"IsProtected", "[", "Identifier", "]"}], ",", 
+            RowBox[{"Protect", "[", 
+             RowBox[{"Evaluate", "[", "Identifier", "]"}], "]"}]}], "]"}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{"Identifier", ",", "IdentifierList"}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", "]"}], 
+      ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"Return", " ", "value"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{"Passes", " ", "through", " ", "abort"}], ",", " ", 
+        RowBox[{
+        "and", " ", "also", " ", "explicitly", " ", "returns", " ", 
+         "$Aborted", " ", "in", " ", "case", " ", 
+         RowBox[{"Abort", "[", "]"}], " ", "is", " ", "suppressed"}]}], " ", 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{"Aborted", ",", 
+        RowBox[{
+         RowBox[{"Abort", "[", "]"}], ";", "$Aborted"}], ",", 
+        "EvaluatedBody"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"spell1\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"Possible spelling error: new symbol name \\\"\\!\\(Aborted\
+\\)\\\" is similar to existing symbol \\\"\\!\\($Aborted\\)\\\". \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], \
+"Message"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["End private context", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["End package", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Protect", "[", 
+   RowBox[{"Evaluate", "[", 
+    RowBox[{"$Context", "<>", "\"\<*\>\""}], "]"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tests", "Section"],
+
+Cell["Syntax validation tests", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"BlockUnprotect", "[", "a", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"BlockUnprotect", "[", 
+  RowBox[{"a", ",", "b"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"BlockUnprotect", "[", 
+  RowBox[{
+   RowBox[{"{", "1", "}"}], ",", "b"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"BlockUnprotect", "[", 
+  RowBox[{"a", ",", "b", ",", "c"}], "]"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BlockUnprotect", "::", "\<\"numargs\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"BlockUnprotect must be called with exactly two \
+arguments.\"\>"}]], "Message"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BlockUnprotect", "::", "\<\"needlist\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"The first argument of BlockUnprotect must be a list of \
+symbols.\"\>"}]], "Message"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BlockUnprotect", "::", "\<\"needlist\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"The first argument of BlockUnprotect must be a list of \
+symbols.\"\>"}]], "Message"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BlockUnprotect", "::", "\<\"numargs\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"BlockUnprotect must be called with exactly two \
+arguments.\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell["Basic test", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{
+    RowBox[{"Attributes", "[", "Plot", "]"}], ",", 
+    RowBox[{"Attributes", "[", "MyFunc", "]"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"BlockUnprotect", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"Plot", ",", "MyFunc"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", 
+     RowBox[{
+      RowBox[{"Attributes", "[", "Plot", "]"}], ",", 
+      RowBox[{"Attributes", "[", "MyFunc", "]"}]}], "]"}]}], 
+   "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{
+    RowBox[{"Attributes", "[", "Plot", "]"}], ",", 
+    RowBox[{"Attributes", "[", "MyFunc", "]"}]}], "]"}], ";"}]}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"HoldAll", ",", "Protected"}], "}"}], "\[InvisibleSpace]", 
+   RowBox[{"{", "}"}]}],
+  SequenceForm[{HoldAll, Protected}, {}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"{", "HoldAll", "}"}], "\[InvisibleSpace]", 
+   RowBox[{"{", "}"}]}],
+  SequenceForm[{HoldAll}, {}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"HoldAll", ",", "Protected"}], "}"}], "\[InvisibleSpace]", 
+   RowBox[{"{", "}"}]}],
+  SequenceForm[{HoldAll, Protected}, {}],
+  Editable->False]], "Print"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+Tests with abort
+\tMore sophisticated tests can be done as in BlockOptions.\
+\>", "Text"],
+
+Cell["\tCoded abort", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{
+    RowBox[{"Attributes", "[", "Plot", "]"}], ",", 
+    RowBox[{"Attributes", "[", "MyFunc", "]"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"BlockUnprotect", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"Plot", ",", "MyFunc"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Print", "[", 
+      RowBox[{
+       RowBox[{"Attributes", "[", "Plot", "]"}], ",", 
+       RowBox[{"Attributes", "[", "MyFunc", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Abort", "[", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{
+    RowBox[{"Attributes", "[", "Plot", "]"}], ",", 
+    RowBox[{"Attributes", "[", "MyFunc", "]"}]}], "]"}], ";"}]}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"HoldAll", ",", "Protected"}], "}"}], "\[InvisibleSpace]", 
+   RowBox[{"{", "}"}]}],
+  SequenceForm[{HoldAll, Protected}, {}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"{", "HoldAll", "}"}], "\[InvisibleSpace]", 
+   RowBox[{"{", "}"}]}],
+  SequenceForm[{HoldAll}, {}],
+  Editable->False]], "Print"]
+}, Open  ]],
+
+Cell[BoxData["$Aborted"], "Output"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"HoldAll", ",", "Protected"}], "}"}], "\[InvisibleSpace]", 
+   RowBox[{"{", "}"}]}],
+  SequenceForm[{HoldAll, Protected}, {}],
+  Editable->False]], "Print"]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->"RulerBar",
+WindowSize->{1272, 902},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+DockedCells->FEPrivate`FrontEndResource[
+ "FEExpressions", "CompatibilityToolbar"],
+PageHeaders->{{
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"], Inherited, 
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"]}, {
+   Cell[
+    TextData[{
+      ValueBox["FileName"]}], "Header"], Inherited, 
+   Cell[
+    TextData[{
+      CounterBox["Page"]}], "PageNumber"]}},
+PageHeaderLines->{False, Inherited},
+PrintingOptions->{"FirstPageHeader"->False,
+"PrintingMargins"->{{36, 36}, {36, 36}}},
+Magnification->1.25,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (February 18, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 100, 5, 97, "Text"],
+Cell[CellGroupData[{
+Cell[670, 29, 34, 0, 88, "Section"],
+Cell[707, 31, 1983, 56, 256, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2727, 92, 32, 0, 88, "Section"],
+Cell[2762, 94, 211, 5, 35, "Input",
+ InitializationCell->True],
+Cell[2976, 101, 184, 5, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3197, 111, 27, 0, 88, "Section"],
+Cell[CellGroupData[{
+Cell[3249, 115, 36, 0, 46, "Subsection"],
+Cell[3288, 117, 299, 7, 80, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3624, 129, 36, 0, 46, "Subsection"],
+Cell[3663, 131, 363, 10, 58, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4075, 147, 40, 0, 88, "Section"],
+Cell[4118, 149, 119, 3, 35, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4274, 157, 44, 0, 88, "Section"],
+Cell[4321, 159, 294, 7, 35, "Input",
+ InitializationCell->True],
+Cell[4618, 168, 3611, 93, 872, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8266, 266, 52, 0, 115, "Section"],
+Cell[8321, 268, 228, 4, 47, "Text"],
+Cell[8552, 274, 155, 4, 43, "Input",
+ InitializationCell->True],
+Cell[8710, 280, 824, 25, 96, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[9559, 309, 3455, 81, 778, "Input",
+ InitializationCell->True],
+Cell[13017, 392, 394, 8, 36, "Message"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13460, 406, 38, 0, 115, "Section"],
+Cell[13501, 408, 96, 3, 43, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13634, 416, 30, 0, 115, "Section"],
+Cell[13667, 418, 244, 7, 70, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13948, 430, 24, 0, 115, "Section"],
+Cell[13975, 432, 39, 0, 47, "Text"],
+Cell[CellGroupData[{
+Cell[14039, 436, 376, 8, 122, "Input"],
+Cell[14418, 446, 189, 5, 36, "Message"],
+Cell[14610, 453, 196, 5, 36, "Message"],
+Cell[14809, 460, 196, 5, 36, "Message"],
+Cell[15008, 467, 189, 5, 36, "Message"]
+}, Open  ]],
+Cell[15212, 475, 26, 0, 47, "Text"],
+Cell[CellGroupData[{
+Cell[15263, 479, 770, 21, 175, "Input"],
+Cell[CellGroupData[{
+Cell[16058, 504, 230, 7, 37, "Print"],
+Cell[16291, 513, 186, 6, 37, "Print"],
+Cell[16480, 521, 230, 7, 37, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[16737, 532, 99, 3, 73, "Text"],
+Cell[16839, 537, 29, 0, 47, "Text"],
+Cell[CellGroupData[{
+Cell[16893, 541, 857, 24, 201, "Input"],
+Cell[CellGroupData[{
+Cell[17775, 569, 230, 7, 37, "Print"],
+Cell[18008, 578, 186, 6, 37, "Print"]
+}, Open  ]],
+Cell[18209, 587, 35, 0, 43, "Output"],
+Cell[18247, 589, 230, 7, 37, "Print"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
