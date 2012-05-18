@@ -1,0 +1,1067 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     36902,       1058]
+NotebookOptionsPosition[     33912,        951]
+NotebookOutlinePosition[     34303,        968]
+CellTagsIndexPosition[     34260,        965]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Fisher Matrix Code for Baryon Oscillations\
+\>", "Section",
+ CellChangeTimes->{{3.5463627806751537`*^9, 3.546362798124097*^9}}],
+
+Cell[TextData[{
+ "This is a relatively direct translation of the Seo-Eisenstein Fisher matrix \
+code to ",
+ StyleBox["Mathematica.",
+  FontSlant->"Italic"],
+ "\n"
+}], "Text",
+ CellChangeTimes->{{3.5463628138935547`*^9, 3.546362862456279*^9}, 
+   3.546363046574596*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<Fishers`BAO`\>\"", ",", " ", "\n", "   ", 
+    RowBox[{"{", "\"\<Cosmology`Defs`\>\"", "}"}]}], "]"}], ";"}]], "Code",
+ CellChangeTimes->{{3.546362869407229*^9, 3.546362908947291*^9}, 
+   3.546366250130679*^9}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Function documentation below this\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.546362958639312*^9, 3.54636299312936*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"baoSigma", "::", "usage"}], " ", "=", " ", 
+   "\"\<Sigma's that go into the BAO scale measurements\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"baoFisher", "::", "usage"}], " ", "=", " ", 
+   "\"\<baoFisher[sigmaPerp_, sigmaPar_, nbar_, sigma8_, beta_, vol_, \
+sigmaZ_:0.0] returns the fisher matrix\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"baoError", "::", "usage"}], " ", "=", " ", 
+   "\"\<baoError[sigmaPerp_, sigmaPar_, nbar_, sigma8_, beta_, vol_, \
+sigmaZ_:0.0] returns the error as a 3-tuple\>\""}], ";"}]}], "Code",
+ CellChangeTimes->{
+  3.546362923752275*^9, {3.546366575071279*^9, 3.546366581080058*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Private code below", "Subsubsection",
+ CellChangeTimes->{{3.5463630262087593`*^9, 3.546363071661149*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Code",
+ CellChangeTimes->{{3.546363078147501*^9, 3.5463630857748117`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Useful private variable definitions\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.5463632606276913`*^9, 3.546363280175293*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "We", " ", "define", " ", "the", " ", "many", " ", "constants", " ", "etc",
+     " ", "here", " ", "to", " ", "parallel", " ", "the", " ", "original", 
+    " ", "C", " ", "code"}], " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"sigma0", " ", "=", " ", 
+     RowBox[{"12.4", " ", "*", " ", 
+      RowBox[{"0.8", "/", "0.9"}]}]}], ";", " ", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+       "The", " ", "paper", " ", "uses", " ", "a", " ", "fiducial", " ", 
+        "sigma8"}], "=", "0.9"}], ",", " ", 
+      RowBox[{"so", " ", "scale", " ", "appropriately"}]}], " ", "*)"}], "\n", 
+    RowBox[{"kstep", " ", "=", " ", "0.01"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"mustep0", " ", "=", " ", "0.05"}], ";"}], "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+      "This", " ", "is", " ", "the", " ", "power", " ", "spectrum", " ", "of",
+        " ", "WMAP"}], "-", "3"}], ",", 
+     RowBox[{
+      RowBox[{"normalized", " ", "to", " ", "1", " ", "at", " ", "k"}], "=", 
+      "0.2"}]}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"pBAO", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+      "14.10", ",", "20.19", ",", "16.17", ",", "11.49", ",", "8.853", ",", 
+       "7.641", ",", "6.631", ",", "5.352", ",", "4.146", ",", "3.384", ",", 
+       "3.028", ",", "2.799", ",", "2.479", ",", "2.082", ",", "1.749", ",", 
+       "\n", "1.551", ",", "1.446", ",", "1.349", ",", "1.214", ",", "1.065", 
+       ",", "0.9455", ",", "0.8686", ",", "0.8163", ",", "0.7630", ",", 
+       "0.6995", ",", "0.6351", ",", "0.5821", ",", "0.5433", ",", "0.5120", 
+       ",", "0.4808", ",", "0.4477", ",", "\n", "0.4156", ",", "0.3880", ",", 
+       "0.3655", ",", "0.3458", ",", "0.3267", ",", "0.3076", ",", "0.2896", 
+       ",", "0.2734", ",", "0.2593", ",", "0.2464", ",", "0.2342", ",", 
+       "0.2224", ",", "0.2112", ",", "0.2010", ",", "0.1916", ",", "0.1830", 
+       ",", "0.1748", ",", "0.1670", ",", "0.1596"}], "}"}]}], ";"}], "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"The", " ", "power", " ", "spectrum", " ", "at", " ", "k"}], "=", 
+     RowBox[{
+      RowBox[{"0.2", "h", " ", 
+       RowBox[{"Mpc", "^", 
+        RowBox[{"-", "1"}]}], " ", "for", " ", "sigma8"}], "=", "1"}]}], " ", 
+    "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"baoPower", "=", " ", "2710.0"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"baoSilk", " ", "=", " ", "8.38"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"baoAmp", " ", "=", " ", "0.05169"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"kList", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Range", "[", 
+         RowBox[{"Length", "[", "pBAO", "]"}], "]"}], "-", "0.5"}], ")"}], 
+      "*", "kstep"}]}], ";"}], "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Precompute", " ", "some", " ", "numbers"}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"silkList", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"Exp", "[", 
+       RowBox[{
+        RowBox[{"-", "2.0"}], "*", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"kList", "*", "baoSilk"}], ")"}], "^", "1.4"}]}], "]"}], 
+      " ", "*", " ", 
+      RowBox[{"kList", "^", "2"}]}]}], ";"}]}]}]], "Code",
+ CellChangeTimes->{3.546363311539186*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Sigmas", "Subsubsection",
+ CellChangeTimes->{{3.546364823038538*^9, 3.546364824300144*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"baoSigma", "[", "a_", "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"dg", ",", " ", "sp", ",", "sl"}], "}"}], ",", " ", "\n", 
+     "    ", 
+     RowBox[{
+      RowBox[{"dg", " ", "=", " ", 
+       RowBox[{"Dgrowth", "[", 
+        RowBox[{"a", ",", " ", "FoMSWG"}], "]"}]}], ";", "\n", "    ", 
+      RowBox[{"sp", " ", "=", " ", 
+       RowBox[{"sigma0", "*", "dg"}]}], ";", "\n", "    ", 
+      RowBox[{"sl", " ", "=", " ", 
+       RowBox[{"sp", "*", 
+        RowBox[{"(", 
+         RowBox[{"1", "+", " ", 
+          RowBox[{"fgrowth", "[", 
+           RowBox[{"a", ",", " ", "FoMSWG"}], "]"}]}], ")"}]}]}], ";", "\n", 
+      "    ", 
+      RowBox[{"{", 
+       RowBox[{"sp", ",", " ", "sl"}], "}"}]}]}], "]"}]}], ";"}]], "Code",
+ CellChangeTimes->{{3.546364837324625*^9, 3.546364838346368*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Fisher matrix code", "Subsubsection",
+ CellChangeTimes->{{3.54636487246546*^9, 3.546364875337199*^9}, {
+  3.546365220299811*^9, 3.546365221540545*^9}}],
+
+Cell["Returns the Fisher matrix.", "Text",
+ CellChangeTimes->{{3.546365223916067*^9, 3.5463652812407293`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"baoFisher", "[", 
+    RowBox[{
+    "sigmaPerp_", ",", " ", "sigmaPar_", ",", " ", "nbar_", ",", " ", 
+     "sigma8_", ",", " ", "beta_", ",", " ", "vol_", ",", " ", 
+     RowBox[{"sigmaZ_:", "0.0"}]}], "]"}], " ", ":=", " ", 
+   RowBox[{"Module", " ", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "sperp2", ",", " ", "spar2", ",", " ", "sz2", ",", " ", "mustep", ",", 
+       " ", "nP", ",", " ", "mu2List", ",", " ", "mutmp", ",", " ", "sumList",
+        ",", " ", "matList", ",", " ", "fisherMat"}], "}"}], ",", " ", "\n", 
+     "  ", 
+     RowBox[{
+      RowBox[{"sperp2", " ", "=", " ", 
+       RowBox[{"sigmaPerp", "^", "2"}]}], ";", "\n", "  ", 
+      RowBox[{"spar2", " ", "=", " ", 
+       RowBox[{"sigmaPar", "^", "2"}]}], ";", "\n", "  ", 
+      RowBox[{"sz2", " ", "=", " ", 
+       RowBox[{"sigmaZ", "^", "2"}]}], ";", "\n", "  ", 
+      RowBox[{"mustep", " ", "=", " ", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Sqrt", "[", 
+           RowBox[{"spar2", " ", "+", " ", "sz2"}], "]"}], " ", ">", " ", 
+          RowBox[{"3", "*", "sigmaPerp"}]}], ",", " ", 
+         RowBox[{"mustep0", "/", "10.0"}], ",", " ", "mustep0"}], "]"}]}], 
+      ";", "\n", "  ", 
+      RowBox[{"nP", " ", "=", " ", 
+       RowBox[{"nbar", " ", "*", " ", 
+        RowBox[{"sigma8", "^", "2"}], " ", "*", " ", "baoPower"}]}], ";", " ",
+       "\n", "  ", 
+      RowBox[{"mu2List", " ", "=", " ", 
+       RowBox[{
+        RowBox[{"Range", "[", 
+         RowBox[{
+          RowBox[{"mustep", "/", "2.0"}], ",", " ", "1.0", ",", " ", 
+          "mustep"}], "]"}], "^", "2"}]}], ";", "\n", "\n", "  ", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{
+        "Define", " ", "the", " ", "function", " ", "we", " ", "integrate", 
+         " ", "over", " ", "mu"}], ",", " ", 
+        RowBox[{
+        "this", " ", "is", " ", "in", " ", "itself", " ", "an", " ", 
+         "integral", "\n", "    ", "over", " ", 
+         RowBox[{"k", ".", " ", "Note"}], " ", "that", " ", "both", " ", 
+         "integrals", " ", "are", " ", "done", " ", "by", " ", "simply", " ", 
+         
+         RowBox[{"summing", "."}]}]}], " ", "*)"}], "\n", "    ", 
+      RowBox[{
+       RowBox[{"mutmp", "[", "mu2_", "]"}], " ", ":=", " ", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"tmpz", ",", " ", "s2tot"}], "}"}], ",", " ", "\n", 
+         "      ", 
+         RowBox[{
+          RowBox[{"tmpz", " ", "=", " ", 
+           RowBox[{"pBAO", " ", "+", " ", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Exp", "[", 
+               RowBox[{
+                RowBox[{"kList", "^", "2"}], " ", "*", " ", "sz2", " ", "*", 
+                " ", "mu2"}], "]"}], "/", "nP"}], "/", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"1.0", "+", " ", 
+                RowBox[{"beta", "*", "mu2"}]}], ")"}], "^", "2"}]}]}]}], ";", 
+          "\n", "      ", 
+          RowBox[{"s2tot", " ", "=", " ", 
+           RowBox[{
+            RowBox[{"sperp2", "*", 
+             RowBox[{"(", 
+              RowBox[{"1", "-", "mu2"}], ")"}]}], " ", "+", " ", 
+            RowBox[{"spar2", "*", "mu2"}]}]}], ";", "\n", "      ", 
+          RowBox[{"Total", "[", 
+           RowBox[{"silkList", "*", 
+            RowBox[{
+             RowBox[{"Exp", "[", 
+              RowBox[{
+               RowBox[{"-", 
+                RowBox[{"kList", "^", "2"}]}], " ", "*", " ", "s2tot"}], 
+              "]"}], "/", 
+             RowBox[{"tmpz", "^", "2"}]}]}], "]"}]}]}], "\n", "    ", "]"}]}],
+       ";", "\n", "    ", 
+      RowBox[{"sumList", " ", "=", " ", 
+       RowBox[{"mutmp", " ", "/@", " ", "mu2List"}]}], ";", "\n", "    ", 
+      RowBox[{"matList", " ", "=", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"1.0", "-", "#"}], ")"}], "^", "2"}], ",", " ", 
+             RowBox[{
+              RowBox[{"-", 
+               RowBox[{"(", 
+                RowBox[{"1.0", "-", "#"}], ")"}]}], "*", "#"}]}], "}"}], ",", 
+           
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", 
+               RowBox[{"(", 
+                RowBox[{"1.0", "-", "#"}], ")"}]}], "*", "#"}], ",", " ", 
+             RowBox[{"#", "^", "2"}]}], "}"}]}], "}"}], "&"}], " ", "/@", " ",
+         "mu2List"}]}], ";", "\n", "    ", 
+      RowBox[{
+       RowBox[{"Total", "[", 
+        RowBox[{"sumList", "*", "matList"}], "]"}], "*", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"baoAmp", "^", "2"}], " ", "*", " ", "kstep", " ", "*", 
+           " ", "mustep", "*", " ", 
+           RowBox[{"10.0", "^", "13"}], "*", "vol"}], ")"}], "/", "8.0"}], 
+        "/", 
+        RowBox[{"Pi", "^", "2"}]}]}]}]}], "\n", "]"}]}], ";"}]], "Code",
+ CellChangeTimes->{3.5463649064615173`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Take the fisher matrix and transform to errors\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.546364921103745*^9, 3.546364932492464*^9}}],
+
+Cell["\<\
+Simple wrapper around the Fisher matrix code above\
+\>", "Text",
+ CellChangeTimes->{{3.546365288139233*^9, 3.546365302182538*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"baoError", "[", 
+    RowBox[{
+    "sigmaPerp_", ",", " ", "sigmaPar_", ",", " ", "nbar_", ",", " ", 
+     "sigma8_", ",", " ", "beta_", ",", " ", "vol_", ",", " ", 
+     RowBox[{"sigmaZ_:", "0.0"}]}], "]"}], " ", ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "mat", "}"}], ",", "\n", "  ", 
+     RowBox[{
+      RowBox[{"mat", " ", "=", " ", 
+       RowBox[{"Inverse", "[", 
+        RowBox[{"baoFisher", "[", 
+         RowBox[{
+         "sigmaPerp", ",", " ", "sigmaPar", ",", " ", "nbar", ",", " ", 
+          "sigma8", ",", " ", "beta", ",", " ", "vol", ",", " ", "sigmaZ"}], 
+         "]"}], "]"}]}], ";", "\n", "  ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Sqrt", "[", 
+         RowBox[{"mat", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}], "]"}], ",", " ", 
+        RowBox[{"Sqrt", "[", 
+         RowBox[{"mat", "[", 
+          RowBox[{"[", 
+           RowBox[{"2", ",", "2"}], "]"}], "]"}], "]"}], ",", " ", 
+        RowBox[{
+         RowBox[{"mat", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "2"}], "]"}], "]"}], "/", 
+         RowBox[{"Sqrt", "[", 
+          RowBox[{
+           RowBox[{"mat", "[", 
+            RowBox[{"[", 
+             RowBox[{"1", ",", "1"}], "]"}], "]"}], " ", "*", " ", 
+           RowBox[{"mat", "[", 
+            RowBox[{"[", 
+             RowBox[{"2", ",", "2"}], "]"}], "]"}]}], "]"}]}]}], "}"}]}]}], 
+    "\n", "]"}]}], ";"}]], "Code",
+ CellChangeTimes->{{3.5463649406037607`*^9, 3.54636494222652*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Code",
+ CellChangeTimes->{{3.546363096189919*^9, 3.5463631335457993`*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Testing", "Section",
+ CellChangeTimes->{{3.546364962297141*^9, 3.546364965099712*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Simple case", "Subsubsection",
+ CellChangeTimes->{{3.546365200269145*^9, 3.546365205717237*^9}}],
+
+Cell["\<\
+Running bao_forecast.c with
+\tn=1.e-4  // Density
+\tsigma8=0.8 // Bias * sigma8
+\tSigma_Perp = 8.0 
+\tSigma_Par = 8.0 
+\tSigma_z = 0.0
+\tbeta = 0.0
+[penelope:wfirst_fisher/original]$ ./a.out 
+Call with n, sigma8, Sigma_perp, Sigma_par, Sigma_z, and beta.
+Output is sigma(D/s), sigma(H*s), r, and sigma(spherical)
+    for a 1 h^-3 Gpc^3 survey.
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 0.0 0.0
+7.107057 11.617875 0.409312 4.735566\
+\>", "Text",
+ CellChangeTimes->{{3.546365309894352*^9, 3.546365439948472*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"baoError", "[", 
+  RowBox[{
+  "8.0", ",", " ", "8.0", ",", " ", "1.*^-4", ",", " ", "0.8", ",", " ", 
+   "0.0", ",", " ", "1.0", ",", " ", "0.0"}], "]"}]], "Input",
+ CellChangeTimes->{{3.546365472200645*^9, 3.546365509622697*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.07107056128149154`", ",", "0.11617879008447503`", ",", 
+   "0.4093119525727231`"}], "}"}]], "Output",
+ CellChangeTimes->{3.546365519323745*^9, 3.546366367116288*^9, 
+  3.54636711247374*^9}]
+}, Open  ]],
+
+Cell["\<\
+Test that Sigma_z is correctly set\
+\>", "Text",
+ CellChangeTimes->{{3.546365531570937*^9, 3.5463655428961897`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"baoError", "[", 
+  RowBox[{
+  "8.0", ",", " ", "8.0", ",", " ", "1.*^-4", ",", " ", "0.8", ",", " ", 
+   "0.0", ",", " ", "1.0"}], "]"}]], "Input",
+ CellChangeTimes->{{3.546365551895116*^9, 3.546365552564624*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.07107056128149154`", ",", "0.11617879008447503`", ",", 
+   "0.4093119525727231`"}], "}"}]], "Output",
+ CellChangeTimes->{3.546365557816753*^9, 3.546366367169265*^9, 
+  3.546367112530414*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Do a series of cases where we crank on Sigma_z\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.5463655642470303`*^9, 3.5463655810146523`*^9}, {
+  3.546365649339017*^9, 3.546365660899156*^9}}],
+
+Cell["\<\
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 1.0 0.0
+7.116161 11.692535 0.409298 4.749769
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 10.0 0.0
+7.817049 18.219351 0.402383 5.786701
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 30.0 0.0
+10.224825 54.420101 0.348138 8.876237
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 100.0 0.0
+16.541359 282.472961 0.210970 15.946267\
+\>", "Text",
+ CellChangeTimes->{3.546365723116144*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"baoError", "[", 
+      RowBox[{
+      "8.0", ",", " ", "8.0", ",", " ", "1.*^-4", ",", " ", "0.8", ",", " ", 
+       "0.0", ",", " ", "1.0", ",", " ", "#"}], "]"}], " ", "&"}], ")"}], " ",
+    "/@", " ", 
+   RowBox[{"{", 
+    RowBox[{"1.0", ",", " ", "10.0", ",", " ", "30.0", ",", " ", "100.0"}], 
+    "}"}]}], " ", "//", " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.546365768300352*^9, 3.5463658316062527`*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"0.0711616054271549`", "0.11692539234417373`", "0.4092982364488033`"},
+    {"0.07817049405303855`", "0.182193570198051`", "0.40238317912320076`"},
+    {"0.10224823649221289`", "0.5442006972486222`", "0.3481370400013963`"},
+    {"0.16541359184347268`", "2.824728182130532`", "0.21096975236874427`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.546365817684005*^9, 3.5463658323360777`*^9}, 
+   3.546366367357567*^9, 3.546367112717772*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Now do a series of beta values", "Subsubsection",
+ CellChangeTimes->{{3.546365889600644*^9, 3.546365899483745*^9}}],
+
+Cell["\<\
+[penelope:wfirst_fisher/original]$ ./a.out                            
+Call with n, sigma8, Sigma_perp, Sigma_par, Sigma_z, and beta.
+Output is sigma(D/s), sigma(H*s), r, and sigma(spherical)
+    for a 1 h^-3 Gpc^3 survey.
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 0.0 0.5  
+6.554481 8.257188 0.421449 3.920014
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 0.0 0.2
+6.868659 9.906902 0.412059 4.368868
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 0.0 0.1
+6.984444 10.680182 0.410149 4.545192
+
+NOTE : Not sure I fully understand this behaviour, need to think about it \
+some more\
+\>", "Text",
+ CellChangeTimes->{{3.546366091498579*^9, 3.5463661237903976`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"baoError", "[", 
+      RowBox[{
+      "8.0", ",", " ", "8.0", ",", " ", "1.*^-4", ",", " ", "0.8", ",", " ", 
+       "#", ",", " ", "1.0"}], "]"}], " ", "&"}], ")"}], " ", "/@", " ", 
+   RowBox[{"{", 
+    RowBox[{"0.5", ",", " ", "0.2", ",", " ", "0.1"}], "}"}]}], " ", "//", 
+  " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.546366157620315*^9, 3.546366193995862*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"0.06554480924770946`", "0.08257191926856715`", "0.4214489139677254`"},
+    {"0.06868660072532172`", "0.09906906778436543`", "0.41205949591167434`"},
+    {"0.06984443880781388`", "0.10680184798356723`", "0.4101493699469004`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.546366195625539*^9, 3.546366367404663*^9, 
+  3.5463671127811117`*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Now do different volumes", "Subsubsection",
+ CellChangeTimes->{{3.5463662809207373`*^9, 3.5463662880768013`*^9}}],
+
+Cell["\<\
+This is not directly testable with the code, but is an easy scaling\
+\>", "Text",
+ CellChangeTimes->{{3.5463662932292557`*^9, 3.54636631186784*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"baoError", "[", 
+      RowBox[{
+      "8.0", ",", " ", "8.0", ",", " ", "1.*^-4", ",", " ", "0.8", ",", " ", 
+       "0.0", ",", " ", "#"}], "]"}], " ", "&"}], ")"}], " ", "/@", " ", 
+   RowBox[{"{", 
+    RowBox[{"1.0", ",", " ", "4.0", ",", " ", "9.0"}], "}"}]}], " ", "//", 
+  " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.546366321495145*^9, 3.546366342909877*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"0.07107056128149154`", "0.11617879008447503`", "0.4093119525727231`"},
+    {"0.03553528064074577`", "0.058089395042237514`", "0.4093119525727231`"},
+    {"0.023690187093830518`", "0.038726263361491674`", "0.4093119525727232`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.5463663436358423`*^9, 3.546366367453869*^9}, 
+   3.546367112830531*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Now do different sigma_par", "Subsubsection",
+ CellChangeTimes->{{3.546366424629355*^9, 3.5463664328120317`*^9}}],
+
+Cell["\<\
+[penelope:wfirst_fisher/original]$ ./a.out                          
+Call with n, sigma8, Sigma_perp, Sigma_par, Sigma_z, and beta.
+Output is sigma(D/s), sigma(H*s), r, and sigma(spherical)
+    for a 1 h^-3 Gpc^3 survey.
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 10.0 0.0 0.0
+7.321650 13.451971 0.408503 5.064943
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 12.0 0.0 0.0
+7.549686 15.579865 0.406742 5.403751
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 20.0 0.0 0.0
+8.500353 26.729193 0.393557 6.721930\
+\>", "Text",
+ CellChangeTimes->{3.5463664813391314`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"baoError", "[", 
+      RowBox[{
+      "8.0", ",", " ", "#", ",", " ", "1.*^-4", ",", " ", "0.8", ",", " ", 
+       "0.0", ",", " ", "1.0"}], "]"}], " ", "&"}], ")"}], " ", "/@", " ", 
+   RowBox[{"{", 
+    RowBox[{"10.0", ",", " ", "12.0", ",", " ", "20.0"}], "}"}]}], " ", "//", 
+  " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.546366518166666*^9, 3.54636654071446*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"0.07321650153080954`", "0.13451975802268853`", "0.4085028254424657`"},
+    {"0.07549685309515193`", "0.1557986872831818`", "0.40674205613298703`"},
+    {"0.08500351961937332`", "0.2672919610558995`", "0.39355750888041036`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.54636654125527*^9, 3.54636711287871*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["vary nbar", "Subsubsection",
+ CellChangeTimes->{{3.546366598085688*^9, 3.546366601745796*^9}}],
+
+Cell["\<\
+[penelope:wfirst_fisher/original]$ ./a.out                            
+Call with n, sigma8, Sigma_perp, Sigma_par, Sigma_z, and beta.
+Output is sigma(D/s), sigma(H*s), r, and sigma(spherical)
+    for a 1 h^-3 Gpc^3 survey.
+[penelope:wfirst_fisher/original]$ ./a.out 0.5e-4 0.8 8.0 8.0 0.0 0.0 
+11.430049 18.684656 0.409312 7.616057
+[penelope:wfirst_fisher/original]$ ./a.out 1.e-4 0.8 8.0 8.0 0.0 0.0
+7.107057 11.617875 0.409312 4.735566
+[penelope:wfirst_fisher/original]$ ./a.out 5.e-4 0.8 8.0 8.0 0.0 0.0
+3.322333 5.431004 0.409312 2.213733
+[penelope:wfirst_fisher/original]$ ./a.out 10.e-4 0.8 8.0 8.0 0.0 0.0
+2.769278 4.526927 0.409312 1.845222
+[penelope:wfirst_fisher/original]$ ./a.out 100.e-4 0.8 8.0 8.0 0.0 0.0
+2.212182 3.616245 0.409312 1.474019
+[penelope:wfirst_fisher/original]$ ./a.out 1000.e-4 0.8 8.0 8.0 0.0 0.0
+2.150587 3.515555 0.409312 1.432976\
+\>", "Text",
+ CellChangeTimes->{3.546366703463008*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"baoError", "[", 
+      RowBox[{"8.0", ",", " ", "8.0", ",", " ", 
+       RowBox[{"#", "*", "1.*^-4"}], ",", " ", "0.8", ",", " ", "0.0", ",", 
+       " ", "1.0"}], "]"}], " ", "&"}], ")"}], " ", "/@", " ", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.5", ",", " ", "1.0", ",", " ", "5.0", ",", "10.0", ",", "100.0", ",", 
+     "1000.0"}], "}"}]}], " ", "//", " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.546366715690971*^9, 3.5463667502139597`*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"0.11430050267210531`", "0.18684661929004268`", "0.4093119525727232`"},
+    {"0.07107056128149154`", "0.11617879008447503`", "0.4093119525727231`"},
+    {"0.03322332947378186`", "0.054310056811765296`", "0.4093119525727232`"},
+    {"0.027692783544691253`", "0.04526929333723093`", "0.4093119525727233`"},
+    {"0.02212182198352848`", "0.03616246257477906`", "0.4093119525727233`"},
+    {"0.021505865028103543`", "0.03515555996229016`", "0.4093119525727233`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.546366752676847*^9, 3.546367112925537*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["C Code\t", "Section",
+ CellChangeTimes->{{3.546366811345051*^9, 3.5463668154378643`*^9}}],
+
+Cell["\<\
+For completeness, let me append the full C code below. This allows direct \
+testing at a later date.\
+\>", "Text",
+ CellChangeTimes->{{3.54636681949368*^9, 3.54636687300985*^9}}],
+
+Cell["\<\
+/* Simple implementation of the fitting formulae of Seo & Eisenstein (2006) \
+*/
+/* This file can be compiled with gcc -O -o bao_forecast bao_forecast.c -lm
+   to get a standalone code, or one can strip off main.c and use it as 
+   a function call. */
+
+/* In using the results, we remind the reader to include the covariance between
+   the transverse and line of sight distance measurements and to treat
+   the constraints here as those on D/s and H*s rather than D and H. */
+
+#include <math.h>
+
+/* Uncomment one of the following two lines */
+#define WMAP_THREE
+/* #define WMAP_ONE */
+
+#define KSTEP 0.01
+#define NUM_KSTEP 50
+
+#ifdef WMAP_THREE    /* Omega_m = 0.24 */
+float Pbao_list[NUM_KSTEP] = 
+  { 14.10, 20.19, 16.17, 11.49, 8.853, 7.641, 6.631, 5.352, 4.146, 3.384, 
+    3.028, 2.799, 2.479, 2.082, 1.749, 1.551, 1.446, 1.349, 1.214, 1.065, 
+    0.9455, 0.8686, 0.8163, 0.7630, 0.6995, 0.6351, 0.5821, 0.5433, 0.5120, \
+0.4808, 
+    0.4477, 0.4156, 0.3880, 0.3655, 0.3458, 0.3267, 0.3076, 0.2896, 0.2734, \
+0.2593, 
+    0.2464, 0.2342, 0.2224, 0.2112, 0.2010, 0.1916, 0.1830, 0.1748, 0.1670, \
+0.1596};
+    /* This is the power spectrum of WMAP-3, normalized to 1 at k=0.2 */
+#define BAO_POWER 2710.0    /* The power spectrum at k=0.2h Mpc^-1 for \
+sigma8=1 */
+#define BAO_SILK 8.38
+#define BAO_AMP 0.05169
+#endif   /* WMAP_ONE */
+
+#ifdef WMAP_ONE     /* Omega_m = 0.27 */
+float Pbao_list[NUM_KSTEP] = 
+  { 9.034, 14.52, 12.63, 9.481, 7.409, 6.397, 5.688, 4.804, 3.841, 3.108,
+    2.707, 2.503, 2.300, 2.014, 1.707, 1.473, 1.338, 1.259, 1.174, 1.061,
+    0.9409, 0.8435, 0.7792, 0.7351, 0.6915, 0.6398, 0.5851, 0.5376, 0.5018, \
+0.4741,
+    0.4484, 0.4210, 0.3929, 0.3671, 0.3456, 0.3276, 0.3112, 0.2950, 0.2788, \
+0.2635,
+    0.2499, 0.2379, 0.2270, 0.2165, 0.2062, 0.1965, 0.1876, 0.1794, 0.1718, \
+0.1646};
+    /* This is the power spectrum of WMAP-1, normalized to 1 at k=0.2 */
+#define BAO_POWER 2875.0    /* The power spectrum at k=0.2h Mpc^-1 for \
+sigma8=1 */
+#define BAO_SILK 7.76
+#define BAO_AMP 0.04024
+#endif   /* WMAP_ONE */
+
+
+void bao_forecast ( 
+\tfloat number_density,\t/* The number density in h^3 Mpc^-3 */
+\tfloat sigma8,\t\t/* The real-space, linear clustering amplitude */
+\tfloat Sigma_perp,\t/* The transverse rms Lagrangian displacement */
+\tfloat Sigma_par,\t/* The line of sight rms Lagrangian displacement */
+\tfloat Sigma_z,\t\t/* The line of sight rms comoving distance error due to \
+redshift uncertainties */
+\t\t/* Note that Sigma_perp and Sigma_par are for pairwise differences,
+\t\t   while Sigma_z is for each individual object */
+\tfloat beta, \t\t/* The redshift distortion parameter */
+\tfloat volume,\t\t/* The survey volume in h^-3 Gpc^3, set to 1 if input <=0 */
+\tfloat *Drms,\t\t/* The rms error forecast for D/s, in percent */
+\tfloat *Hrms,\t\t/* The rms error forecast for H*s, in percent */
+\tfloat *r,\t\t/* The correlation coefficient between D and H */
+\t\t\t\t/* The covariance matrix for D/s and H*s is hence
+\t\t\t\t\tDrms**2    Drms*Hrms*r
+\t\t\t\t\tDrms*Hrms*r   Hrms**2     */
+\tfloat *Rrms\t\t/* The rms error forecast for D/s and H*s, in 
+\t\t\t\t   percent, if one requires that the radial 
+\t\t\t\t   and transverse scale changes are the same. */
+    )
+{
+    /* This routine takes about 300 microseconds to run with mustep=0.05 
+     * on my Intel workstation. */
+    float mustep = 0.05;
+    int ik;
+    float mu, mu2, k;
+    float Fdd, Fdh, Fhh, sum;
+    float Sigma_perp2, Sigma_par2, Sigma_z2, nP, redshift_distort, tmp, tmpz, \
+Sigma2_tot;
+    float Silk_list[NUM_KSTEP];
+
+    Fdd = Fdh = Fhh = 0.0;
+    if (volume<=0) volume=1.0;   /* Note: even setting 0 volume to 1, to \
+avoid divide by zero below */
+    Sigma_perp2 = Sigma_perp*Sigma_perp;  /* We only use the squares of these \
+*/
+    Sigma_par2 = Sigma_par*Sigma_par;
+    Sigma_z2 = Sigma_z*Sigma_z;
+    nP = number_density*sigma8*sigma8*BAO_POWER;   /* At k=0.2 h Mpc^-1 */
+    if (sqrt(Sigma_par2+Sigma_z2)>3*Sigma_perp) mustep /= 10.0;   
+\t/* Take finer steps if integrand is anisotropic. */
+\t/* One might need to adjust this further */
+
+    for (ik=0, k=0.5*KSTEP; ik<NUM_KSTEP; ik++,k+=KSTEP) 
+        Silk_list[ik] = exp(-2.0*pow(k*BAO_SILK,1.40))*k*k;
+\t/* Pre-compute this for speed.  However, if you need an extra 10% speed bump,
+\tmove this outside of the function and reuse the computation in each new \
+call. */
+
+    for (mu=0.5*mustep; mu<1; mu+=mustep) {
+\tmu2 = mu*mu;   
+\tredshift_distort = (1+beta*mu2)*(1+beta*mu2);
+\ttmp = 1.0/(nP*redshift_distort);
+\tSigma2_tot = Sigma_perp2*(1-mu2)+Sigma_par2*mu2;
+
+\tfor (sum=0.0, ik=0, k=0.5*KSTEP; ik<NUM_KSTEP; ik++,k+=KSTEP) {
+\t    tmpz = Pbao_list[ik]+tmp*exp(k*k*Sigma_z2*mu2);
+\t    sum += Silk_list[ik]*exp(-k*k*Sigma2_tot)/tmpz/tmpz;
+\t    /* These two exp() take nearly all of the run time */
+\t}
+\tFdd += sum*(1-mu2)*(1-mu2);
+\tFdh += sum*(1-mu2)*mu2;
+\tFhh += sum*mu2*mu2;
+    }
+    *r = Fdh/sqrt(Fhh*Fdd);   /* This is the correlation coeff between D and \
+H */
+    \t/* Recall that the Fisher matrix parameter is actually H^-1, hence
+\t   there is one extra minus sign to cancel that of the F to C inversion */
+    Fdd *= BAO_AMP*BAO_AMP/8.0/M_PI/M_PI*1.0e9*KSTEP*mustep*volume;
+    Fhh *= BAO_AMP*BAO_AMP/8.0/M_PI/M_PI*1.0e9*KSTEP*mustep*volume;
+    /* Invert the Fisher matrix and quote the diagonal elements */
+    *Drms = 1.0/sqrt(Fdd*(1.0-(*r)*(*r)));
+    *Hrms = 1.0/sqrt(Fhh*(1.0-(*r)*(*r)));
+    *Rrms = \
+(*Drms)*sqrt((1-(*r)*(*r))/(1+(*Drms)/(*Hrms)*(2*(*r)+(*Drms)/(*Hrms))));
+    return;
+}
+
+
+/* ========== Remove everything below this line if one wants ============ */
+/* ============ to call bao_forecast() from other programs   ============ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    float D,H,r,R;
+    int j;
+    if (argc!=7) {
+        fprintf(stderr, \"Call with n, sigma8, Sigma_perp, Sigma_par, \
+Sigma_z, and beta.\\n\");
+        fprintf(stderr, \"Output is sigma(D/s), sigma(H*s), r, and \
+sigma(spherical)\\n    for a 1 h^-3 Gpc^3 survey.\\n\");
+        exit(1);
+    }
+    /* Uncomment the following line to invoke 1e5 iterations for timing */
+    /* for (j=0;j<1e5;j++)  */
+    bao_forecast( 
+       atof(argv[1]), atof(argv[2]), atof(argv[3]), atof(argv[4]), \
+atof(argv[5]), atof(argv[6]),
+       1.0, &D, &H, &r, &R);
+    printf(\"%f %f %f %f\\n\", D, H, r, R);
+    return 0;
+}
+\
+\>", "Program",
+ CellChangeTimes->{{3.546366963856596*^9, 3.546366994538376*^9}}]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{775, 658},
+WindowMargins->{{Automatic, 140}, {Automatic, 13}},
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 137, 3, 67, "Section"],
+Cell[719, 27, 268, 8, 41, "Text"],
+Cell[990, 37, 282, 6, 59, "Code"],
+Cell[CellGroupData[{
+Cell[1297, 47, 131, 3, 24, "Subsubsection"],
+Cell[1431, 52, 688, 16, 74, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2156, 73, 111, 1, 24, "Subsubsection"],
+Cell[2270, 76, 159, 3, 43, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2466, 84, 136, 3, 24, "Subsubsection"],
+Cell[2605, 89, 3293, 81, 254, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5935, 175, 97, 1, 24, "Subsubsection"],
+Cell[6035, 178, 895, 24, 104, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6967, 207, 157, 2, 24, "Subsubsection"],
+Cell[7127, 211, 110, 1, 26, "Text"],
+Cell[7240, 214, 5044, 128, 314, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12321, 347, 145, 3, 24, "Subsubsection"],
+Cell[12469, 352, 140, 3, 26, "Text"],
+Cell[12612, 357, 1566, 42, 89, "Code"],
+Cell[14181, 401, 198, 5, 59, "Code"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14428, 412, 92, 1, 67, "Section"],
+Cell[CellGroupData[{
+Cell[14545, 417, 102, 1, 24, "Subsubsection"],
+Cell[14650, 420, 539, 15, 206, "Text"],
+Cell[CellGroupData[{
+Cell[15214, 439, 254, 5, 27, "Input"],
+Cell[15471, 446, 234, 6, 27, "Output"]
+}, Open  ]],
+Cell[15720, 455, 126, 3, 26, "Text"],
+Cell[CellGroupData[{
+Cell[15871, 462, 237, 5, 27, "Input"],
+Cell[16111, 469, 235, 6, 27, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16395, 481, 198, 4, 24, "Subsubsection"],
+Cell[16596, 487, 497, 10, 131, "Text"],
+Cell[CellGroupData[{
+Cell[17118, 501, 499, 13, 43, "Input"],
+Cell[17620, 516, 922, 20, 89, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18591, 542, 121, 1, 24, "Subsubsection"],
+Cell[18715, 545, 719, 15, 191, "Text"],
+Cell[CellGroupData[{
+Cell[19459, 564, 453, 12, 27, "Input"],
+Cell[19915, 578, 825, 19, 73, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20789, 603, 119, 1, 24, "Subsubsection"],
+Cell[20911, 606, 158, 3, 26, "Text"],
+Cell[CellGroupData[{
+Cell[21094, 613, 453, 12, 27, "Input"],
+Cell[21550, 627, 830, 19, 73, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22429, 652, 119, 1, 24, "Subsubsection"],
+Cell[22551, 655, 609, 12, 161, "Text"],
+Cell[CellGroupData[{
+Cell[23185, 671, 455, 12, 27, "Input"],
+Cell[23643, 685, 795, 18, 73, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24487, 709, 100, 1, 24, "Subsubsection"],
+Cell[24590, 712, 929, 18, 251, "Text"],
+Cell[CellGroupData[{
+Cell[25544, 734, 528, 13, 43, "Input"],
+Cell[26075, 749, 1031, 21, 121, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27167, 777, 95, 1, 67, "Section"],
+Cell[27265, 780, 188, 4, 26, "Text"],
+Cell[27456, 786, 6440, 162, 1909, "Program"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
