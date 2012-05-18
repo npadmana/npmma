@@ -19,12 +19,12 @@
 
 
 
-BeginPackage["Cosmology`MassFunction`"];
-
-(* Needs statements go here *)
-Needs["Cosmology`Defs`"];
+BeginPackage["Cosmology`MassFunction`", 
+             {"Cosmology`Defs`"}
+            ];
 
 (* You should put usage statements here *)
+mass2rval::usage = "mass2rval[M, cosmo] converts mass (Msun) to Rval (Mpc)";
 deltac::usage = "deltac is the spherical collapse overdensity; we keep this as a symbolic constant = 1.686";
 ShethTormen::usage = "ShethTormen[v] is the Sheth-Tormen multiplicity function";
 PressSchechter::usage = "PressSchechter[v] is the PS multiplicity function";
@@ -32,6 +32,11 @@ bias::usage = "bias[multiplicity, nu_] returns a bias given a multiplicity funct
 
 (* The private section of the package is here *)
 Begin["`Private`"];
+
+mass2rval[M_, cosmo_?OptionQ] := Module[{rhobar}, 
+   rhobar = OmegaM[1.0,cosmo]*CriticalDensity[1.0, cosmo];
+   (3.0*M/(4.0*Pi*rhobar))^(1./3.)
+];
 
 (* Generic functional form *)
 vfv[v_] := norm*(1 + (a*v^2)^(-p)) * Exp[- a*v^2/2] / Sqrt[a];

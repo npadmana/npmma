@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     18698,        485]
-NotebookOptionsPosition[     17137,        428]
-NotebookOutlinePosition[     17604,        447]
-CellTagsIndexPosition[     17561,        444]
+NotebookDataLength[     20207,        527]
+NotebookOptionsPosition[     18531,        466]
+NotebookOutlinePosition[     18998,        485]
+CellTagsIndexPosition[     18955,        482]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -34,19 +34,20 @@ functions. \nBased on M. White, ApJS 2002",
 Cell[BoxData[{
  RowBox[{
   RowBox[{
-   RowBox[{"BeginPackage", "[", "\"\<Cosmology`MassFunction`\>\"", "]"}], 
-   ";"}], "\n", "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Needs", " ", "statements", " ", "go", " ", "here"}], " ", 
-   "*)"}]}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Needs", "[", "\"\<Cosmology`Defs`\>\"", "]"}], ";"}], "\n", "\n", 
-  
+   RowBox[{"BeginPackage", "[", 
+    RowBox[{
+    "\"\<Cosmology`MassFunction`\>\"", ",", " ", "\n", "             ", 
+     RowBox[{"{", "\"\<Cosmology`Defs`\>\"", "}"}]}], "\n", "            ", 
+    "]"}], ";"}], "\n", "\n", 
   RowBox[{"(*", " ", 
    RowBox[{
    "You", " ", "should", " ", "put", " ", "usage", " ", "statements", " ", 
     "here"}], " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mass2rval", "::", "usage"}], " ", "=", " ", 
+   "\"\<mass2rval[M, cosmo] converts mass (Msun) to Rval (Mpc)\>\""}], 
+  ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"deltac", "::", "usage"}], " ", "=", " ", 
@@ -67,12 +68,14 @@ symbolic constant = 1.686\>\""}], ";"}], "\n",
    "\"\<bias[multiplicity, nu_] returns a bias given a multiplicity \
 function\>\""}], ";"}]}], "Code",
  CellChangeTimes->{{3.543239080347979*^9, 3.543239156102126*^9}, {
-  3.543239397273192*^9, 3.543239424222596*^9}, {3.543239460800177*^9, 
-  3.543239485087593*^9}, {3.543332239131979*^9, 3.543332253553011*^9}, {
-  3.5433322893443108`*^9, 3.5433323078911247`*^9}, {3.5433480468377237`*^9, 
-  3.543348055023522*^9}, {3.543348738357256*^9, 3.543348798177826*^9}, {
-  3.543349147437558*^9, 3.543349154718029*^9}, {3.543349275805532*^9, 
-  3.5433492799582367`*^9}, {3.543349735398129*^9, 3.543349778943838*^9}}],
+   3.543239397273192*^9, 3.543239424222596*^9}, {3.543239460800177*^9, 
+   3.543239485087593*^9}, {3.543332239131979*^9, 3.543332253553011*^9}, {
+   3.5433322893443108`*^9, 3.5433323078911247`*^9}, {3.5433480468377237`*^9, 
+   3.543348055023522*^9}, {3.543348738357256*^9, 3.543348798177826*^9}, {
+   3.543349147437558*^9, 3.543349154718029*^9}, {3.543349275805532*^9, 
+   3.5433492799582367`*^9}, {3.543349735398129*^9, 3.543349778943838*^9}, {
+   3.5441361009719257`*^9, 3.544136160316234*^9}, 3.5441365043138437`*^9, {
+   3.544136572942832*^9, 3.544136772068609*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -84,6 +87,41 @@ Cell[BoxData[
    RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]}]], "Code",
  CellChangeTimes->{{3.5432391242226267`*^9, 3.54323913123664*^9}, {
    3.54323916475558*^9, 3.543239182101027*^9}, 3.543348057668006*^9}],
+
+Cell[CellGroupData[{
+
+Cell["Utility functions", "Section",
+ CellChangeTimes->{{3.5441367839511833`*^9, 3.544136791416448*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"mass2rval", "[", 
+    RowBox[{"M_", ",", " ", 
+     RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "rhobar", "}"}], ",", " ", "\n", "   ", 
+     RowBox[{
+      RowBox[{"rhobar", " ", "=", " ", 
+       RowBox[{
+        RowBox[{"OmegaM", "[", 
+         RowBox[{"1.0", ",", "cosmo"}], "]"}], "*", 
+        RowBox[{"CriticalDensity", "[", 
+         RowBox[{"1.0", ",", " ", "cosmo"}], "]"}]}]}], ";", "\n", "   ", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"3.0", "*", 
+         RowBox[{"M", "/", 
+          RowBox[{"(", 
+           RowBox[{"4.0", "*", "Pi", "*", "rhobar"}], ")"}]}]}], ")"}], "^", 
+       RowBox[{"(", 
+        RowBox[{"1.", "/", "3."}], ")"}]}]}]}], "\n", "]"}]}], ";"}]], "Code",\
+
+ CellChangeTimes->{{3.544136839789052*^9, 3.544136935118842*^9}, {
+  3.544136976495077*^9, 3.544137042445423*^9}, {3.544137113329639*^9, 
+  3.5441371630531263`*^9}, {3.544137204111516*^9, 3.544137231931464*^9}}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -449,41 +487,45 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[579, 22, 99, 1, 76, "Title"],
 Cell[681, 25, 433, 6, 49, "Text"],
-Cell[1117, 33, 1708, 41, 179, "Code"],
-Cell[2828, 76, 409, 9, 59, "Code"],
+Cell[1117, 33, 1919, 44, 179, "Code"],
+Cell[3039, 79, 409, 9, 59, "Code"],
 Cell[CellGroupData[{
-Cell[3262, 89, 158, 2, 67, "Section"],
-Cell[3423, 93, 1065, 17, 180, "Text"],
-Cell[4491, 112, 2114, 57, 89, "Code"]
+Cell[3473, 92, 104, 1, 67, "Section"],
+Cell[3580, 95, 1039, 27, 89, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6642, 174, 91, 1, 67, "Section"],
-Cell[6736, 177, 473, 7, 63, "Text"],
-Cell[7212, 186, 1182, 29, 74, "Code"],
-Cell[8397, 217, 151, 3, 26, "Text"],
-Cell[CellGroupData[{
-Cell[8573, 224, 103, 1, 34, "Subsection"],
-Cell[8679, 227, 312, 5, 30, "Text"],
-Cell[CellGroupData[{
-Cell[9016, 236, 434, 10, 27, "Input"],
-Cell[9453, 248, 666, 11, 46, "Output"]
+Cell[4656, 127, 158, 2, 67, "Section"],
+Cell[4817, 131, 1065, 17, 179, "Text"],
+Cell[5885, 150, 2114, 57, 89, "Code"]
 }, Open  ]],
-Cell[10134, 262, 159, 3, 26, "Text"],
 Cell[CellGroupData[{
-Cell[10318, 269, 347, 9, 27, "Input"],
-Cell[10668, 280, 681, 10, 27, "Output"]
+Cell[8036, 212, 91, 1, 67, "Section"],
+Cell[8130, 215, 473, 7, 62, "Text"],
+Cell[8606, 224, 1182, 29, 74, "Code"],
+Cell[9791, 255, 151, 3, 26, "Text"],
+Cell[CellGroupData[{
+Cell[9967, 262, 103, 1, 34, "Subsection"],
+Cell[10073, 265, 312, 5, 30, "Text"],
+Cell[CellGroupData[{
+Cell[10410, 274, 434, 10, 27, "Input"],
+Cell[10847, 286, 666, 11, 46, "Output"]
 }, Open  ]],
-Cell[11364, 293, 245, 6, 59, "Code"],
-Cell[11612, 301, 92, 1, 27, "Input"]
+Cell[11528, 300, 159, 3, 26, "Text"],
+Cell[CellGroupData[{
+Cell[11712, 307, 347, 9, 27, "Input"],
+Cell[12062, 318, 681, 10, 27, "Output"]
+}, Open  ]],
+Cell[12758, 331, 245, 6, 59, "Code"],
+Cell[13006, 339, 92, 1, 27, "Input"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[11753, 308, 94, 1, 67, "Section"],
-Cell[11850, 311, 431, 11, 27, "Input"],
-Cell[12284, 324, 430, 11, 27, "Input"],
+Cell[13147, 346, 94, 1, 67, "Section"],
+Cell[13244, 349, 431, 11, 27, "Input"],
+Cell[13678, 362, 430, 11, 27, "Input"],
 Cell[CellGroupData[{
-Cell[12739, 339, 397, 11, 27, "Input"],
-Cell[13139, 352, 3958, 71, 245, "Output"]
+Cell[14133, 377, 397, 11, 27, "Input"],
+Cell[14533, 390, 3958, 71, 245, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
