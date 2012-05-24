@@ -1037,42 +1037,42 @@ FastGroupDeclareUnit[
 Begin["AutomaticUnits`"];(*Move to public context so that unit symbols are on context path*)
 Get["AutomaticUnits`SI`"]; (*Must be first*)
 Get["AutomaticUnits`PrefixedSI`"];
-Get["AutomaticUnits`Troy`"];
-Get["AutomaticUnits`BritishAvoirdupois`"];
-Get["AutomaticUnits`Avoirdupois`"];
-Get["AutomaticUnits`Imperial`"];(*Needs Troy and BritishAvoirdupois to be loaded first*)
+(*Get["AutomaticUnits`Troy`"]*);
+(*Get["AutomaticUnits`BritishAvoirdupois`"]*);
+(*Get["AutomaticUnits`Avoirdupois`"]*);
+(*Get["AutomaticUnits`Imperial`"]*);(*Needs Troy and BritishAvoirdupois to be loaded first*)
 Get["AutomaticUnits`CGS`"];
 Get["AutomaticUnits`MKS`"];
-Get["AutomaticUnits`Survey`"]; (*Needs Troy, Avoirdupois,Survey to be loaded first*)
-Get["AutomaticUnits`USCustomary`"];
+(*Get["AutomaticUnits`Survey`"]*); (*Needs Troy, Avoirdupois,Survey to be loaded first*)
+(*Get["AutomaticUnits`USCustomary`"]*);
 Get["AutomaticUnits`Atomic`"];
 Get["AutomaticUnits`Planck`"];
 Get["AutomaticUnits`Astronomical`"];
 Get["AutomaticUnits`IEC`"];
-Get["AutomaticUnits`MeterTonneSecond`"];
+(*Get["AutomaticUnits`MeterTonneSecond`"]*);
 Get["AutomaticUnits`Alternative`"];
-Get["AutomaticUnits`AlternativeNames`"];
-Get["AutomaticUnits`Champagne`"];
-Get["AutomaticUnits`Anthropic`"];
+(*Get["AutomaticUnits`AlternativeNames`"]*);
+(*Get["AutomaticUnits`Champagne`"]*);
+(*Get["AutomaticUnits`Anthropic`"]*);
 (*Regional and obsolete units*)
-Get["AutomaticUnits`RegionalUnits`"];
-Get["AutomaticUnits`Arabic`"];
-Get["AutomaticUnits`Japanese`"];
-Get["AutomaticUnits`Malay`"];
-Get["AutomaticUnits`Maltese`"];
-Get["AutomaticUnits`Norwegian`"];
-Get["AutomaticUnits`Roman`"];
-Get["AutomaticUnits`Russian`"];
-Get["AutomaticUnits`Scottish`"];
-Get["AutomaticUnits`Spanish`"];
-Get["AutomaticUnits`Swedish`"];
-Get["AutomaticUnits`Taiwanese`"];
+(*Get["AutomaticUnits`RegionalUnits`"]*);
+(*Get["AutomaticUnits`Arabic`"]*);
+(*Get["AutomaticUnits`Japanese`"]*);
+(*Get["AutomaticUnits`Malay`"]*);
+(*Get["AutomaticUnits`Maltese`"]*);
+(*Get["AutomaticUnits`Norwegian`"]*);
+(*Get["AutomaticUnits`Roman`"]*);
+(*Get["AutomaticUnits`Russian`"]*);
+(*Get["AutomaticUnits`Scottish`"]*);
+(*Get["AutomaticUnits`Spanish`"]*);
+(*Get["AutomaticUnits`Swedish`"]*);
+(*Get["AutomaticUnits`Taiwanese`"]*);
 (*Special unit set needed for mouse interactivity*)
-UnitSet["InteractiveChoices"]=Union[UnitSet["SI"],UnitSet["Imperial"],UnitSet["USCustomary"]]; 
+(*UnitSet["InteractiveChoices"]=Union[UnitSet["SI"],UnitSet["Imperial"],UnitSet["USCustomary"]]*); 
 End[];(*Return to private context*)
 	];
 
-Get["AutomaticUnits`PaletteCache`"];(*Pre calculated contents of palette*)
+(*Get["AutomaticUnits`PaletteCache`"];*)(*Pre calculated contents of palette*)
 
 (*FrontEnd tools. Used for the palette and also interactive conversion*)
 CompatibleUnitsFromSet[set_, un_Unit] := CompatibleUnitsFromSet[set, un]= Quiet[Sort@Select[UnitSet[set], CompatibleUnitQ[#, un] &]];
