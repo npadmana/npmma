@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     18566,        500]
-NotebookOptionsPosition[     16934,        440]
-NotebookOutlinePosition[     17344,        458]
-CellTagsIndexPosition[     17301,        455]
+NotebookDataLength[     13601,        363]
+NotebookOptionsPosition[     12362,        315]
+NotebookOutlinePosition[     12767,        333]
+CellTagsIndexPosition[     12724,        330]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -88,132 +88,7 @@ Cell["\<\
     x[8] = 0.0; // Delta gamma
     x[9] = 0.0; // Script M\
 \>", "Program",
- CellChangeTimes->{3.546375907374311*^9}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"BeginPackage", "[", "\"\<Fishers`FoMSWG`\>\"", "]"}], 
-  ";"}]], "Code",
- CellChangeTimes->{{3.546371868284403*^9, 3.5463718842428303`*^9}, {
-  3.5463769780529327`*^9, 3.5463770007665358`*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Documentation", "Subsubsection",
- CellChangeTimes->{{3.546371891245331*^9, 3.546371895653866*^9}}],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{
-   RowBox[{"readFisher", "::", "usage"}], " ", "=", " ", 
-   "\"\<readFisher[fn] reads in a FoMSWG fisher matrix.\nWARNING! This \
-routine may be a little brittle.\>\""}], ";"}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{"aFoMSWG", "::", "usage"}], " ", "=", " ", 
-   "\"\<aFoMSWG[i] is scale factor defined by FoMSWG; 0 <= i < 36\>\""}], 
-  ";"}]}], "Code",
- CellChangeTimes->{{3.54637190689646*^9, 3.546371918528596*^9}, {
-  3.546371991704714*^9, 3.5463720313297157`*^9}, {3.546373350838764*^9, 
-  3.5463733958650637`*^9}, {3.546376036725123*^9, 3.546376067371491*^9}, {
-  3.546376103417502*^9, 3.546376109105343*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Private code here", "Subsubsection",
- CellChangeTimes->{{3.546372035597102*^9, 3.546372044685095*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Code",
- CellChangeTimes->{{3.546372047447888*^9, 3.546372056024137*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"aFoMSWG", "[", 
-    RowBox[{"i_", "/;", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{"IntegerQ", "[", "i", "]"}], " ", "&&", " ", 
-       RowBox[{"i", "\[GreaterEqual]", "0"}], " ", "&&", " ", 
-       RowBox[{"i", "<", "36"}]}], ")"}]}], "]"}], " ", ":=", " ", 
-   RowBox[{"1.0", " ", "-", " ", 
-    RowBox[{"0.025", "i"}], " ", "-", " ", "0.0125"}]}], ";"}]], "Code",
- CellChangeTimes->{{3.546373401070669*^9, 3.546373417801983*^9}, {
-   3.546376007312974*^9, 3.5463760334506598`*^9}, 3.546376113062443*^9, {
-   3.546376167104478*^9, 3.546376171026594*^9}, {3.546376237288878*^9, 
-   3.5463762734670267`*^9}, {3.5463766094443808`*^9, 3.546376633936047*^9}, {
-   3.546377099551627*^9, 3.54637710070794*^9}, {3.546377154059494*^9, 
-   3.546377160432633*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"readFisher", "[", "fn_", "]"}], " ", ":=", " ", 
-   RowBox[{"Module", "[", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"arr", ",", " ", "rl"}], "}"}], ",", " ", "\[IndentingNewLine]",
-      "\t", 
-     RowBox[{
-      RowBox[{"arr", " ", "=", " ", 
-       RowBox[{"Import", "[", 
-        RowBox[{"fn", ",", " ", "\"\<Table\>\""}], "]"}]}], ";", 
-      "\[IndentingNewLine]", "\t", 
-      RowBox[{"(*", " ", 
-       RowBox[{
-        RowBox[{"Mathematica", " ", "is", " ", "1"}], "-", "indexed"}], " ", 
-       "*)"}], "\[IndentingNewLine]", "\t", 
-      RowBox[{"arr", " ", "=", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"#1", "+", "1"}], ",", " ", 
-           RowBox[{"#2", " ", "+", " ", "1"}], ",", " ", "#3"}], "}"}], " ", 
-         "&"}], " ", "@@@", " ", "arr"}]}], ";", "\[IndentingNewLine]", "\t", 
-      
-      RowBox[{"(*", " ", 
-       RowBox[{
-       "Parse", " ", "into", " ", "sparse", " ", "array", " ", "rules"}], " ",
-        "*)"}], "\[IndentingNewLine]", "\t", 
-      RowBox[{"rl", " ", "=", " ", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"If", "[", "\[IndentingNewLine]", "\t\t", 
-          RowBox[{
-           RowBox[{"#1", " ", "\[Equal]", " ", "#2"}], ",", " ", 
-           "\[IndentingNewLine]", "\t\t", 
-           RowBox[{
-            RowBox[{"{", 
-             RowBox[{"#1", ",", "#2"}], "}"}], "\[Rule]", " ", "#3"}], ",", 
-           " ", "\[IndentingNewLine]", "\t\t", 
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"{", 
-               RowBox[{"#1", ",", "#2"}], "}"}], "\[Rule]", " ", "#3"}], ",", 
-             " ", 
-             RowBox[{
-              RowBox[{"{", 
-               RowBox[{"#2", ",", "#1"}], "}"}], "\[Rule]", " ", "#3"}]}], 
-            "}"}]}], "\[IndentingNewLine]", "\t\t", "]"}], " ", "&"}], " ", "@@@",
-         " ", "arr"}]}], ";", "\[IndentingNewLine]", "\t", 
-      RowBox[{"Normal", "[", 
-       RowBox[{"SparseArray", "[", 
-        RowBox[{"Flatten", "[", "rl", "]"}], "]"}], "]"}]}]}], 
-    "\[IndentingNewLine]", "\t", "]"}]}], ";"}]], "Code",
- CellChangeTimes->{{3.546372097208688*^9, 3.546372136477911*^9}}],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"End", "[", "]"}], ";"}], "\n", 
- RowBox[{
-  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Code",
- CellChangeTimes->{{3.54637205982238*^9, 3.546372074429655*^9}}]
+ CellChangeTimes->{3.546375907374311*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -438,7 +313,7 @@ Cell[BoxData[
 }, Open  ]]
 }, Open  ]]
 },
-AutoGeneratedPackage->Automatic,
+AutoGeneratedPackage->None,
 WindowSize->{921, 715},
 WindowMargins->{{Automatic, 30}, {Automatic, 0}},
 ShowSelection->True,
@@ -468,38 +343,26 @@ Cell[1284, 43, 468, 15, 193, "Program"]
 Cell[CellGroupData[{
 Cell[1789, 63, 112, 1, 24, "Subsubsection"],
 Cell[1904, 66, 557, 10, 71, "Text"],
-Cell[2464, 78, 351, 12, 154, "Program"],
-Cell[2818, 92, 228, 5, 43, "Code"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3083, 102, 104, 1, 24, "Subsubsection"],
-Cell[3190, 105, 653, 14, 74, "Code"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3880, 124, 108, 1, 24, "Subsubsection"],
-Cell[3991, 127, 157, 3, 43, "Code"],
-Cell[4151, 132, 809, 17, 43, "Code"],
-Cell[4963, 151, 2226, 57, 209, "Code"],
-Cell[7192, 210, 195, 5, 59, "Code"]
+Cell[2464, 78, 351, 12, 154, "Program"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7436, 221, 103, 1, 67, "Section"],
-Cell[7542, 224, 149, 3, 26, "Text"],
-Cell[7694, 229, 191, 4, 27, "Input"],
-Cell[7888, 235, 202, 4, 27, "Input"],
+Cell[2864, 96, 103, 1, 67, "Section"],
+Cell[2970, 99, 149, 3, 26, "Text"],
+Cell[3122, 104, 191, 4, 27, "Input"],
+Cell[3316, 110, 202, 4, 27, "Input"],
 Cell[CellGroupData[{
-Cell[8115, 243, 170, 4, 27, "Input"],
-Cell[8288, 249, 489, 7, 27, "Output"]
+Cell[3543, 118, 170, 4, 27, "Input"],
+Cell[3716, 124, 489, 7, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8814, 261, 175, 3, 27, "Input"],
-Cell[8992, 266, 390, 6, 27, "Output"]
+Cell[4242, 136, 175, 3, 27, "Input"],
+Cell[4420, 141, 390, 6, 27, "Output"]
 }, Open  ]],
-Cell[9397, 275, 3950, 85, 193, "Input"],
+Cell[4825, 150, 3950, 85, 193, "Input"],
 Cell[CellGroupData[{
-Cell[13372, 364, 218, 4, 27, "Input"],
-Cell[13593, 370, 3313, 66, 205, "Output"]
+Cell[8800, 239, 218, 4, 27, "Input"],
+Cell[9021, 245, 3313, 66, 193, "Output"]
 }, Open  ]]
 }, Open  ]]
 }

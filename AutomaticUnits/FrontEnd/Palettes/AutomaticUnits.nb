@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      4733,        131]
+NotebookDataLength[      4751,        132]
 NotebookOptionsPosition[      4371,        114]
-NotebookOutlinePosition[      4776,        131]
-CellTagsIndexPosition[      4733,        128]
+NotebookOutlinePosition[      4794,        132]
+CellTagsIndexPosition[      4751,        129]
 WindowFrame->Palette*)
 
 (* Beginning of Notebook Content *)
@@ -96,7 +96,7 @@ $CellContext`SortedUnitSets$$]}],
              Checkbox[
               Dynamic[AutomaticUnits`$UnitInteractiveOutput]]}], Null}]]}], 
     StandardForm],
-   ImageSizeCache->{264., {90., 98.}}],
+   ImageSizeCache->{287., {91., 96.}}],
   DynamicModuleValues:>{},
   Initialization:>Needs["AutomaticUnits`"]]],
  CellMargins->{{0, 0}, {0, 0}},
@@ -113,11 +113,12 @@ $CellContext`SortedUnitSets$$]}],
  FontSize:>CurrentValue["PanelFontSize"]]
 },
 WindowSize->All,
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowMargins->{{Automatic, 408}, {Automatic, 31}},
 WindowElements->{},
-PrivateNotebookOptions->{"NotebookAuthor"->""},
-FrontEndVersion->"8.0 for Microsoft Windows (32-bit) (September 25, 2010)",
-StyleDefinitions->"Palette.nb"
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
+StyleDefinitions->"Palette.nb",
+PrivateNotebookOptions -> {"NotebookAuthor" -> ""}
 ]
 (* End of Notebook Content *)
 
@@ -130,7 +131,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 3809, 92, 190, InheritFromParent,
+Cell[558, 20, 3809, 92, 189, InheritFromParent,
  PageBreakAbove->True,
  PageBreakWithin->False]
 }
@@ -138,4 +139,3 @@ Cell[558, 20, 3809, 92, 190, InheritFromParent,
 *)
 
 (* End of internal cache information *)
-

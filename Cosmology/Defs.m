@@ -56,7 +56,7 @@ tlookback::usage =
 
 (* Other utility functions *)
 CriticalDensity::usage = 
-  "CriticalDensity[a, cosmo] - critical density in Msun/ Mpc^3";\[AliasDelimiter]
+  "CriticalDensity[a, cosmo] - critical density in Msun/ Mpc^3";
 
 (* Growth function *)
 fgrowth::usage = "fgrowth[a, cosmo] -- Logarithmic growth rate, based on Linder 2005";
@@ -71,12 +71,15 @@ sigmaR::usage = "sigmaR[Pk, r] computes sigma_R. r defaults to 8 h^-1 Mpc unless
 Begin["`Private`"];
 
 (* Define some simple pieces of code here *)
-a2z[a_] := 1./a - 1;
-z2a[z_] := 1./(1.+z); 
-OmegaM[a_, cosmo_?OptionQ] := Module[{h2}, 
-  h2 = Hubble[a,cosmo]^2;
-  OmegaMh2/a^3/h2 /. cosmo
-];
+a2z[a_] :=
+    1./a - 1;
+z2a[z_] :=
+    1./(1.+z); 
+OmegaM[a_, cosmo_?OptionQ] :=
+    Module[ {h2},
+        h2 = Hubble[a,cosmo]^2;
+        OmegaMh2/a^3/h2 /. cosmo
+    ];
 
 (*----------------------------------*)
 (* Actual specific cosmological definitions go here *)
@@ -91,55 +94,69 @@ FoMSWG = {Omegabh2 -> 0.0227, OmegaMh2 -> 0.1326, OmegaKh2 -> 0.0,
 (* Distances go here *)
 
 (* The Hubble Parameter *)
-Hubble[a_, cosmo_?OptionQ] := Module[{h2}, 
-   h2 = (OmegaMh2 /a^3 + OmegaKh2/a^2 + 
-     OmegaDEh2 * Exp[3*(-wa + a * wa - (1+w0+wa)Log[a])])/.cosmo;
-   Sqrt[h2]];
+Hubble[a_, cosmo_?OptionQ] :=
+    Module[ {h2},
+        h2 = (OmegaMh2 /a^3 + OmegaKh2/a^2 + 
+          OmegaDEh2 * Exp[3*(-wa + a * wa - (1+w0+wa)Log[a])])/.cosmo;
+        Sqrt[h2]
+    ];
 
 (* Distance Measures -- Hogg 2000 *)
-comdis[a_, cosmo_?OptionQ]:= Module[{f}, 
-    f[x_] = 1./(Hubble[x, cosmo] * x^2);
-     NIntegrate[f[x], {x, a, 1.0}]];
+comdis[a_, cosmo_?OptionQ] :=
+    Module[ {f},
+        f[x_] = 1./(Hubble[x, cosmo] * x^2);
+        NIntegrate[f[x], {x, a, 1.0}]
+    ];
 
-propmotdis[a_, cosmo_?OptionQ] := Module[{ok, dc},
-   dc  = comdis[a, cosmo];
-   ok = OmegaKh2 /. cosmo;
-   Piecewise[ {
-      {1./Sqrt[ok] * Sinh[Sqrt[ok]*dc],ok > 0}, 
-      {dc, ok == 0}, 
-	  {1./Sqrt[-ok] * Sinh[Sqrt[-ok]*dc], ok < 0}}]];
+propmotdis[a_, cosmo_?OptionQ] :=
+    Module[ {ok, dc},
+        dc  = comdis[a, cosmo];
+        ok = OmegaKh2 /. cosmo;
+        Piecewise[ {
+           {1./Sqrt[ok] * Sinh[Sqrt[ok]*dc],ok > 0}, 
+           {dc, ok == 0}, 
+           {1./Sqrt[-ok] * Sinh[Sqrt[-ok]*dc], ok < 0}}]
+    ];
 
-angdis[a_, cosmo_?OptionQ] := propmotdis[a, cosmo] * a;
-lumdis[a_, cosmo_?OptionQ] := propmotdis[a, cosmo]/a;
+angdis[a_, cosmo_?OptionQ] :=
+    propmotdis[a, cosmo] * a;
+lumdis[a_, cosmo_?OptionQ] :=
+    propmotdis[a, cosmo]/a;
 
-tlookback[a_, cosmo_?OptionQ] := Module[{f}, 
-  f[x_] = 1./(Hubble[x, cosmo] * x);
-  NIntegrate[f[x], {x, a, 1.0}]
-];
+tlookback[a_, cosmo_?OptionQ] :=
+    Module[ {f},
+        f[x_] = 1./(Hubble[x, cosmo] * x);
+        NIntegrate[f[x], {x, a, 1.0}]
+    ];
  
 
 
 critdense = (#) & @@ Convert[CriticalDensityConstant, SolarMass/Mpc^3]; (* de-unit *)
-CriticalDensity[a_, cosmo_?OptionQ] := critdense * Hubble[a, cosmo]^2;
+CriticalDensity[a_, cosmo_?OptionQ] :=
+    critdense * Hubble[a, cosmo]^2;
 
 (*----------------------------------*)
 
-fgrowth[a_, cosmo_?OptionQ] := Module[{g}, 
-      g = gamma /. cosmo;
-      OmegaM[a, cosmo]^g];
+fgrowth[a_, cosmo_?OptionQ] :=
+    Module[ {g},
+        g = gamma /. cosmo;
+        OmegaM[a, cosmo]^g
+    ];
 
 
-Dgrowth[a_, cosmo_?OptionQ] := Module[{f0}, 
-      f0[x_] = (fgrowth[x, cosmo]-1)/x;
-      a*Exp[NIntegrate[f0[x], {x, 0, a}]]
-      ];
+Dgrowth[a_, cosmo_?OptionQ] :=
+    Module[ {f0},
+        f0[x_] = (fgrowth[x, cosmo]-1)/x;
+        a*Exp[NIntegrate[f0[x], {x, 0, a}]]
+    ];
 
 
-sigmaR[Pk_, r_:8] := Module[{f}, 
-	f[kr_] = (kr^2 * Pk[kr/r]) * (SphericalBesselJ[1, kr]/(kr))^2;
-	(3/(Sqrt[2]*Pi)) * Sqrt[NIntegrate[f[k], {k, 0, Infinity}, 
-     Method->{"SymbolicPreprocessing", "OscillatorySelection"-> True}]]/Sqrt[r]^3
-];
+sigmaR[Pk_, r_:8] :=
+    Module[ {f},
+        f[kr_] = (kr^2 * Pk[kr/r]) * (SphericalBesselJ[1, kr]/(kr))^2;
+        (3/(Sqrt[2]*Pi)) * Sqrt[NIntegrate[f[k], {k, 0, Infinity}, 
+         Method->{"SymbolicPreprocessing", "OscillatorySelection"-> True}]]/Sqrt[r]^3
+    ];
 
 End[];
 EndPackage[];

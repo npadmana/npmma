@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     24689,        711]
-NotebookOptionsPosition[     23500,        665]
-NotebookOutlinePosition[     23889,        682]
-CellTagsIndexPosition[     23846,        679]
+NotebookDataLength[      2873,        102]
+NotebookOptionsPosition[      2163,         71]
+NotebookOutlinePosition[      2587,         89]
+CellTagsIndexPosition[      2544,         86]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -29,643 +29,50 @@ Cosmology\[CloseCurlyDoubleQuote].",
  FontSize->16]], "Text",
  CellChangeTimes->{{3.5433514612151546`*^9, 3.543351507346222*^9}}],
 
-Cell[BoxData[{
- RowBox[{
-  RowBox[{
-   RowBox[{"BeginPackage", "[", 
-    RowBox[{"\"\<Cosmology`Defs`\>\"", ",", "\n", "             ", 
-     RowBox[{"{", "\"\<AutomaticUnits`\>\"", "}"}]}], "]"}], ";"}], 
-  "\n"}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{"z2a", "::", "usage"}], " ", "=", " ", 
-   RowBox[{
-    RowBox[{
-    "\"", "Convert", " ", "redshift", " ", "to", " ", "scale", " ", 
-     "factor"}], "\"\<;\na2z::usage = \>\"", "Convert", " ", "scale", " ", 
-    "factor", " ", "into", " ", "redshift", "\"\<;\nOmegaM::usage = \>\"", 
-    "Calculate", " ", 
-    RowBox[{"OmegaM", "[", 
-     RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "at", " ", "a", 
-    "\"\<;\n\nOmegabh2::usage = \>\"", "Physical", " ", "density"}]}], ",", 
-  " ", 
-  RowBox[{
-   RowBox[{"baryons", " ", "z"}], "=", 
-   RowBox[{
-   "0", "\"\<;\nOmegaMh2::usage = \>\"", "Physical", " ", "density"}]}], ",", 
-  " ", 
-  RowBox[{
-   RowBox[{"matter", " ", "z"}], "=", 
-   RowBox[{
-   "0", "\"\<;\nOmegaKh2::usage = \>\"", "Physical", " ", "density"}]}], ",", 
-  " ", 
-  RowBox[{
-   RowBox[{"curvature", " ", "z"}], "=", 
-   RowBox[{
-   "0", "\"\<;\nOmegaDEh2::usage = \>\"", "Physical", " ", "density"}]}], ",",
-   " ", 
-  RowBox[{
-   RowBox[{"dark", " ", "energy", " ", "z"}], "=", 
-   RowBox[{
-   "0", "\"\<;\nns::usage = \>\"", "Primordial", " ", "spectral", " ", 
-    "index", "\"\<;\nw0::usage = \>\"", "Dark", " ", "energy", " ", 
-    "equation", " ", "of", " ", "state"}]}], ",", " ", 
-  RowBox[{
-   RowBox[{"w", 
-    RowBox[{"(", "a", ")"}]}], " ", "=", " ", 
-   RowBox[{"w0", " ", "+", " ", 
-    RowBox[{
-     RowBox[{"(", 
-      RowBox[{"1", "-", "a"}], ")"}], " ", "wa", "\"\<;\nwa::usage = \>\"", 
-     "Dark", " ", "energy", " ", "equation", " ", "of", " ", "state"}]}]}], 
-  ",", " ", 
-  RowBox[{
-   RowBox[{"w", 
-    RowBox[{"(", "a", ")"}]}], " ", "=", " ", 
-   RowBox[{"w0", " ", "+", " ", 
-    RowBox[{
-     RowBox[{"(", 
-      RowBox[{"1", "-", "a"}], ")"}], " ", "wa", "\"\<;\nTCMB::usage = \>\"", 
-     "Temperature", " ", "of", " ", "the", " ", "CMB"}]}]}], ",", " ", 
-  RowBox[{
-  "Kelvin", "\"\<;\ngamma::usage = \>\"", "Growth", " ", "function", " ", 
-   "index", " ", "based", " ", "on", " ", "Linder", " ", "2005", 
-   "\"\<;\n\n(* Basic cosmology definitions *)\nFoMSWG::usage = \>\"", "The", 
-   " ", "Figure", " ", "of", " ", "Merit", " ", "Science", " ", "Working", 
-   " ", "Group", " ", "cosmology"}], ",", " ", 
-  RowBox[{
-   RowBox[{
-   "assuming", " ", "w0", " ", "and", " ", "wa", 
-    "\"\<;\n\n(* Cosmological Distances -- based on Hogg 2000 *)\n\n\
-Hubble::usage = \n\>\"", 
-    RowBox[{"Hubble", "[", 
-     RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "computes", " ", "the", 
-    " ", "Hubble", " ", "parameter", " ", "at", " ", "a", " ", "in", " ", 
-    "units", " ", "of", " ", "100", " ", 
-    RowBox[{
-     RowBox[{"km", "/", "s"}], "/", "Mpc"}], "\"\<;\ncomdis::usage = \n\>\"", 
-    
-    RowBox[{"comdis", "[", 
-     RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "computes", " ", "the", 
-    " ", 
-    RowBox[{"(", 
-     RowBox[{"line", " ", "of", " ", "sight"}], ")"}], " ", "comoving", " ", 
-    "distance", " ", "to", " ", "a"}], ";", " ", 
-   RowBox[{"units", " ", "of", " ", 
-    RowBox[{"c", "/", "100"}], " ", "Mpc", "\"\<;\npropmotdis::usage = \>\"", 
-    
-    RowBox[{"propmotdis", "[", 
-     RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "computes", " ", "the", 
-    " ", 
-    RowBox[{"(", "transverse", ")"}], " ", "comoving", " ", "distance", " ", 
-    "to", " ", "a"}], ";", " ", 
-   RowBox[{
-    RowBox[{"units", " ", "of", " ", 
-     RowBox[{"c", "/", "100"}], " ", "Mpc", "\"\<;\nangdis::usage = \n\>\"", 
-     RowBox[{"angdis", "[", 
-      RowBox[{"a", ",", " ", "cosmo"}], "]"}]}], " ", "-", " ", 
-    RowBox[{
-    "Angular", " ", "diameter", " ", "distance", " ", "to", " ", "a"}]}], ";",
-    " ", 
-   RowBox[{
-    RowBox[{"units", " ", "of", " ", 
-     RowBox[{"c", "/", "100"}], " ", "Mpc", "\"\<;\nlumdis::usage =\n\>\"", 
-     RowBox[{"lumdis", "[", 
-      RowBox[{"a", ",", " ", "cosmo"}], "]"}]}], " ", "-", " ", 
-    RowBox[{"Luminosity", " ", "distance", " ", "to", " ", "a"}]}], ";", " ", 
-   
-   RowBox[{
-    RowBox[{"units", " ", "of", " ", 
-     RowBox[{"c", "/", "100"}], " ", "Mpc", 
-     "\"\<;\n\ntlookback::usage = \n\>\"", 
-     RowBox[{"tlookback", "[", 
-      RowBox[{"a", ",", " ", "cosmo"}], "]"}]}], " ", "-", " ", 
-    RowBox[{
-    "Lookback", " ", "time", " ", "to", " ", "scale", " ", "factor", " ", "a",
-      " ", "in", " ", "units", " ", "of", " ", "thubble", 
-     "\"\<;\n\n(* Other utility functions *)\nCriticalDensity::usage = \n  \>\
-\"", 
-     RowBox[{"CriticalDensity", "[", 
-      RowBox[{"a", ",", " ", "cosmo"}], "]"}]}], " ", "-", " ", 
-    RowBox[{"critical", " ", "density", " ", "in", " ", 
-     RowBox[{"Msun", "/", " ", 
-      RowBox[{"Mpc", "^", "3"}]}], 
-     "\"\<;\[AliasDelimiter]\n\n(* Growth function *)\nfgrowth::usage = \>\"", 
-     RowBox[{
-      RowBox[{"fgrowth", "[", 
-       RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "--"}], " ", 
-     "Logarithmic", " ", "growth", " ", "rate"}]}]}], ",", " ", 
-  RowBox[{
-  "based", " ", "on", " ", "Linder", " ", "2005", 
-   "\"\<;\nDgrowth::usage = \>\"", "Computes", " ", "the", " ", "growth", " ",
-    "factor"}], ",", " ", 
-  RowBox[{
-  "normalized", " ", "to", " ", "be", " ", "a", " ", "at", " ", "high", " ", 
-   "redshift", 
-   "\"\<;\n\n\n(* Power spectra related quantities *)\nsigmaR::usage = \>\"", 
-   
-   RowBox[{"sigmaR", "[", 
-    RowBox[{"Pk", ",", " ", "r"}], "]"}], " ", "computes", " ", 
-   RowBox[{"sigma_R", ".", " ", "r"}], " ", "defaults", " ", "to", " ", "8", 
-   " ", 
-   RowBox[{"h", "^", 
-    RowBox[{"-", "1"}]}], " ", "Mpc", " ", "unless", " ", 
-   RowBox[{"specified", ".", "\n", "\t", "Pk"}], " ", "is", " ", "assumed", 
-   " ", "to", " ", "be", " ", "a", " ", "function", " ", 
-   RowBox[{"Pk", "[", "k", "]"}], " ", "in", " ", 
-   RowBox[{
-    RowBox[{"(", 
-     RowBox[{"Mpc", "/", "h"}], ")"}], "^", "3"}], " ", 
-   RowBox[{"units", ".", "\"\<;\>"}]}]}]}], "Code",
- CellChangeTimes->{{3.543351519473578*^9, 3.543351523200272*^9}, {
-  3.543351560295783*^9, 3.54335164686049*^9}, {3.543352229270763*^9, 
-  3.5433523209775047`*^9}, {3.543352393636489*^9, 3.543352410928308*^9}, {
-  3.543352558172183*^9, 3.5433526184792137`*^9}, {3.543352909094818*^9, 
-  3.543352909462233*^9}, {3.5433597047651653`*^9, 3.5433597116242113`*^9}, {
-  3.54336173108043*^9, 3.543361791967709*^9}, {3.5433618283597193`*^9, 
-  3.543361913736772*^9}, {3.544129721852323*^9, 3.544129838423774*^9}, {
-  3.544131332050191*^9, 3.544131347135936*^9}, {3.544131590035161*^9, 
-  3.544131590548554*^9}}],
-
 Cell[BoxData[
  RowBox[{
-  RowBox[{"(*", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], "*)"}], 
-  "\n", 
-  RowBox[{
-   RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]}]], "Code",
- CellChangeTimes->{{3.543351573474071*^9, 3.5433515774191637`*^9}}],
+  RowBox[{"Needs", "[", "\"\<Cosmology`Defs`\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.546794467709323*^9, 3.54679448062016*^9}}],
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Useful constants and other basic definitions\
-\>", "Section",
- CellChangeTimes->{{3.543351683086665*^9, 3.543351692070993*^9}}],
+Cell["Testing and Examples ", "Section",
+ CellChangeTimes->{{3.5467942015955677`*^9, 3.546794205651176*^9}, {
+  3.54679424467689*^9, 3.5467942531632023`*^9}, {3.546794398814447*^9, 
+  3.546794399423709*^9}}],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "Define", " ", "some", " ", "simple", " ", "pieces", " ", "of", " ", 
-    "code", " ", "here"}], " ", "*)"}], "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"a2z", "[", "a_", "]"}], " ", ":=", " ", 
-     RowBox[{
-      RowBox[{"1.", "/", "a"}], " ", "-", " ", "1"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"z2a", "[", "z_", "]"}], " ", ":=", " ", 
-     RowBox[{"1.", "/", 
-      RowBox[{"(", 
-       RowBox[{"1.", "+", "z"}], ")"}]}]}], ";"}], " ", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"OmegaM", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "h2", "}"}], ",", " ", "\n", "  ", 
-       RowBox[{
-        RowBox[{"h2", " ", "=", " ", 
-         RowBox[{
-          RowBox[{"Hubble", "[", 
-           RowBox[{"a", ",", "cosmo"}], "]"}], "^", "2"}]}], ";", "\n", "  ", 
-        
-        RowBox[{
-         RowBox[{
-          RowBox[{"OmegaMh2", "/", 
-           RowBox[{"a", "^", "3"}]}], "/", "h2"}], " ", "/.", " ", 
-         "cosmo"}]}]}], "\n", "]"}]}], ";"}]}]}]], "Code",
- CellChangeTimes->{
-  3.543351695247841*^9, 3.543351734739614*^9, {3.5441316000200987`*^9, 
-   3.54413160184429*^9}}]
+  RowBox[{"CriticalDensity", "[", 
+   RowBox[{"1.0", ",", " ", "FoMSWG"}], "]"}], "*", "2"}]], "Input",
+ CellChangeTimes->{{3.546794457700398*^9, 3.546794492937086*^9}, {
+  3.5467969568134413`*^9, 3.546796972374078*^9}, {3.546797873858365*^9, 
+  3.5467979000132313`*^9}}],
+
+Cell[BoxData["2.8691875440340967`*^11"], "Output",
+ CellChangeTimes->{3.5467969737683277`*^9, 3.546797900584919*^9, 
+  3.5467984366971617`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Cosmological specifications", "Section",
- CellChangeTimes->{{3.543351712581739*^9, 3.5433517205968513`*^9}}],
-
 Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], "*)"}], 
-  "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "Actual", " ", "specific", " ", "cosmological", " ", "definitions", " ", 
-    "go", " ", "here"}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"FoMSWG", " ", "=", " ", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"Omegabh2", " ", "->", " ", "0.0227"}], ",", " ", 
-       RowBox[{"OmegaMh2", " ", "->", " ", "0.1326"}], ",", " ", 
-       RowBox[{"OmegaKh2", " ", "->", " ", "0.0"}], ",", " ", "\n", 
-       "          ", 
-       RowBox[{"OmegaDEh2", " ", "->", " ", "0.3844"}], ",", " ", 
-       RowBox[{"ns", "->", " ", "0.963"}], ",", " ", 
-       RowBox[{"w0", " ", "->", " ", 
-        RowBox[{"-", "1.0"}]}], ",", " ", 
-       RowBox[{"wa", " ", "->", " ", "0.0"}], ",", " ", "\n", "          ", 
-       RowBox[{"TCMB", " ", "->", " ", "2.726"}], ",", " ", 
-       RowBox[{"gamma", " ", "->", " ", "0.55"}]}], "\n", "}"}]}], ";"}], 
-   "\n"}]}]], "Code",
- CellChangeTimes->{
-  3.5433517249238443`*^9, {3.5433523261772327`*^9, 3.543352362807917*^9}, {
-   3.543359722566567*^9, 3.543359723921941*^9}}]
-}, Open  ]],
+ RowBox[{"CriticalDensity", "[", 
+  RowBox[{"1.0", ",", " ", "FoMSWG"}], "]"}]], "Input",
+ CellChangeTimes->{{3.546800120446216*^9, 3.546800132140918*^9}}],
 
-Cell[CellGroupData[{
-
-Cell["Distances", "Section",
- CellChangeTimes->{{3.543351766127474*^9, 3.5433517675962973`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], "*)"}], 
-  "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Distances", " ", "go", " ", "here"}], " ", "*)"}], "\n", "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"The", " ", "Hubble", " ", "Parameter"}], " ", "*)"}], "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"Hubble", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "h2", "}"}], ",", " ", "\n", "   ", 
-       RowBox[{
-        RowBox[{"h2", " ", "=", " ", 
-         RowBox[{
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"OmegaMh2", " ", "/", 
-             RowBox[{"a", "^", "3"}]}], " ", "+", " ", 
-            RowBox[{"OmegaKh2", "/", 
-             RowBox[{"a", "^", "2"}]}], " ", "+", " ", "\n", "     ", 
-            RowBox[{"OmegaDEh2", " ", "*", " ", 
-             RowBox[{"Exp", "[", 
-              RowBox[{"3", "*", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"-", "wa"}], " ", "+", " ", 
-                 RowBox[{"a", " ", "*", " ", "wa"}], " ", "-", " ", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"1", "+", "w0", "+", "wa"}], ")"}], 
-                  RowBox[{"Log", "[", "a", "]"}]}]}], ")"}]}], "]"}]}]}], 
-           ")"}], "/.", "cosmo"}]}], ";", "\n", "   ", 
-        RowBox[{"Sqrt", "[", "h2", "]"}]}]}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{"(*", " ", 
-    RowBox[{"Distance", " ", 
-     RowBox[{"Measures", " ", "--"}], " ", "Hogg", " ", "2000"}], " ", "*)"}],
-    "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comdis", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "f", "}"}], ",", " ", "\n", "    ", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"f", "[", "x_", "]"}], " ", "=", " ", 
-         RowBox[{"1.", "/", 
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"Hubble", "[", 
-             RowBox[{"x", ",", " ", "cosmo"}], "]"}], " ", "*", " ", 
-            RowBox[{"x", "^", "2"}]}], ")"}]}]}], ";", "\n", "     ", 
-        RowBox[{"NIntegrate", "[", 
-         RowBox[{
-          RowBox[{"f", "[", "x", "]"}], ",", " ", 
-          RowBox[{"{", 
-           RowBox[{"x", ",", " ", "a", ",", " ", "1.0"}], "}"}]}], "]"}]}]}], 
-      "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"propmotdis", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"ok", ",", " ", "dc"}], "}"}], ",", "\n", "   ", 
-       RowBox[{
-        RowBox[{"dc", "  ", "=", " ", 
-         RowBox[{"comdis", "[", 
-          RowBox[{"a", ",", " ", "cosmo"}], "]"}]}], ";", "\n", "   ", 
-        RowBox[{"ok", " ", "=", " ", 
-         RowBox[{"OmegaKh2", " ", "/.", " ", "cosmo"}]}], ";", "\n", "   ", 
-        RowBox[{"Piecewise", "[", " ", 
-         RowBox[{"{", "\n", "      ", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"1.", "/", 
-               RowBox[{"Sqrt", "[", "ok", "]"}]}], " ", "*", " ", 
-              RowBox[{"Sinh", "[", 
-               RowBox[{
-                RowBox[{"Sqrt", "[", "ok", "]"}], "*", "dc"}], "]"}]}], ",", 
-             RowBox[{"ok", " ", ">", " ", "0"}]}], "}"}], ",", " ", "\n", 
-           "      ", 
-           RowBox[{"{", 
-            RowBox[{"dc", ",", " ", 
-             RowBox[{"ok", " ", "==", " ", "0"}]}], "}"}], ",", " ", "\n", 
-           "\t  ", 
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"1.", "/", 
-               RowBox[{"Sqrt", "[", 
-                RowBox[{"-", "ok"}], "]"}]}], " ", "*", " ", 
-              RowBox[{"Sinh", "[", 
-               RowBox[{
-                RowBox[{"Sqrt", "[", 
-                 RowBox[{"-", "ok"}], "]"}], "*", "dc"}], "]"}]}], ",", " ", 
-             RowBox[{"ok", " ", "<", " ", "0"}]}], "}"}]}], "}"}], "]"}]}]}], 
-      "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"angdis", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-     RowBox[{
-      RowBox[{"propmotdis", "[", 
-       RowBox[{"a", ",", " ", "cosmo"}], "]"}], " ", "*", " ", "a"}]}], ";"}],
-    "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"lumdis", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-     RowBox[{
-      RowBox[{"propmotdis", "[", 
-       RowBox[{"a", ",", " ", "cosmo"}], "]"}], "/", "a"}]}], ";"}], "\n", 
-   "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"tlookback", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "f", "}"}], ",", " ", "\n", "  ", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"f", "[", "x_", "]"}], " ", "=", " ", 
-         RowBox[{"1.", "/", 
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"Hubble", "[", 
-             RowBox[{"x", ",", " ", "cosmo"}], "]"}], " ", "*", " ", "x"}], 
-           ")"}]}]}], ";", "\n", "  ", 
-        RowBox[{"NIntegrate", "[", 
-         RowBox[{
-          RowBox[{"f", "[", "x", "]"}], ",", " ", 
-          RowBox[{"{", 
-           RowBox[{"x", ",", " ", "a", ",", " ", "1.0"}], "}"}]}], "]"}]}]}], 
-      "\n", "]"}]}], ";"}], "\n", " ", "\n"}]}]], "Code",
- CellChangeTimes->{{3.5433517711158667`*^9, 3.54335182754333*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Other useful functions", "Section",
- CellChangeTimes->{{3.544129851403686*^9, 3.544129858405764*^9}}],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{
-   RowBox[{"critdense", " ", "=", " ", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"(", "#", ")"}], " ", "&"}], " ", "@@", " ", 
-     RowBox[{"Convert", "[", 
-      RowBox[{"CriticalDensityConstant", ",", " ", 
-       RowBox[{"SolarMass", "/", 
-        RowBox[{"Mpc", "^", "3"}]}]}], "]"}]}]}], ";"}], " ", 
-  RowBox[{"(*", " ", 
-   RowBox[{"de", "-", "unit"}], " ", "*)"}]}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{"CriticalDensity", "[", 
-    RowBox[{"a_", ",", " ", 
-     RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-   RowBox[{"critdense", " ", "*", " ", 
-    RowBox[{
-     RowBox[{"Hubble", "[", 
-      RowBox[{"a", ",", " ", "cosmo"}], "]"}], "^", "2"}]}]}], ";"}]}], "Code",\
-
- CellChangeTimes->{{3.544129863411518*^9, 3.544129905144857*^9}, {
-  3.544130292006139*^9, 3.544130294754648*^9}, {3.544131109647214*^9, 
-  3.54413112031635*^9}, {3.544131176646473*^9, 3.5441313141507874`*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Growth functions", "Section",
- CellChangeTimes->{{3.543351879428186*^9, 3.54335190752098*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], "*)"}], 
-  "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"fgrowth", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "g", "}"}], ",", " ", "\n", "      ", 
-       RowBox[{
-        RowBox[{"g", " ", "=", " ", 
-         RowBox[{"gamma", " ", "/.", " ", "cosmo"}]}], ";", "\n", "      ", 
-        RowBox[{
-         RowBox[{"OmegaM", "[", 
-          RowBox[{"a", ",", " ", "cosmo"}], "]"}], "^", "g"}]}]}], "]"}]}], 
-    ";"}], "\n", "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"Dgrowth", "[", 
-      RowBox[{"a_", ",", " ", 
-       RowBox[{"cosmo_", "?", "OptionQ"}]}], "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "f0", "}"}], ",", " ", "\n", "      ", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"f0", "[", "x_", "]"}], " ", "=", " ", 
-         RowBox[{
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"fgrowth", "[", 
-             RowBox[{"x", ",", " ", "cosmo"}], "]"}], "-", "1"}], ")"}], "/", 
-          "x"}]}], ";", "\n", "      ", 
-        RowBox[{"a", "*", 
-         RowBox[{"Exp", "[", 
-          RowBox[{"NIntegrate", "[", 
-           RowBox[{
-            RowBox[{"f0", "[", "x", "]"}], ",", " ", 
-            RowBox[{"{", 
-             RowBox[{"x", ",", " ", "0", ",", " ", "a"}], "}"}]}], "]"}], 
-          "]"}]}]}]}], "\n", "      ", "]"}]}], ";"}], "\n"}]}]], "Code",
- CellChangeTimes->{{3.543351912356962*^9, 3.5433519140136013`*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["\<\
-Power spectrum related functions\
-\>", "Section",
- CellChangeTimes->{{3.543361922396039*^9, 3.543361930545574*^9}}],
-
-Cell["\<\
-sigma_R = \\int_{0}^{\\infty} dk/k  \\Delta^2(k) ( 3 j_1(kr)/kr)^2\
-\>", "Text",
- CellChangeTimes->{{3.5433621270696697`*^9, 3.543362182107122*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"sigmaR", "[", 
-    RowBox[{"Pk_", ",", " ", 
-     RowBox[{"r_:", "8"}]}], "]"}], " ", ":=", " ", 
-   RowBox[{"Module", "[", 
-    RowBox[{
-     RowBox[{"{", "f", "}"}], ",", " ", "\n", "\t", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"f", "[", "kr_", "]"}], " ", "=", " ", 
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"kr", "^", "2"}], " ", "*", " ", 
-          RowBox[{"Pk", "[", 
-           RowBox[{"kr", "/", "r"}], "]"}]}], ")"}], " ", "*", " ", 
-        RowBox[{
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"SphericalBesselJ", "[", 
-            RowBox[{"1", ",", " ", "kr"}], "]"}], "/", 
-           RowBox[{"(", "kr", ")"}]}], ")"}], "^", "2"}]}]}], ";", "\n", "\t", 
-      RowBox[{
-       RowBox[{"(", 
-        RowBox[{"3", "/", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"Sqrt", "[", "2", "]"}], "*", "Pi"}], ")"}]}], ")"}], " ", 
-       "*", " ", 
-       RowBox[{
-        RowBox[{"Sqrt", "[", 
-         RowBox[{"NIntegrate", "[", 
-          RowBox[{
-           RowBox[{"f", "[", "k", "]"}], ",", " ", 
-           RowBox[{"{", 
-            RowBox[{"k", ",", " ", "0", ",", " ", "Infinity"}], "}"}], ",", 
-           " ", "\n", "     ", 
-           RowBox[{"Method", "\[Rule]", 
-            RowBox[{"{", 
-             RowBox[{"\"\<SymbolicPreprocessing\>\"", ",", " ", 
-              RowBox[{
-              "\"\<OscillatorySelection\>\"", "\[Rule]", " ", "True"}]}], 
-             "}"}]}]}], "]"}], "]"}], "/", 
-        RowBox[{
-         RowBox[{"Sqrt", "[", "r", "]"}], "^", "3"}]}]}]}]}], "\n", "]"}]}], 
-  ";"}]], "Code",
- CellChangeTimes->{{3.543361935202425*^9, 3.543362123701537*^9}, {
-  3.54336219862759*^9, 3.543362237007286*^9}, {3.543362413046031*^9, 
-  3.543362435004421*^9}, {3.543362815618833*^9, 3.543362860641822*^9}, {
-  3.543362911814183*^9, 3.543362913520022*^9}, {3.543362948971789*^9, 
-  3.543362949229978*^9}, {3.5433630720890503`*^9, 3.5433631238196373`*^9}}],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"End", "[", "]"}], ";"}], "\n", 
- RowBox[{
-  RowBox[{"EndPackage", "[", "]"}], ";"}]}], "Code",
- CellChangeTimes->{{3.543351920057569*^9, 3.543351926007781*^9}}]
+Cell[BoxData["1.4345937720170483`*^11"], "Output",
+ CellChangeTimes->{3.5468001849115543`*^9}]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
-AutoGeneratedPackage->Automatic,
-WindowSize->{943, 701},
-WindowMargins->{{Automatic, -5}, {Automatic, 0}},
+AutoGeneratedPackage->None,
+InitializationCellEvaluation->False,
+WindowSize->{899, 1058},
+WindowMargins->{{116, Automatic}, {Automatic, 36}},
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
 2011)",
 StyleDefinitions->"Default.nb"
@@ -684,33 +91,17 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[579, 22, 98, 1, 76, "Title"],
 Cell[680, 25, 276, 4, 30, "Text"],
-Cell[959, 31, 6648, 156, 734, "Code"],
-Cell[7610, 189, 653, 22, 59, "Code"],
+Cell[959, 31, 163, 3, 27, "Input"],
 Cell[CellGroupData[{
-Cell[8288, 215, 137, 3, 67, "Section"],
-Cell[8428, 220, 1304, 39, 134, "Code"]
+Cell[1147, 38, 207, 3, 67, "Section"],
+Cell[CellGroupData[{
+Cell[1379, 45, 295, 6, 27, "Input"],
+Cell[1677, 53, 143, 2, 30, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[9769, 264, 114, 1, 67, "Section"],
-Cell[9886, 267, 1565, 43, 149, "Code"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[11488, 315, 96, 1, 67, "Section"],
-Cell[11587, 318, 6081, 167, 494, "Code"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[17705, 490, 107, 1, 67, "Section"],
-Cell[17815, 493, 945, 25, 59, "Code"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[18797, 523, 100, 1, 67, "Section"],
-Cell[18900, 526, 2045, 61, 209, "Code"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[20982, 592, 125, 3, 67, "Section"],
-Cell[21110, 597, 158, 3, 26, "Text"],
-Cell[21271, 602, 2002, 52, 104, "Code"],
-Cell[23276, 656, 196, 5, 59, "Code"]
+Cell[1857, 60, 169, 3, 27, "Input"],
+Cell[2029, 65, 94, 1, 30, "Output"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }
