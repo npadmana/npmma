@@ -5,6 +5,7 @@ BeginPackage["Cosmology`EH98`"];
 zeqEH::usage = "zeqEH[cosmo] returns the equality redshift (Eq. 2, EH98)";
 keqEH::usage = "keqEH[cosmo] returns k_eq in Mpc^-1 (Eq. 3, EH98)";
 zdecEH::usage = "zdecEH[cosmo] returns the decoupling redshift (Eq. 4, EH98)";
+kSilk::usage = "kSilk[cosmo] returns the inverse Silk damping scale (Eq. 7, EH 98)";
 rsEH::usage = "rsEH[cosmo] returns the sound horizon in Mpc(Eq.6, EH98)";
 tkEH::usage = "tkEH[k, cosmo] returns the transfer fn at k (in h^-1 Mpc)";
 pkEH::usage = "pkEH[k, ns, deltah2, cosmo] returns the no-wiggle power spectrum at k.";
@@ -38,6 +39,11 @@ zdecEH[cosmo_?OptionQ] := Module[{om,ob,b1, b2},
     1291 * om^0.251 * (1.0+b1*ob^b2)/(1.0 + 0.659*om^0.828)
     ];
 
+kSilk[cosmo_?OptionQ] := Module[{om, ob}, 
+	om = OmegaMh2 /. cosmo;
+	ob = Omegabh2 /. cosmo;
+	1.6 * ob^0.52 * om^0.73 * (1 + (10.4*om)^(-0.95))
+];
 
 Rsound[z_, cosmo_?OptionQ] := Module[{ob, t0}, 
     t0 = (TCMB/2.7) /. cosmo;
