@@ -45,8 +45,19 @@ Dgrowth::usage = "Computes the growth factor, normalized to be a at high redshif
 
 
 (* Power spectra related quantities *)
-sigmaR::usage = "sigmaR[Pk, r] computes sigma_R. r defaults to 8 h^-1 Mpc unless specified.
-	Pk is assumed to be a function Pk[k] in (Mpc/h)^3 units.";
+getOscillatoryIntegralOpts::usage = "kkk";
+setOscillatoryIntegralOpts::usage = "kkk";
+
+
+sigmaR::usage = "sigmaR[Pk, r, kmin, kmax] computes sigma_R. r defaults to 8 h^-1 Mpc unless specified.
+	Pk is assumed to be a function Pk[k] in (Mpc/h)^3 units. kmin and kmax default to 0 and Infinity, which
+	may be very bad choices!";
+	
+pk2xi::usage = "pk2xi[Pk, r, asmooth, kmin] converts P(k) into xi(r) at a separation r. 
+	Pk is assumed to be a function Pk[k] in (Mpc/h)^3 units. 
+	asmooth smooths the power spectrum by exp(-k^2 asmooth^2) to improve convergence. Default of 1 Mpc/h
+	kmin sets the minimum k to integrate from (if Pk is not defined below some point). kmax is set to asmooth*5";
+	
 
 (*----------------------------------*)
 Begin["`Private`"];
@@ -131,13 +142,37 @@ Dgrowth[a_, cosmo_?OptionQ] :=
         a*Exp[NIntegrate[f0[x], {x, 0, a}]]
     ];
 
+cosmoOscillatoryIntegralOpts = {Method->{"SymbolicPreprocessing", "OscillatorySelection"->True, "InterpolationPointsSubdivision"->False},
+			PrecisionGoal->4, MaxRecursion->20};
+			
+getOscillatoryIntegralOpts[] := cosmoOscillatoryIntegralOpts;
+setOscillatoryIntegralOpts[opts_?OptionQ] := Module[{},
+	cosmoOscillatoryIntegralOpts = DeleteDuplicates[Join[opts, cosmoOscillatoryIntegralOpts], SameQ[First[#1], First[#2]]&]
+];
 
-sigmaR[Pk_, r_:8] :=
-    Module[ {f},
+
+sigmaR[Pk_, r_:8, kmin_:0, kmax_:Infinity] :=
+    Module[ {f, tmp, retval},
         f[kr_] = (kr^2 * Pk[kr/r]) * (SphericalBesselJ[1, kr]/(kr))^2;
-        (3/(Sqrt[2]*Pi)) * Sqrt[NIntegrate[f[k], {k, 0, Infinity}, 
-         Method->{"SymbolicPreprocessing", "OscillatorySelection"-> True}]]/Sqrt[r]^3
+        tmp = Options[NIntegrate];
+        SetOptions[NIntegrate, cosmoOscillatoryIntegralOpts];
+        retval = (3/(Sqrt[2]*Pi)) * Sqrt[NIntegrate[f[k], {k, kmin, kmax}]]/Sqrt[r]^3;
+        SetOptions[NIntegrate, tmp];
+        retval
     ];
+
+pk2xi[Pk_, r_, asmooth_:1.0, kmin_:1.*^-4] := 
+	Module[ {f, tmp, retval},
+		f[k_] = k^2 * Pk[k] * SphericalBesselJ[0, k*r]* Exp[-k^2 * asmooth^2];
+		tmp = Options[NIntegrate];
+        SetOptions[NIntegrate, cosmoOscillatoryIntegralOpts];
+		retval = (1/(2 Pi^2)) * NIntegrate[f[k], {k, kmin, 5*asmooth}];
+		SetOptions[NIntegrate, tmp];
+        retval
+	];
+	
+		  
+
 
 End[];
 EndPackage[];
