@@ -145,9 +145,9 @@ Dgrowth[a_, cosmo_?OptionQ] :=
 cosmoOscillatoryIntegralOpts = {Method->{"SymbolicPreprocessing", "OscillatorySelection"->True, "InterpolationPointsSubdivision"->False},
 			PrecisionGoal->4, MaxRecursion->20};
 			
-getOscillatoryIntegralOpts[] := cosmoOscillatoryIntegralOpts;
+getOscillatoryIntegralOpts[] := Cosmology`Defs`Private`cosmoOscillatoryIntegralOpts;
 setOscillatoryIntegralOpts[opts_?OptionQ] := Module[{},
-	cosmoOscillatoryIntegralOpts = DeleteDuplicates[Join[opts, cosmoOscillatoryIntegralOpts], SameQ[First[#1], First[#2]]&]
+	Cosmology`Defs`Private`cosmoOscillatoryIntegralOpts = DeleteDuplicates[Join[opts, Cosmology`Defs`Private`cosmoOscillatoryIntegralOpts], SameQ[First[#1], First[#2]]&]
 ];
 
 
@@ -155,7 +155,7 @@ sigmaR[Pk_, r_:8, kmin_:0, kmax_:Infinity] :=
     Module[ {f, tmp, retval},
         f[kr_] = (kr^2 * Pk[kr/r]) * (SphericalBesselJ[1, kr]/(kr))^2;
         tmp = Options[NIntegrate];
-        SetOptions[NIntegrate, cosmoOscillatoryIntegralOpts];
+        SetOptions[NIntegrate, Cosmology`Defs`Private`cosmoOscillatoryIntegralOpts];
         retval = (3/(Sqrt[2]*Pi)) * Sqrt[NIntegrate[f[k], {k, kmin, kmax}]]/Sqrt[r]^3;
         SetOptions[NIntegrate, tmp];
         retval
@@ -165,7 +165,7 @@ pk2xi[Pk_, r_, asmooth_:1.0, kmin_:1.*^-4] :=
 	Module[ {f, tmp, retval},
 		f[k_] = k^2 * Pk[k] * SphericalBesselJ[0, k*r]* Exp[-k^2 * asmooth^2];
 		tmp = Options[NIntegrate];
-        SetOptions[NIntegrate, cosmoOscillatoryIntegralOpts];
+        SetOptions[NIntegrate, Cosmology`Defs`Private`cosmoOscillatoryIntegralOpts];
 		retval = (1/(2 Pi^2)) * NIntegrate[f[k], {k, kmin, 5*asmooth}];
 		SetOptions[NIntegrate, tmp];
         retval
