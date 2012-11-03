@@ -1,1 +1,5 @@
 *.swp
+.DS_Store
+.MathematicaResources
+.project
+.settings
