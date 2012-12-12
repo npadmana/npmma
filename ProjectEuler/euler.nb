@@ -1,0 +1,1020 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Code"],
+
+Cell[BoxData["\<\"/Users/npadmana/myWork/ProjectEuler\"\>"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1-10", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["P1", "Subsection"],
+
+Cell["Uses the Divisible function", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Total", "[", 
+  RowBox[{"Select", "[", 
+   RowBox[{
+    RowBox[{"Range", "[", 
+     RowBox[{"1", ",", "9"}], "]"}], ",", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Divisible", "[", 
+       RowBox[{"#", ",", " ", "3"}], "]"}], " ", "||", " ", 
+      RowBox[{"Divisible", "[", 
+       RowBox[{"#", ",", " ", "5"}], "]"}]}], " ", "&"}]}], "]"}], 
+  "]"}]], "Input"],
+
+Cell[BoxData["23"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AbsoluteTiming", "@", 
+  RowBox[{"Total", "[", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"Range", "[", 
+      RowBox[{"1", ",", "999"}], "]"}], ",", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Divisible", "[", 
+        RowBox[{"#", ",", " ", "3"}], "]"}], " ", "||", " ", 
+       RowBox[{"Divisible", "[", 
+        RowBox[{"#", ",", " ", "5"}], "]"}]}], " ", "&"}]}], "]"}], 
+   "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.0040850000000000000893729534823251015`3.631791974148059", ",", 
+   "233168"}], "}"}]], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P2 ", "Subsection"],
+
+Cell[TextData[{
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " has the convenient Fibonnaci function. This solution is not particularly \
+elegant, but it works. First, figure out for which i is Fibonacci number is \
+below 4 million."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AbsoluteTiming", " ", "@", " ", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"sum", "=", "0"}], ",", " ", 
+      RowBox[{"fib", "=", "0"}], ",", " ", 
+      RowBox[{"i", "=", "1"}]}], "}"}], ",", " ", 
+    RowBox[{
+     RowBox[{"While", "[", 
+      RowBox[{
+       RowBox[{"fib", " ", "<", " ", "4000000"}], ",", " ", 
+       RowBox[{
+        RowBox[{"fib", "=", " ", 
+         RowBox[{"Fibonacci", "[", "i", "]"}]}], ";", " ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"EvenQ", "[", "fib", "]"}], ",", " ", 
+          RowBox[{"sum", " ", "+=", " ", "fib"}]}], "]"}], ";", 
+        RowBox[{"i", "+=", "1"}], ";"}]}], "]"}], ";", " ", 
+     "\[IndentingNewLine]", "sum"}]}], "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00032099999999999999627381397360181836`2.527104945684496", ",", 
+   "4613732"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AbsoluteTiming", " ", "@", " ", 
+  RowBox[{"Total", "[", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"Fibonacci", "[", "i", "]"}], " ", ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "2", ",", "33", ",", "1"}], "}"}]}], "]"}], ",", 
+     " ", "EvenQ"}], "]"}], "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00011600000000000000068001160258290838`2.0850579025065428", ",", 
+   "4613732"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AbsoluteTiming", " ", "@", 
+  RowBox[{"Total", " ", "@", " ", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"NestWhileList", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], ",", 
+           RowBox[{
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], " ", "+", " ", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}], " ", "&"}], ",", " ", 
+        
+        RowBox[{"{", 
+         RowBox[{"1", ",", "2"}], "}"}], ",", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], " ", "<", " ", "4000000"}], " ", 
+         "&"}]}], "]"}], "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", "EvenQ"}], 
+    "]"}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00037500000000000000780625564189563192`2.594631181007343", ",", 
+   "4613732"}], "}"}]], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P3", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Last", " ", "@", " ", 
+  RowBox[{"FactorInteger", "[", "13195", "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"29", ",", "1"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Last", " ", "@", " ", 
+  RowBox[{"FactorInteger", "[", "600851475143", "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"6857", ",", "1"}], "}"}]], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P4", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"isPalindromeQ", "[", "x_Integer", "]"}], " ", ":=", " ", 
+    RowBox[{"With", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"digits", " ", "=", " ", 
+        RowBox[{"IntegerDigits", "[", "x", "]"}]}], "}"}], ",", 
+      RowBox[{"digits", " ", "===", " ", 
+       RowBox[{"Reverse", "[", "digits", "]"}]}]}], "]"}]}], ";"}], 
+  " "}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"isPalindromeQ", "[", "901", "]"}]], "Input"],
+
+Cell[BoxData["False"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Reap", " ", "@", " ", 
+    RowBox[{"Do", "[", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"isPalindromeQ", "[", 
+         RowBox[{"i", "*", "j"}], "]"}], ",", " ", 
+        RowBox[{"Sow", "[", 
+         RowBox[{"i", "*", "j"}], "]"}]}], "]"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", " ", "100", ",", " ", "999"}], "}"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"j", ",", " ", "i", ",", " ", "999"}], "}"}]}], "]"}]}], " ", "//",
+    " ", 
+   RowBox[{
+    RowBox[{"Part", "[", 
+     RowBox[{"#", ",", "2", ",", "1"}], "]"}], " ", "&"}]}], " ", "//", " ", 
+  "Max"}]], "Input"],
+
+Cell[BoxData["906609"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P5", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LCM", " ", "@@", " ", 
+  RowBox[{"Range", "[", 
+   RowBox[{"1", ",", "10"}], "]"}]}]], "Input"],
+
+Cell[BoxData["2520"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LCM", " ", "@@", " ", 
+  RowBox[{"Range", "[", 
+   RowBox[{"1", ",", "20"}], "]"}]}]], "Input"],
+
+Cell[BoxData["232792560"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P6", "Subsection"],
+
+Cell["Brute force --- there are cleverer ways", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"prob6", "[", "n_", "]"}], ":=", 
+  RowBox[{
+   SuperscriptBox[
+    RowBox[{"Sum", "[", 
+     RowBox[{"i", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", " ", "1", ",", " ", "n"}], "}"}]}], "]"}], "2"], "-",
+    " ", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     SuperscriptBox["i", "2"], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", " ", "1", ",", " ", "n"}], "}"}]}], 
+    "]"}]}]}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"prob6", "[", "10", "]"}]], "Input"],
+
+Cell[BoxData["2640"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"prob6", "[", "100", "]"}]], "Input"],
+
+Cell[BoxData["25164150"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P7", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Prime", "[", "6", "]"}]], "Input"],
+
+Cell[BoxData["13"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Prime", "[", "10001", "]"}]], "Input"],
+
+Cell[BoxData["104743"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P8", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"num", ",", " ", "tmp"}], "}"}], ",", " ", "\[IndentingNewLine]", 
+   
+   RowBox[{
+    RowBox[{"num", " ", "=", " ", 
+     RowBox[{"Import", "[", 
+      RowBox[{"\"\<prob8.data\>\"", ",", " ", "\"\<Table\>\""}], "]"}]}], ";",
+     "\[IndentingNewLine]", 
+    RowBox[{"tmp", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"IntegerDigits", " ", "@@@", " ", "num"}], " ", "//", " ", 
+       "Flatten"}], " ", "//", " ", 
+      RowBox[{
+       RowBox[{"Partition", "[", 
+        RowBox[{"#", ",", " ", "5", ",", " ", "1"}], "]"}], "&"}]}]}], " ", 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Times", " ", "@@@", " ", "tmp"}], " ", "//", "Max"}]}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input"],
+
+Cell[BoxData["40824"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P9", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "sorted", "]"}], ";", " ", 
+  RowBox[{"Clear", "[", "pythag", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"sorted", "[", 
+    RowBox[{"x_", ",", " ", "y_", ",", "z_"}], "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"x", " ", "<", " ", "y"}], ")"}], " ", "&&", " ", 
+    RowBox[{"(", 
+     RowBox[{"y", " ", "<", " ", "z"}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"pythag", "[", 
+    RowBox[{"x_", ",", "y_", ",", "z_"}], "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"sorted", "[", 
+     RowBox[{"x", ",", "y", ",", "z"}], "]"}], "&&", 
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["z", "2"], "==", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        SuperscriptBox["x", "2"], "+", 
+        SuperscriptBox["y", "2"]}], ")"}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Reap", "[", 
+     RowBox[{"Do", "[", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"pythag", "[", 
+          RowBox[{"i", ",", " ", "j", ",", " ", 
+           RowBox[{"1000", "-", 
+            RowBox[{"(", 
+             RowBox[{"i", "+", "j"}], ")"}]}]}], "]"}], ",", " ", 
+         RowBox[{"Sow", "[", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "j", ",", 
+            RowBox[{"1000", "-", "i", "-", "j"}]}], "}"}], "]"}]}], "]"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "250"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "i", ",", " ", "499"}], "}"}]}], "]"}], " ", "]"}], 
+    "[", 
+    RowBox[{"[", "2", "]"}], "]"}], " ", "//", " ", "Flatten"}], " ", "//", 
+  " ", 
+  RowBox[{
+   RowBox[{"Apply", "[", 
+    RowBox[{"Times", ",", " ", "#"}], "]"}], "&"}]}]}], "Input"],
+
+Cell[BoxData["31875000"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P10", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NestWhile", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"#1", "+", "1"}], ",", 
+         RowBox[{"#2", "+", "#3"}], ",", 
+         RowBox[{"Prime", "[", 
+          RowBox[{"#1", "+", "1"}], "]"}]}], "}"}], " ", "&"}], " ", "@@", 
+      " ", "#"}], "&"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", " ", "0", ",", " ", 
+      RowBox[{"Prime", "[", "1", "]"}]}], "}"}], ",", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"#3", " ", "<", " ", "2000000"}], " ", "&"}], " ", "@@", " ", 
+      "#"}], " ", "&"}]}], "]"}], " "}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"148934", ",", "142913828922", ",", "2000003"}], "}"}]], "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["11-20???", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["P11", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"tmp", " ", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<prob11.data\>\"", ",", " ", "\"\<Table\>\""}], "]"}]}], 
+  ";"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"Get", " ", "the", " ", "rows", " ", "and", " ", "columns"}], " ", 
+  "*)"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Partition", "[", 
+     RowBox[{"tmp", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"4", ",", "1"}], "}"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "1"}], "}"}]}], "]"}], "//", " ", 
+    RowBox[{
+     RowBox[{"Flatten", "[", 
+      RowBox[{"#", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}]}], "}"}]}], "]"}], " ", "&"}]}], " ",
+    "//", " ", 
+   RowBox[{
+    RowBox[{"Times", " ", "@@@", " ", "#"}], " ", "&"}]}], " ", "//", " ", 
+  "Max"}]], "Input"],
+
+Cell[BoxData["51267216"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Partition", "[", 
+     RowBox[{"tmp", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "4"}], "}"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "1"}], "}"}]}], "]"}], "//", " ", 
+    RowBox[{
+     RowBox[{"Flatten", "[", 
+      RowBox[{"#", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}]}], "}"}]}], "]"}], " ", "&"}]}], " ",
+    "//", " ", 
+   RowBox[{
+    RowBox[{"Times", " ", "@@@", " ", "#"}], " ", "&"}]}], " ", "//", " ", 
+  "Max"}]], "Input"],
+
+Cell[BoxData["48477312"], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"Diagonals", ",", " ", 
+   RowBox[{
+    RowBox[{"and", " ", "anti"}], "-", "diagonals"}]}], " ", "*)"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"Partition", "[", 
+      RowBox[{"tmp", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "4"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}]}], "]"}], " ", "//", " ", 
+     RowBox[{
+      RowBox[{"Flatten", "[", 
+       RowBox[{"#", ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2"}], "}"}], "}"}]}], "]"}], " ", "&"}]}], " ", "//",
+     " ", 
+    RowBox[{
+     RowBox[{"Diagonal", " ", "/@", " ", "#"}], " ", "&"}]}], " ", "//", " ", 
+   
+   RowBox[{
+    RowBox[{"Times", " ", "@@@", " ", "#"}], " ", "&"}]}], " ", "//", " ", 
+  "Max"}]], "Input"],
+
+Cell[BoxData["40304286"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"Partition", "[", 
+      RowBox[{"tmp", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "4"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}]}], "]"}], " ", "//", " ", 
+     RowBox[{
+      RowBox[{"Flatten", "[", 
+       RowBox[{"#", ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2"}], "}"}], "}"}]}], "]"}], " ", "&"}]}], " ", "//",
+     " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"Diagonal", "[", 
+        RowBox[{"Map", "[", 
+         RowBox[{"Reverse", ",", "#"}], "]"}], "]"}], "&"}], " ", "/@", " ", 
+      "#"}], " ", "&"}]}], " ", "//", " ", 
+   RowBox[{
+    RowBox[{"Times", " ", "@@@", " ", "#"}], " ", "&"}]}], " ", "//", " ", 
+  "Max"}]], "Input"],
+
+Cell[BoxData["70600674"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P12", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"NestWhile", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Apply", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"#1", "+", "1"}], ",", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"#1", "+", "2"}], ")"}], 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"#1", "+", "1"}], ")"}], "/", "2"}]}]}], "}"}], "&"}], 
+      ",", " ", "#"}], "]"}], "&"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1"}], "}"}], ",", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Length", "[", 
+      RowBox[{"Divisors", "[", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "]"}], "]"}], " ", "<", " ", "500"}], 
+    " ", "&"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"12375", ",", "76576500"}], "}"}]], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P13", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", "tmp", "}"}], ",", " ", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tmp", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"Import", "[", 
+       RowBox[{"\"\<prob13.data\>\"", ",", " ", "\"\<Table\>\""}], "]"}], " ",
+       "//", " ", "Flatten"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"IntegerDigits", " ", "@", " ", 
+      RowBox[{"Total", "[", "tmp", "]"}]}], " ", "//", " ", 
+     RowBox[{
+      RowBox[{"Take", "[", 
+       RowBox[{"#", ",", " ", "10"}], "]"}], " ", "&"}]}]}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "5", ",", "5", ",", "3", ",", "7", ",", "3", ",", "7", ",", "6", ",", "2", 
+   ",", "3", ",", "0"}], "}"}]], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P15", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"prob15", "[", "n_", "]"}], " ", ":=", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"2", "n"}], ")"}], "!"}], "/", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"n", "!"}], ")"}], "2"]}]}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"prob15", "[", "2", "]"}]], "Input"],
+
+Cell[BoxData["6"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"prob15", "[", "20", "]"}]], "Input"],
+
+Cell[BoxData["137846528820"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P16", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Total", "@", 
+  RowBox[{"(", 
+   RowBox[{"IntegerDigits", "[", 
+    SuperscriptBox["2", "1000"], "]"}], ")"}]}]], "Input"],
+
+Cell[BoxData["1366"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P18", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Clear", "[", "data18", "]"}], ";", 
+  RowBox[{"data18", " ", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<prob18.data\>\"", ",", " ", "\"\<Table\>\""}], 
+    "]"}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", "75", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"95", ",", "64"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"17", ",", "47", ",", "82"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"18", ",", "35", ",", "87", ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"20", ",", "4", ",", "82", ",", "47", ",", "65"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"19", ",", "1", ",", "23", ",", "75", ",", "3", ",", "34"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "88", ",", "2", ",", "77", ",", "73", ",", "7", ",", "63", ",", "67"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "99", ",", "65", ",", "4", ",", "28", ",", "6", ",", "16", ",", "70", ",",
+      "92"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "41", ",", "41", ",", "26", ",", "56", ",", "83", ",", "40", ",", "80", 
+     ",", "70", ",", "33"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "41", ",", "48", ",", "72", ",", "33", ",", "47", ",", "32", ",", "37", 
+     ",", "16", ",", "94", ",", "29"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "53", ",", "71", ",", "44", ",", "65", ",", "25", ",", "43", ",", "91", 
+     ",", "52", ",", "97", ",", "51", ",", "14"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "70", ",", "11", ",", "33", ",", "28", ",", "77", ",", "73", ",", "17", 
+     ",", "78", ",", "39", ",", "68", ",", "17", ",", "57"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "91", ",", "71", ",", "52", ",", "38", ",", "17", ",", "14", ",", "91", 
+     ",", "43", ",", "58", ",", "50", ",", "27", ",", "29", ",", "48"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "63", ",", "66", ",", "4", ",", "68", ",", "89", ",", "53", ",", "67", 
+     ",", "30", ",", "73", ",", "16", ",", "69", ",", "87", ",", "40", ",", 
+     "31"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "4", ",", "62", ",", "98", ",", "27", ",", "23", ",", "9", ",", "70", ",",
+      "98", ",", "73", ",", "93", ",", "38", ",", "53", ",", "60", ",", "4", 
+     ",", "23"}], "}"}]}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Clear", "[", "data18small", "]"}], ";", 
+  RowBox[{"data18small", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", "3", "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"7", ",", "4"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2", ",", "4", ",", "6"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"8", ",", "5", ",", "9", ",", "3"}], "}"}]}], "}"}]}], 
+  ";"}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"prob18", ",", " ", "prob18step"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"prob18step", "[", "ll_", "]"}], ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"lfirst", ",", " ", "lrest"}], "}"}], ",", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"lfirst", " ", "=", " ", 
+       RowBox[{"First", "[", "ll", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"lrest", " ", "=", " ", 
+       RowBox[{"Rest", "[", "ll", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"lfirst", " ", "=", " ", 
+       RowBox[{"Join", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"First", "[", "lfirst", "]"}], "}"}], ",", " ", "lfirst", 
+         ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"Last", "[", "lfirst", "]"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"lrest", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], " ", "=", " ", 
+       RowBox[{
+        RowBox[{"lrest", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "+", 
+        RowBox[{"(", 
+         RowBox[{"Max", " ", "@@@", " ", 
+          RowBox[{"(", 
+           RowBox[{"Partition", "[", 
+            RowBox[{"lfirst", ",", "2", ",", "1"}], "]"}], ")"}]}], ")"}]}]}],
+       ";", "\[IndentingNewLine]", "lrest"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"prob18", "[", "ll_", "]"}], " ", ":=", " ", 
+   RowBox[{"Max", " ", "@@", " ", 
+    RowBox[{"(", 
+     RowBox[{"Nest", "[", 
+      RowBox[{"prob18step", ",", " ", "ll", ",", " ", 
+       RowBox[{
+        RowBox[{"Length", "[", "ll", "]"}], "-", "1"}]}], "]"}], ")"}]}]}], 
+  ";"}]}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"prob18", "[", "data18small", "]"}]], "Input"],
+
+Cell[BoxData["23"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"prob18", "[", "data18", "]"}]], "Input"],
+
+Cell[BoxData["1074"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P19", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Boole", "[", 
+      RowBox[{
+       RowBox[{"DayName", "[", 
+        RowBox[{"{", 
+         RowBox[{"yr", ",", "mth", ",", "1"}], "}"}], "]"}], "\[Equal]", 
+       "Sunday"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"yr", ",", " ", "1901", ",", " ", "2000"}], "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"mth", ",", "1", ",", "12"}], "}"}]}], "]"}], "//", "Flatten"}],
+   "//", "Total"}]], "Input"],
+
+Cell[BoxData["171"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["P20", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Plus", " ", "@@", " ", 
+  RowBox[{"IntegerDigits", "[", 
+   RowBox[{"100", "!"}], "]"}]}]], "Input"],
+
+Cell[BoxData["648"], "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["21-30???", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["22", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"data22", " ", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ReadList", "[", 
+      RowBox[{"\"\<prob22.data\>\"", ",", " ", "Word", ",", " ", 
+       RowBox[{"WordSeparators", "\[Rule]", 
+        RowBox[{"{", "\"\<,\>\"", "}"}]}]}], "]"}], "//", " ", 
+     RowBox[{
+      RowBox[{"StringReplace", "[", 
+       RowBox[{"#", ",", " ", 
+        RowBox[{"\"\<\\\"\>\"", "\[Rule]", "\"\<\>\""}]}], "]"}], " ", 
+      "&"}]}], " ", "//", " ", "Sort"}]}], ";"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"val22", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ToCharacterCode", "[", "#", "]"}], "-", "64"}], "//", 
+       "Total"}], ")"}], " ", "&"}], "  ", "/@", " ", "data22"}]}], 
+  ";"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"val22", " ", "*", " ", 
+   RowBox[{"Range", " ", "@@", 
+    RowBox[{"Dimensions", "[", "data22", "]"}]}]}], "//", "Total"}]], "Input"],
+
+Cell[BoxData["871198282"], "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["60-70???", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["P67", "Subsection"],
+
+Cell["Uses the problem 18 code, so that needs to be set", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"data67", " ", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<prob67.data\>\"", ",", "\"\<Table\>\""}], "]"}]}], 
+  ";"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"prob18", "[", "data67", "]"}]], "Input"],
+
+Cell[BoxData["7273"], "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{1059, 873},
+WindowMargins->{{107, Automatic}, {Automatic, 136}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
+2012)",
+StyleDefinitions->"Default.nb"
+]
+
