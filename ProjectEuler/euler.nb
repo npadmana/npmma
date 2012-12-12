@@ -5,7 +5,7 @@ Cell[BoxData[
  RowBox[{"SetDirectory", "[", 
   RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Code"],
 
-Cell[BoxData["\<\"/Users/npadmana/myWork/ProjectEuler\"\>"], "Output"]
+Cell[BoxData["\<\"/Users/npadmana/myWork/npmma/ProjectEuler\"\>"], "Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -694,6 +694,98 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
+Cell["P14", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"p14fn", "[", 
+    RowBox[{"x_", "?", "EvenQ"}], "]"}], ":=", 
+   RowBox[{"x", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"p14fn", "[", 
+    RowBox[{"x_", "?", "OddQ"}], "]"}], ":=", " ", 
+   RowBox[{
+    RowBox[{"3", "x"}], "+", "1"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Length", " ", "@", " ", 
+   RowBox[{"NestWhileList", "[", 
+    RowBox[{"p14fn", ",", "1000000", ",", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"#", " ", "\[NotEqual]", " ", "1"}], ")"}], " ", "&"}]}], 
+    "]"}]}], "//", "AbsoluteTiming"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.00097099999999999996643657018680073634`3.007819143187629", ",", "153"}], 
+  "}"}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "p14length", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"p14length", "[", "1", "]"}], " ", "=", " ", "1"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"p14length", "[", "i_", "]"}], ":=", " ", 
+    RowBox[{
+     RowBox[{"p14length", "[", "i", "]"}], "=", 
+     RowBox[{"1", "+", 
+      RowBox[{"p14length", "[", 
+       RowBox[{"p14fn", "[", "i", "]"}], "]"}]}]}]}], ";"}]}]}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"p14", " ", "=", " ", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"p14length", "[", "i", "]"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", " ", "1", ",", " ", "999999"}], "}"}]}], "]"}]}], 
+   ";"}], " ", "//", " ", "AbsoluteTiming"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "36.25058899999999795227267895825207233429`7.579914980665857", ",", 
+   "Null"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Ordering", "[", 
+  RowBox[{"p14", ",", " ", 
+   RowBox[{"-", "1"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", "837799", "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"MemoryInUse", "[", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Clear", "[", "\"\<p14*\>\"", "]"}]}], "Input"],
+
+Cell[BoxData["538559848"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
 Cell["P15", "Subsection"],
 
 Cell[BoxData[
@@ -1012,7 +1104,7 @@ Cell[BoxData["7273"], "Output"]
 }, Open  ]]
 },
 WindowSize->{1059, 873},
-WindowMargins->{{107, Automatic}, {Automatic, 136}},
+WindowMargins->{{58, Automatic}, {Automatic, 0}},
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
 2012)",
 StyleDefinitions->"Default.nb"
