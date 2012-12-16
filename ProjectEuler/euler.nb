@@ -1034,6 +1034,75 @@ Cell["21-30???", "Section"],
 
 Cell[CellGroupData[{
 
+Cell["21", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"sumOfDivisors", "[", "n_", "]"}], ":=", 
+   RowBox[{"Total", "@", 
+    RowBox[{"Most", "@", 
+     RowBox[{"Divisors", "[", "n", "]"}]}]}]}], ";"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"perfectOrAmicable", "[", "n_", "]"}], ":=", " ", 
+   RowBox[{
+    RowBox[{"sumOfDivisors", " ", "@", " ", 
+     RowBox[{"sumOfDivisors", "[", "n", "]"}]}], " ", "\[Equal]", " ", "n"}]}]
+   , ";"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"perfectOrAmicable", "[", "220", "]"}]], "Input"],
+
+Cell[BoxData["True"], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"amicable", "[", "n_", "]"}], ":=", " ", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"j", " ", "=", " ", 
+       RowBox[{"sumOfDivisors", "[", "n", "]"}]}], "}"}], ",", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"j", " ", "\[NotEqual]", " ", "n"}], ")"}], " ", "&&", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"sumOfDivisors", "[", "j", "]"}], " ", "\[Equal]", "n"}], 
+       ")"}]}]}], "]"}]}], ";"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"amicable", "[", "220", "]"}]], "Input"],
+
+Cell[BoxData["True"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Array", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"#", " ", 
+     RowBox[{"Boole", "@", 
+      RowBox[{"amicable", "[", "#", "]"}]}]}], "&"}], ",", "10000", ",", "2", 
+   ",", " ", "Plus"}], "]"}]], "Input"],
+
+Cell[BoxData["31626"], "Output"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
 Cell["22", "Subsection"],
 
 Cell[BoxData[
@@ -1104,7 +1173,7 @@ Cell[BoxData["7273"], "Output"]
 }, Open  ]]
 },
 WindowSize->{1059, 873},
-WindowMargins->{{58, Automatic}, {Automatic, 0}},
+WindowMargins->{{15, Automatic}, {Automatic, 0}},
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
 2012)",
 StyleDefinitions->"Default.nb"
