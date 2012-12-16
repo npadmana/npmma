@@ -1,9 +1,20 @@
 Notebook[{
 
 Cell[CellGroupData[{
-Cell[BoxData[
- RowBox[{"SetDirectory", "[", 
-  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Code"],
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Some", " ", "common", " ", "functions", " ", "that", " ", "I", " ", 
+    "have", " ", "used", " ", "multiple", " ", "times"}], " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"sumOfDivisors", "[", "n_", "]"}], ":=", 
+   RowBox[{"Total", "@", 
+    RowBox[{"Most", "@", 
+     RowBox[{"Divisors", "[", "n", "]"}]}]}]}], ";"}]}], "Code"],
 
 Cell[BoxData["\<\"/Users/npadmana/myWork/npmma/ProjectEuler\"\>"], "Output"]
 }, Open  ]],
@@ -1039,19 +1050,11 @@ Cell["21", "Subsection"],
 Cell[BoxData[
  RowBox[{
   RowBox[{
-   RowBox[{"sumOfDivisors", "[", "n_", "]"}], ":=", 
-   RowBox[{"Total", "@", 
-    RowBox[{"Most", "@", 
-     RowBox[{"Divisors", "[", "n", "]"}]}]}]}], ";"}]], "Input"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
    RowBox[{"perfectOrAmicable", "[", "n_", "]"}], ":=", " ", 
    RowBox[{
     RowBox[{"sumOfDivisors", " ", "@", " ", 
-     RowBox[{"sumOfDivisors", "[", "n", "]"}]}], " ", "\[Equal]", " ", "n"}]}]
-   , ";"}]], "Input"],
+     RowBox[{"sumOfDivisors", "[", "n", "]"}]}], " ", "\[Equal]", " ", 
+    "n"}]}], ";"}]], "Input"],
 
 Cell[CellGroupData[{
 
@@ -1142,7 +1145,28 @@ Cell[BoxData[
 
 Cell[BoxData["871198282"], "Output"]
 }, Open  ]]
-}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["23", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"isAbundant", "[", "n_", "]"}], ":=", " ", 
+   RowBox[{
+    RowBox[{"sumOfDivisors", "[", "n", "]"}], ">", " ", "n"}]}], 
+  ";"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"isAbundant", "[", "12", "]"}]], "Input"],
+
+Cell[BoxData["True"], "Output"]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
