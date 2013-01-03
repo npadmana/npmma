@@ -1,0 +1,256 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Common Numbers", "Title"],
+
+Cell[CellGroupData[{
+
+Cell["Notes", "Section"],
+
+Cell[TextData[{
+ "I keep needing to look up certain numbers, and get them at the relevant \
+precisions. ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " 9 has introduced units, making these calculations much simpler, and so, I\
+\[CloseCurlyQuote]ll define some of these here, for me to be able to pull out \
+for other codes. Some of these require using Wolfram Alpha - in these cases, \
+I\[CloseCurlyQuote]ll run it and pull over the definitions to the notebook so \
+that it works with offline access."
+}], "Text"],
+
+Cell[TextData[{
+ "If you want to use these, run this notebook and then use in your work. When \
+I feel like ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " 9 is commonplace enough, I might migrate to a module."
+}], "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Obvious things", "Section"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"newtonG", ",", "clight"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"clight", " ", "=", " ", 
+   RowBox[{"Quantity", "[", 
+    RowBox[{"1", ",", "\"\<SpeedOfLight\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"newtonG", " ", "=", " ", 
+   RowBox[{"Quantity", "[", 
+    RowBox[{"1", ",", "\"\<GravitationalConstant\>\""}], "]"}]}], 
+  ";"}]}], "Code"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", "Examples", " ", "*)"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"UnitConvert", "[", "clight", "]"}]], "Input"],
+
+Cell[BoxData[
+ TemplateBox[{"299792458"},
+  "QuantityUnit",
+  DisplayFunction->(TooltipBox[
+    StyleBox[
+     RowBox[{#, 
+       StyleBox[
+        RowBox[{
+         "\"m\"", "\[InvisibleSpace]", "\"/\"", "\[InvisibleSpace]", 
+          "\"s\""}], "QuantityUnitTraditionalLabel"]}], ShowStringCharacters -> 
+     False], "Unit: meters per second"]& ),
+  InterpretationFunction->(RowBox[{"Quantity", "[", 
+     RowBox[{#, ",", 
+       FractionBox["\"Meters\"", "\"Seconds\""]}], "]"}]& )]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"UnitConvert", "[", "newtonG", "]"}]], "Input"],
+
+Cell[BoxData[
+ TemplateBox[{"6.673840000000000085761204361`3.620255807923255*^-11"},
+  "QuantityUnit",
+  DisplayFunction->(TooltipBox[
+    StyleBox[
+     RowBox[{#, 
+       StyleBox[
+        RowBox[{
+          SuperscriptBox["\"m\"", "3"], "\[NegativeMediumSpace]", "\"/(\"", 
+          "\[InvisibleSpace]", "\"kg\"", "\[ThinSpace]", 
+          SuperscriptBox["\"s\"", "2"], "\[InvisibleSpace]", "\")\""}], 
+        "QuantityUnitTraditionalLabel"]}], ShowStringCharacters -> False], 
+    "Unit: meters cubed per kilogram second squared"]& ),
+  InterpretationFunction->(RowBox[{"Quantity", "[", 
+     RowBox[{#, ",", 
+       FractionBox[
+        SuperscriptBox["\"Meters\"", "3"], 
+        RowBox[{"\"Kilograms\"", " ", 
+          SuperscriptBox["\"Seconds\"", "2"]}]]}], "]"}]& )]], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Distances and Times", "Section"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{
+   "This", " ", "requires", " ", "Wolfram", " ", "Alpha", " ", "and", " ", 
+    "may", " ", "or", " ", "may", " ", "not", " ", "work"}], ",", " ", 
+   "depending"}], "  ", "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"UnitConvert", "[", 
+    RowBox[{"Quantity", "[", 
+     RowBox[{"1", ",", "\"\<Parsec\>\""}], "]"}], "]"}], "//", "InputForm"}], 
+  " ", "*)"}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{
+   "parsec", ",", " ", "kiloParsec", ",", " ", "megaParsec", ",", " ", 
+    "hubbleConstant0"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"parsec", " ", "=", " ", 
+   RowBox[{"Quantity", "[", 
+    RowBox[{
+     RowBox[{"149597870700", "*", 
+      RowBox[{"Cot", "[", 
+       RowBox[{"Pi", "/", "648000"}], "]"}]}], ",", " ", "\"\<Meters\>\""}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"kiloParsec", " ", "=", " ", 
+   RowBox[{
+    SuperscriptBox["10", "3"], " ", "parsec"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"megaParsec", " ", "=", " ", 
+   RowBox[{
+    SuperscriptBox["10", "6"], " ", "parsec"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"hubbleConstant0", " ", "=", " ", 
+   RowBox[{"Quantity", "[", 
+    RowBox[{
+     RowBox[{"100", "/", "megaParsec"}], ",", 
+     RowBox[{"\"\<Kilometers\>\"", "/", "\"\<Seconds\>\""}]}], "]"}]}], 
+  ";"}]}], "Code"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"Some", " ", "examples"}], " ", "*)"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"UnitConvert", "[", 
+    RowBox[{
+     RowBox[{"1", "/", "hubbleConstant0"}], ",", "\"\<Years\>\""}], "]"}], 
+   ",", "5"}], "]"}]], "Input"],
+
+Cell[BoxData[
+ TemplateBox[{"9.7846194237290448401419381322`5.*^9"},
+  "QuantityUnit",
+  DisplayFunction->(TooltipBox[
+    StyleBox[
+     RowBox[{#, 
+       StyleBox["\"yr\"", "QuantityUnitTraditionalLabel"]}], 
+     ShowStringCharacters -> False], "Unit: years"]& ),
+  InterpretationFunction->(RowBox[{"Quantity", "[", 
+     RowBox[{#, ",", "\"Years\""}], "]"}]& )]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"UnitConvert", "[", 
+    RowBox[{"hubbleConstant0", ",", 
+     RowBox[{"1", "/", "\"\<Years\>\""}]}], "]"}], ",", "5"}], 
+  "]"}]], "Input"],
+
+Cell[BoxData[
+ TemplateBox[{"1.0220121567271822249775523042`5.*^-10"},
+  "QuantityUnit",
+  DisplayFunction->(TooltipBox[
+    StyleBox[
+     RowBox[{#, 
+       StyleBox[
+        RowBox[{"\"per \"", "\[InvisibleSpace]", "\"year\""}], 
+        "QuantityUnitTraditionalLabel"]}], ShowStringCharacters -> False], 
+    "Unit: reciprocal years"]& ),
+  InterpretationFunction->(RowBox[{"Quantity", "[", 
+     RowBox[{#, ",", 
+       FractionBox["1", "\"Years\""]}], "]"}]& )]], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Masses", "Section"],
+
+Cell["\<\
+We define some common masses, densities etc. \
+\>", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"solarMass", ",", " ", "solarMass", ",", " ", "msunPerMpc3"}], 
+   "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"solarMass", " ", "=", " ", 
+   RowBox[{"Quantity", "[", 
+    RowBox[{"1", ",", "\"\<SolarMass\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"msunPerMpc3", " ", "=", " ", 
+    RowBox[{"solarMass", "/", 
+     SuperscriptBox["megaParsec", "3"]}]}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Cosmologically", " ", "interesting", " ", "unit", " ", "of", " ", 
+    "density"}], " ", "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"criticalDensity", " ", "=", " ", 
+   RowBox[{"3", " ", 
+    RowBox[{
+     SuperscriptBox["hubbleConstant0", "2"], "/", 
+     RowBox[{"(", 
+      RowBox[{"8", " ", "Pi", " ", "newtonG"}], ")"}]}]}]}], ";"}]}], "Code"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", "Examples", " ", "*)"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"criticalDensity", "/", "msunPerMpc3"}]], "Input"],
+
+Cell[BoxData["2.775522490133187864993726399825`3.62007469495028*^11"], \
+"Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1137, 1096},
+WindowMargins->{{Automatic, 349}, {Automatic, 26}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
+2012)",
+StyleDefinitions->"Default.nb"
+]
+
