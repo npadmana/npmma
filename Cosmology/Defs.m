@@ -1,7 +1,6 @@
 (* ::Package:: *)
 
-BeginPackage["Cosmology`Defs`",
-             {"AutomaticUnits`"}];
+BeginPackage["Cosmology`Defs`"];
 
 z2a::usage = "Convert redshift to scale factor";
 a2z::usage = "Convert scale factor into redshift ";
@@ -123,7 +122,7 @@ tlookback[a_, cosmo_?OptionQ] :=
  
 
 
-critdense = (#) & @@ Convert[CriticalDensityConstant, SolarMass/Mpc^3]; (* de-unit *)
+critdense = 2.776*^-11; (* de-unit *)
 CriticalDensity[a_, cosmo_?OptionQ] :=
     critdense * Hubble[a, cosmo]^2;
 
