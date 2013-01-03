@@ -239,7 +239,10 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"criticalDensity", "/", "msunPerMpc3"}]], "Input"],
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"criticalDensity", "/", "msunPerMpc3"}], ",", "5"}], 
+  "]"}]], "Input"],
 
 Cell[BoxData["2.775522490133187864993726399825`3.62007469495028*^11"], \
 "Output"]
