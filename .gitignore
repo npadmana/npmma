@@ -3,3 +3,5 @@
 .MathematicaResources
 .project
 .settings
+/.ptp-sync
+/.cproject
