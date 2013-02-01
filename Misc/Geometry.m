@@ -13,6 +13,10 @@ BeginPackage["Misc`Geometry`"]
 
 wrapRA::usage = "wrapRA[ra] wraps the RA value to -Pi, Pi";
 eulerRotationMatrix::usage = "eulerRotationMatrix[phi, theta, psi] computes a rotation matrix for phi, theta, psi";
+convertSphericalToUnitVector::usage = 
+	"convertSphericalToUnitVector[ra, dec] converts RA, Dec to x,y,z. Angles are assumed to be in radians";
+convertUnitVectorToSpherical::usage = 
+	"convertUnitVectorToSpherical[x,y,z] converts x,y,z to RA, Dec. The vector is normalized for safety";
 
 
 
@@ -30,6 +34,12 @@ Clear[wrapRA];
 wrapRA[ra_ /; (ra <= Pi) && (ra > -Pi)] := ra;
 wrapRA[ra_ /; (ra > Pi) && (ra < 2 Pi)] := ra - 2 Pi;
 wrapRA[ra_ /; (ra >=  2 Pi) || (ra <= -Pi)] := wrapRA[Mod[ra, 2 Pi]];
+
+Clear[convertSphericalToUnitVector, convertUnitVectorToSpherical];
+convertSphericalToUnitVector[ra_, dec_] := {Cos[ra] Cos[dec], Sin[ra] Cos[dec], Sin[dec]};
+convertUnitVectorToSpherical[x_, y_, z_] := With[{r = Sqrt[x^2+y^2+z^2]}, {ArcTan[x,y], Pi/2 - ArcCos[z/r]}];
+
+
 
 End[] (* End Private Context *)
 
